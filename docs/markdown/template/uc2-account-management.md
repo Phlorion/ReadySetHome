@@ -39,7 +39,7 @@
 ## Διαγράμματα
 
 ### Διάγραμμα δραστηριότητας - Άνοιγμα νέου λογαριασμού
-![Διάγραμμα δραστηριότητας - Άνοιγμα Λογαριασμού](uml/requirements/activity-create-account.png)
+![Διάγραμμα δραστηριότητας - Άνοιγμα Λογαριασμού](/docs/markdown/uml/requirements/template/activity-create-account.png)
 
 
 

@@ -26,7 +26,7 @@
 
 ## Επισκόπηση μοντέλου περιπτώσεων χρήσης
 
-![Διάγραμμα περιπτώσεων χρήσης](uml/requirements/use-case-diagram.png)
+![Διάγραμμα περιπτώσεων χρήσης](/docs/markdown/uml/requirements/template/use-case-diagram.png)
 
 \[*Εισάγουμε το διάγραμμα περιπτώσεων χρήσης. Βλέπε σχήμα 3-19 του παραδείγματος 3-11 στη σελίδα 168 του βιβλίου.*
 
@@ -129,7 +129,7 @@
 
 \[*Εισάγουμε ένα διάγραμμα κλάσεων με την αρχική έκδοση των κλάσεων λογισμικού. Βλέπε σχήμα 4-104 του παραδείγματος 4-14 στη σελίδα 258 του βιβλίου*\]
 
-![Κλάσεις Ανάλυσης](uml/requirements/analysis-classes.png)
+![Κλάσεις Ανάλυσης](/docs/markdown/uml/requirements/template/analysis-classes.png)
 
 Κλάσεις ανάλυσης που έχουν προκύψει από την ανάλυση των περιπτώσεων χρήσης *Διαχείριση Λογαριασμού* και *Διαχείριση Στοιχείων Πελάτη*.
 
@@ -141,11 +141,11 @@
 
 #### Άνοιγμα νέου λογαριασμού
 
-![Διάγραμμα ακολουθίας - Άνοιγμα Λογαριασμού](uml/requirements/sequence-create-account.png)
+![Διάγραμμα ακολουθίας - Άνοιγμα Λογαριασμού](/docs/markdown/uml/requirements/template/sequence-create-account.png)
 
 #### Ανάληψη μετρητών από ταμείο
 
-![Διάγραμμα ακολουθίας - Ανάληψη μετρητών](uml/requirements/sequence-make-withdrawal.png)
+![Διάγραμμα ακολουθίας - Ανάληψη μετρητών](/docs/markdown/uml/requirements/template/sequence-make-withdrawal.png)
 
 ## Άλλα μοντέλα
 ------------
