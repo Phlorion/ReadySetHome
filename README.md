@@ -15,4 +15,4 @@
 
 ## Επισκόπηση μοντέλου περιπτώσεων χρήσης
 
-![Διάγραμμα περιπτώσεων χρήσης](docs/markdown/uml/requirements/use-case.png)
+![Διάγραμμα περιπτώσεων χρήσης](docs/markdown/uml/requirements/use-case-1_1.png)
