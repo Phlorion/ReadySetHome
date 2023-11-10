@@ -1,1 +1,5 @@
 target
+.DS_Store
+docs/.DS_Store
+docs/uml/.DS_Store
+docs/uml/requirements/.DS_Store
