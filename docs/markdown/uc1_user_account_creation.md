@@ -33,5 +33,5 @@
 
 ### Διάγραμμα δραστηριότητας - Δημιουργία λογαριασμού
 
-![Διάγραμμα δραστηριότητας - Δημιουργία λογαριασμού](/docs/markdown/uml/requirements/uc1_user_account_creation.png)
+![Διάγραμμα δραστηριότητας - Δημιουργία λογαριασμού](/docs/markdown/uml/requirements/uc1_act_user_account_creation.png)
 

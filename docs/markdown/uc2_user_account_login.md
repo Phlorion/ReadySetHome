@@ -34,4 +34,4 @@
 
 ### Διάγραμμα δραστηριότητας - Σύνδεση
 
-![Διάγραμμα δραστηριότητας - Σύνδεση](/docs/markdown/uml/requirements/uc2_user_account_login.png)
+![Διάγραμμα δραστηριότητας - Σύνδεση](/docs/markdown/uml/requirements/uc2_act_user_account_login.png)
