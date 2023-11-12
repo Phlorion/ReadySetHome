@@ -1,0 +1,3 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLActor</id><coordinates><x>50</x><y>50</y><w>100</w><h>110</h></coordinates><panel_attributes>:Ενοικιαστής</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>330</x><y>70</y><w>130</w><h>60</h></coordinates><panel_attributes>
+*:Κράτηση*</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>620</x><y>70</y><w>130</w><h>60</h></coordinates><panel_attributes>
+*:Αγγελία*</panel_attributes><additional_attributes></additional_attributes></element></diagram>
