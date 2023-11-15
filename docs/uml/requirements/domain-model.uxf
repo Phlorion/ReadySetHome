@@ -125,4 +125,20 @@ number: long int
 address: String
 
 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>738</x><y>117</y><w>135</w><h>90</h></coordinates><panel_attributes>
+*Password*
+
+--
+password: String
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>891</x><y>117</y><w>135</w><h>108</h></coordinates><panel_attributes>
+*Date*
+
+--
+day: int
+month: int
+year: int
+
+
 </panel_attributes><additional_attributes></additional_attributes></element></diagram>
