@@ -23,4 +23,4 @@
 
 ## Διάγραμμα δραστηριότητας - Βαθμολογία Διαμερίσματος
 
-![Διάγραμμα δραστηριότητας - Βαθμολογία Διαμερίσματος](/docs/markdown/uml/requirements/uc4-act-tenant-room-rating.png)
+![Διάγραμμα δραστηριότητας - Βαθμολογία Διαμερίσματος](/docs/markdown/uml/requirements/uc5-act-tenant-room-search.png)
