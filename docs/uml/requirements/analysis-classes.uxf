@@ -1,0 +1,22 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>20</x><y>20</y><w>100</w><h>50</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt;
+SignUpUI
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>20</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt;
+SignUpController</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>20</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;entity&gt;&gt;
+Χρήστης</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>20</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;entity&gt;&gt;
+EmailAddress</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>530</x><y>20</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;entity&gt;&gt;
+CreditCard</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>20</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;entity&gt;&gt;
+Password</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>90</y><w>100</w><h>50</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt;
+LoginUI
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>90</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt;
+LoginController</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>160</y><w>100</w><h>50</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt;
+BookingUI</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>160</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt;
+BookingController</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>160</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;entity&gt;&gt;
+Αγγελία</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>160</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;entity&gt;&gt;
+Κράτηση</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>530</x><y>160</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;entity&gt;&gt;
+Ενοικιαστής</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>300</y><w>130</w><h>50</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt;
+OwnerConfirmationUI</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>170</x><y>300</y><w>180</w><h>50</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt;
+OwnerConfirmationController</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>370</y><w>130</w><h>50</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt;
+OwnerRegistrationUI</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>170</x><y>370</y><w>180</w><h>50</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt;
+OwnerRegistrationController</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>230</y><w>100</w><h>50</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt;
+SearchUI</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>230</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt;
+SearchController</panel_attributes><additional_attributes></additional_attributes></element></diagram>
