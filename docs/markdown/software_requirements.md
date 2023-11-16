@@ -164,7 +164,7 @@
 
 #### Καταχώρηση διαμερίσματος
 
-![Διάγραμμα ακολουθίας - Καταχώρηση διαμερίσματος](/docs/markdown/uml/requirements/uc7_seq_owner_house_registration.png)
+![Διάγραμμα ακολουθίας - Καταχώρηση διαμερίσματος](/docs/markdown/uml/requirements/uc7_seq_owner_house_register.png)
 
 ## Άλλα μοντέλα
 ------------

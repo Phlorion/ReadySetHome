@@ -51,8 +51,8 @@
 
 ### Διάγραμμα δραστηριότητας - Αίτημα Κράτησης
 
-![Διάγραμμα δραστηριότητας - Αίτημα Κράτησης](/docs/markdown/uml/requirements/uc1_act_tenant_room_booking.png)
+![Διάγραμμα δραστηριότητας - Αίτημα Κράτησης](/docs/markdown/uml/requirements/uc3_act_tenant_room_booking.png)
 
 ### Διάγραμμα ακολουθίας - Αίτημα Κράτησης
 
-![Διάγραμμα ακολουθίας - Αίτημα Κράτησης](/docs/markdown/uml/requirements/uc1_seq_tenant_room_booking.png)
+![Διάγραμμα ακολουθίας - Αίτημα Κράτησης](/docs/markdown/uml/requirements/uc3_seq_tenant_room_booking.png)
