@@ -17,4 +17,6 @@ BookingController</panel_attributes><additional_attributes></additional_attribut
 OwnerConfirmationUI</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>170</x><y>300</y><w>180</w><h>50</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt;
 OwnerConfirmationController</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>370</y><w>130</w><h>50</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt;
 OwnerRegistrationUI</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>170</x><y>370</y><w>180</w><h>50</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt;
-OwnerRegistrationController</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+OwnerRegistrationController</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>230</y><w>100</w><h>50</h></coordinates><panel_attributes>&lt;&lt;boundary&gt;&gt;
+SearchUI</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>230</y><w>110</w><h>50</h></coordinates><panel_attributes>&lt;&lt;control&gt;&gt;
+SearchController</panel_attributes><additional_attributes></additional_attributes></element></diagram>
