@@ -26,4 +26,7 @@
 ## Διαγράμματα
 
 ### Διάγραμμα δραστηριότητας - Επιβεβαίωση Κράτησης Ενοικιαζόμενου
-![Διάγραμμα δραστηριότητας - Σύνδεση](/docs/markdown/uml/requirements/uc6_owner_confirm_reservetion.png)
+![Διάγραμμα δραστηριότητας - Επιβεβαίωση Κράτησης Ενοικιαζόμενου](/docs/markdown/uml/requirements/uc6_act_owner_confirm_reservation.png)
+
+### Διάγραμμα ακολουθίας - Επιβεβαίωση Κράτησης Ενοικιαζόμενου
+![Διάγραμμα ακολουθίας - Επιβεβαίωση Κράτησης Ενοικιαζόμενου](/docs/markdown/uml/requirements/uc6_seq_owner_confirm_reservation.png)

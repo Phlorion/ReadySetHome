@@ -47,4 +47,6 @@
 ## Διαγράμματα
 
 ### Διάγραμμα δραστηριότητας - Καταχώριση Διαμερίσματος
-![Διάγραμμα δραστηριότητας - Σύνδεση](/docs/markdown/uml/requirements/uc7_act_owner_house_register.png)
+![Διάγραμμα δραστηριότητας - Καταχώριση Διαμερίσματος](/docs/markdown/uml/requirements/uc7_act_owner_house_register.png)
+### Διάγραμμα ακολουθίας - Καταχώριση Διαμερίσματος
+![Διάγραμμα ακολουθίας - Καταχώριση Διαμερίσματος](/docs/markdown/uml/requirements/uc7_seq_owner_house_register.png)
