@@ -2,7 +2,7 @@ package com.example.readysethome;
 
 import java.util.ArrayList;
 
-public class Apartement {
+public class Apartment {
 
     private Address location;
     private int floor;
@@ -14,7 +14,7 @@ public class Apartement {
     private ArrayList<Bedroom> bedrooms;
     private ArrayList<Kitchen> kitchens;
 
-    public Apartement(Address location, int floor, double size, boolean wifi, boolean balcony, boolean living_room, ArrayList<Bathroom> bathrooms, ArrayList<Bedroom> bedrooms, ArrayList<Kitchen> kitchens) {
+    public Apartment(Address location, int floor, double size, boolean wifi, boolean balcony, boolean living_room, ArrayList<Bathroom> bathrooms, ArrayList<Bedroom> bedrooms, ArrayList<Kitchen> kitchens) {
         this.location = location;
         this.floor = floor;
         this.size = size;
