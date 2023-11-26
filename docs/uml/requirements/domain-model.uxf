@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.1"><zoom_level>9</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>459</x><y>45</y><w>189</w><h>153</h></coordinates><panel_attributes>
+<diagram program="umletino" version="15.1"><zoom_level>9</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>495</x><y>27</y><w>189</w><h>153</h></coordinates><panel_attributes>
 *Χρήστης*
 
 --
@@ -8,12 +8,12 @@ lastName: String
 email: EmailAddress
 password: Password
 creditCard: CreditCard
-account_bday: Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>369</x><y>252</y><w>108</w><h>90</h></coordinates><panel_attributes>
+account_bday: Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>405</x><y>234</y><w>108</w><h>90</h></coordinates><panel_attributes>
 *Ενοικιαστής*
 
 --
-bookings: Date[][]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>612</x><y>252</y><w>108</w><h>54</h></coordinates><panel_attributes>
-*Ιδιοκτήτης*</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>783</y><w>189</w><h>153</h></coordinates><panel_attributes>
+bookings: Date[][]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>648</x><y>234</y><w>108</w><h>54</h></coordinates><panel_attributes>
+*Ιδιοκτήτης*</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>486</x><y>765</y><w>189</w><h>153</h></coordinates><panel_attributes>
 *Apartment*
 
 --
@@ -25,7 +25,7 @@ balcony: boolean
 livingRoom: boolean
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>522</y><w>189</w><h>171</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>486</x><y>504</y><w>189</w><h>171</h></coordinates><panel_attributes>
 *Αγγελία*
 
 --
@@ -37,14 +37,14 @@ promoted: boolean
 rating: double
 photos: Image[]
 calendar: Ημερολόγιο
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>819</y><w>117</w><h>135</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>306</x><y>801</y><w>117</w><h>135</h></coordinates><panel_attributes>
 *BedRoom*
 
 --
 size: double
 doubleBeds: int
 singleBeds: int
-tv: boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>468</x><y>1008</y><w>144</w><h>162</h></coordinates><panel_attributes>
+tv: boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>504</x><y>990</y><w>144</w><h>162</h></coordinates><panel_attributes>
 *Kitchen*
 
 --
@@ -54,17 +54,17 @@ microwave: boolean
 refrigerator: boolean
 toaster: boolean
 coffeeMachine: boolean
-diningTable: boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>711</x><y>819</y><w>117</w><h>117</h></coordinates><panel_attributes>
+diningTable: boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>747</x><y>801</y><w>117</w><h>117</h></coordinates><panel_attributes>
 *Bathroom*
 
 --
 size: double
 shower: boolean
 toilet: boolean
-hairdryer: boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>378</x><y>873</y><w>90</w><h>36</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m2=*</panel_attributes><additional_attributes>80;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>540</x><y>927</y><w>36</w><h>99</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m2=*</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>873</y><w>99</w><h>36</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m2=*</panel_attributes><additional_attributes>10;10;90;10</additional_attributes></element><element><id>Relation</id><coordinates><x>423</x><y>189</y><w>144</w><h>81</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>140;10;140;50;10;50;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>540</x><y>216</y><w>144</w><h>54</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;140;20;140;40</additional_attributes></element><element><id>UMLClass</id><coordinates><x>252</x><y>387</y><w>135</w><h>135</h></coordinates><panel_attributes>
+hairdryer: boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>414</x><y>855</y><w>90</w><h>36</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=*</panel_attributes><additional_attributes>80;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>576</x><y>909</y><w>36</w><h>99</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=*</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>855</y><w>99</w><h>36</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=*</panel_attributes><additional_attributes>10;10;90;10</additional_attributes></element><element><id>Relation</id><coordinates><x>459</x><y>171</y><w>144</w><h>81</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>140;10;140;50;10;50;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>576</x><y>198</y><w>144</w><h>54</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;140;20;140;40</additional_attributes></element><element><id>UMLClass</id><coordinates><x>288</x><y>369</y><w>135</w><h>135</h></coordinates><panel_attributes>
 *Αίτημα Κράτησης*
 
 --
@@ -74,21 +74,21 @@ check_in: Date
 check_out: Date
 booking_status: STATUS
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>297</y><w>117</w><h>288</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>279</y><w>117</w><h>288</h></coordinates><panel_attributes>lt=-
 m1=1
 m2=*
-καταχωρεί &gt;</panel_attributes><additional_attributes>40;10;40;290;10;290</additional_attributes></element><element><id>Relation</id><coordinates><x>531</x><y>684</y><w>81</w><h>117</h></coordinates><panel_attributes>m1=1
+καταχωρεί &gt;</panel_attributes><additional_attributes>40;10;40;290;10;290</additional_attributes></element><element><id>Relation</id><coordinates><x>567</x><y>666</y><w>81</w><h>117</h></coordinates><panel_attributes>m1=1
 m2=1
-έχει ένα &gt;</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>UMLNote</id><coordinates><x>792</x><y>360</y><w>135</w><h>72</h></coordinates><panel_attributes>Ένας ιδιοκτήτης
+έχει ένα &gt;</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>UMLNote</id><coordinates><x>828</x><y>342</y><w>135</w><h>72</h></coordinates><panel_attributes>Ένας ιδιοκτήτης
 μπορεί να καταχωρήσει
-πολλές αγγελίες.</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>657</x><y>387</y><w>153</w><h>45</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;30;150;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>288</x><y>702</y><w>126</w><h>63</h></coordinates><panel_attributes>Μία αγγελία
+πολλές αγγελίες.</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>693</x><y>369</y><w>153</w><h>45</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;30;150;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>324</x><y>684</y><w>126</w><h>63</h></coordinates><panel_attributes>Μία αγγελία
 προβάλει ακριβώς
-ένα διαμέρισμα</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>405</x><y>720</y><w>153</w><h>27</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>36</y><w>216</w><h>81</h></coordinates><panel_attributes>
+ένα διαμέρισμα</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>441</x><y>702</y><w>153</w><h>27</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>36</x><y>18</y><w>216</w><h>81</h></coordinates><panel_attributes>
 *Ημερολόγιο*
 
 --
 availability: HashTable&lt;Date, boolean&gt;
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>135</y><w>135</w><h>144</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>36</x><y>117</y><w>135</w><h>144</h></coordinates><panel_attributes>
 *&lt;&lt;Enum&gt;&gt;*
 *STATUS*
 
@@ -99,28 +99,28 @@ DECLINED
 CANCELLED_BY_TENANT
 CANCELLED_BY_OWNER
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>810</x><y>54</y><w>135</w><h>90</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>846</x><y>36</y><w>135</w><h>90</h></coordinates><panel_attributes>
 *CreditCard*
 
 --
 number: long int
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>963</x><y>54</y><w>135</w><h>90</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>999</x><y>36</y><w>135</w><h>90</h></coordinates><panel_attributes>
 *EmailAddress*
 
 --
 address: String
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>810</x><y>162</y><w>135</w><h>90</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>846</x><y>153</y><w>135</w><h>90</h></coordinates><panel_attributes>
 *Password*
 
 --
 password: String
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>963</x><y>162</y><w>135</w><h>108</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>999</x><y>144</y><w>135</w><h>108</h></coordinates><panel_attributes>
 *Date*
 
 --
@@ -129,30 +129,36 @@ month: int
 year: int
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>297</x><y>288</y><w>90</w><h>117</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>333</x><y>270</y><w>90</w><h>117</h></coordinates><panel_attributes>lt=-
 m1=*
 m2=1
-&lt; κάνει</panel_attributes><additional_attributes>10;110;10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>297</x><y>513</y><w>171</w><h>126</h></coordinates><panel_attributes>lt=-
+&lt; κάνει</panel_attributes><additional_attributes>10;110;10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>333</x><y>495</y><w>171</w><h>126</h></coordinates><panel_attributes>lt=-
 m1=1
 m2=*
-αίτημα για &gt;</panel_attributes><additional_attributes>170;110;20;110;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>531</y><w>189</w><h>126</h></coordinates><panel_attributes>lt=-
+αίτημα για &gt;</panel_attributes><additional_attributes>170;110;20;110;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>513</y><w>189</w><h>126</h></coordinates><panel_attributes>lt=-
 m1=1
 m2=*
-&lt; δημιουργείται για</panel_attributes><additional_attributes>10;120;190;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>801</x><y>486</y><w>171</w><h>108</h></coordinates><panel_attributes>
+&lt; δημιουργείται για</panel_attributes><additional_attributes>10;120;190;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>837</x><y>468</y><w>171</w><h>108</h></coordinates><panel_attributes>
 *Ενοικίαση*
 
 --
 booking_id: int
 check_in: Date
 check_out: Date
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>801</x><y>630</y><w>135</w><h>126</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>837</x><y>612</y><w>135</w><h>126</h></coordinates><panel_attributes>
 *Πολιτική Χρέωσης*
 
 --
 start_index: Date
 end_index: Date
 description: String
-price_dif: double</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>657</y><w>189</w><h>63</h></coordinates><panel_attributes>lt=-
+price_dif: double</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>639</y><w>189</w><h>63</h></coordinates><panel_attributes>lt=-
 m1=1
 m2=*
-&lt; εφαρμόζεται</panel_attributes><additional_attributes>10;10;190;50</additional_attributes></element></diagram>
+&lt; εφαρμόζεται</panel_attributes><additional_attributes>10;10;190;50</additional_attributes></element><element><id>UMLClass</id><coordinates><x>36</x><y>279</y><w>135</w><h>117</h></coordinates><panel_attributes>
+*Address*
+
+--
+city: String
+street: String
+address_number: String</panel_attributes><additional_attributes></additional_attributes></element></diagram>
