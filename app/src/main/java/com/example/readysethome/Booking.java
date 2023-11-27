@@ -1,3 +1,7 @@
+package com.example.readysethome;
+
+import java.util.Date;
+
 class Booking {
     private int id;
     private Date checkIn;

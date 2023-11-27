@@ -1,9 +1,29 @@
-class BookingRequest{
-    private int booking_id;
+package com.example.readysethome;
+
+import com.example.readysethome.ReservationStatus;
+
+import java.util.Date;
+
+class BookingRequest {
+     private static int lastBookingId = 0;
+     private int booking_id;
     private Date submission_date;
     private Date check_in;
     private Date check_out;
-    private STATUS booking_status;
+    private ReservationStatus booking_status;
+    private Listing listing;
+    private Tenant tenant;
+
+    public BookingRequest(Listing listing, Date submission_date, Date check_in, Date check_out, ReservationStatus booking_status, Tenant tenant) {
+        lastBookingId++;
+        this.booking_id = lastBookingId;
+        this.listing = listing;
+        this.submission_date = submission_date;
+        this.check_in = check_in;
+        this.check_out = check_out;
+        this.booking_status = booking_status;
+        this.tenant = tenant;
+    }
 
     //Methodos gia thn ypovolh aithmatos
     public void submitReservationRequest() {}
@@ -13,7 +33,7 @@ class BookingRequest{
     }
 
     // Methodos gia enhmerwsh tou status tou aithmatos krathshs
-    public void updateStatus(STATUS newStatus) {
+    public void updateStatus(ReservationStatus newStatus) {
     }
 
     public void returnDepositToRenter() {
@@ -32,12 +52,12 @@ class BookingRequest{
         this.booking_id = booking_id;
     }
 
-    public Date getSubmission_data() {
-        return submission_data;
+    public Date getSubmission_date() {
+        return submission_date;
     }
 
-    public void setSubmission_data(Date submission_data) {
-        this.submission_data = submission_data;
+    public void setSubmission_date(Date submission_date) {
+        this.submission_date = submission_date;
     }
 
     public Date getCheck_in() {
@@ -56,11 +76,27 @@ class BookingRequest{
         this.check_out = check_out;
     }
 
-    public STATUS getBooking_status() {
+    public ReservationStatus getBooking_status() {
         return booking_status;
     }
 
-    public void setBooking_status(STATUS booking_status) {
+    public void setBooking_status(ReservationStatus booking_status) {
         this.booking_status = booking_status;
+    }
+
+    public Listing getListing() {
+        return listing;
+    }
+
+    public void setListing(Listing listing) {
+        this.listing = listing;
+    }
+
+    public Tenant getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
     }
 }
