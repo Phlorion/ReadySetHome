@@ -6,17 +6,21 @@ import java.util.Date;
 class Tenant extends User {
 
     public Tenant(int id, String firstName, String lastName, EmailAddress email, Password password, CreditCard creditCard, Date acc_bday) {
-        super(id, firstName, lastName, email, password, creditCard, acc_bday);
+        super(firstName, lastName, email, password, creditCard, acc_bday);
     }
 
-    public void makeReservationRequest(Listing listing, Date checkIn, Date checkOut) {
+    public BookingRequest makeBookingRequest(Listing listing, Date checkIn, Date checkOut) {
         Date submit_date = new Date();
-        BookingRequest bookingRequest = new BookingRequest(listing, submit_date, checkIn, checkOut, ReservationStatus.PENDING, this);
+        BookingRequest booking_request = new BookingRequest(listing, submit_date, checkIn, checkOut, this);
+        booking_request.submit();
+        return booking_request;
     }
 
-    public void cancelReservation(Booking booking) {
-
+    public void cancelBookingRequest(BookingRequest booking_request) {
+        booking_request.cancelRequest();
     }
+
+    public void cancelBooking(Booking booking) {}
 
     public void deleteBooking(int bookingId) {
         /*Iterator<Date> iterator = bookings.iterator();

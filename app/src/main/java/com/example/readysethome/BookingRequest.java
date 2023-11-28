@@ -14,36 +14,35 @@ class BookingRequest {
     private Listing listing;
     private Tenant tenant;
 
-    public BookingRequest(Listing listing, Date submission_date, Date check_in, Date check_out, ReservationStatus booking_status, Tenant tenant) {
+    public BookingRequest(Listing listing, Date submission_date, Date check_in, Date check_out, Tenant tenant) {
         lastBookingId++;
         this.booking_id = lastBookingId;
         this.listing = listing;
         this.submission_date = submission_date;
         this.check_in = check_in;
         this.check_out = check_out;
-        this.booking_status = booking_status;
         this.tenant = tenant;
     }
 
     //Methodos gia thn ypovolh aithmatos
-    public void submitReservationRequest() {}
-
-    //Methodos gia akyrwsh
-    public void cancelReservationRequest() {
+    public void submit() {
+        this.booking_status = ReservationStatus.PENDING;
+        notifyOwner(this.listing, "Booking Request", "Booking request from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
     }
 
-    // Methodos gia enhmerwsh tou status tou aithmatos krathshs
-    public void updateStatus(ReservationStatus newStatus) {
+    //Methodos gia akyrwsh aithmatos krathshs (dhladh prin ginei enoikiash, opou o enoikiasths den exei xrewthei tipota akoma)
+    public void cancelRequest() {
+        this.booking_status = ReservationStatus.DECLINED;
+        notifyOwner(this.listing, "Booking Request Cancellation", "Booking request cancellation from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
     }
-
-    public void returnDepositToRenter() {
-    }
-
 
     // Methodos gia thn enhmerwsh tou idiokthth se periptwsh aithmatos krathshs
-    public void notifyOwner() {}
+    public void notifyOwner(Listing listing, String Title, String Desc) {
+        Owner owner = listing.getOwner();
+        MainActivity.SYSTEM.getEmail().send(owner.getEmail(), Title, Desc);
+    }
 
-    // Setters kai getters
+    // Setters and getters
     public int getBooking_id() {
         return booking_id;
     }

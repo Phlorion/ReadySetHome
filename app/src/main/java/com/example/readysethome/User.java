@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class User {
 
+    private static int last_tenant_ID = 0;
+    private static int last_owner_ID = 0;
     private int id;
     private String firstName;
     private String lastName;
@@ -12,8 +14,7 @@ public class User {
     private CreditCard creditCard;
     private Date acc_bday;
 
-    public User (int id, String firstName, String lastName, EmailAddress email, Password password, CreditCard creditCard, Date acc_bday) {
-        this.id = id;
+    public User (String firstName, String lastName, EmailAddress email, Password password, CreditCard creditCard, Date acc_bday) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -22,12 +23,23 @@ public class User {
         this.acc_bday = acc_bday;
     }
 
+    public User (String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String type) {
+        if (type.equals("Tenant")) {
+            last_tenant_ID++;
+            this.id = last_tenant_ID;
+        } else {
+            last_owner_ID++;
+            this.id = last_owner_ID;
+        }
     }
 
     public String getFirstName() {

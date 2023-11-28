@@ -1,5 +1,8 @@
-<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>130</x><y>90</y><w>220</w><h>100</h></coordinates><panel_attributes>
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>80</x><y>70</y><w>220</w><h>300</h></coordinates><panel_attributes>
 *Ενοικιαστής*
 
 --
-bookings: ArrayList&lt;Date&gt;</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+-bookings: ArrayList&lt;Date&gt;
+
+--
++makeReservation() : </panel_attributes><additional_attributes></additional_attributes></element></diagram>

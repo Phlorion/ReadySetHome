@@ -16,5 +16,5 @@ public class EmailAddress {
         this.address = address;
     }
 
-    public int send(EmailAddress to) {return 0;}
+    public int send(EmailAddress to, String Title, String Details) {return 0;}
 }

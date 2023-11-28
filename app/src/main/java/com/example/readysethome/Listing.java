@@ -11,8 +11,9 @@ public class Listing {
     private double rating;
     private String[] photos;
     private Date calendar;
+    private Owner owner;
 
-    public Listing(int apartment_id, String title, String description, double price, boolean promoted, double rating, String[] photos, Date calendar) {
+    public Listing(int apartment_id, String title, String description, double price, boolean promoted, double rating, String[] photos, Date calendar, Owner owner) {
         this.apartment_id = apartment_id;
         this.title = title;
         this.description = description;
@@ -21,6 +22,7 @@ public class Listing {
         this.rating = rating;
         this.photos = photos;
         this.calendar = calendar;
+        this.owner = owner;
     }
 
     public int getApartment_id() {
@@ -85,5 +87,13 @@ public class Listing {
 
     public void setCalendar(Date calendar) {
         this.calendar = calendar;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 }
