@@ -1,8 +1,7 @@
 package com.example.readysethome;
 
-import java.util.Date;
-
 public class Listing {
+    private static int last_apartment_ID = 0;
     private int apartment_id;
     private String title;
     private String description;
@@ -10,11 +9,12 @@ public class Listing {
     private boolean promoted;
     private double rating;
     private String[] photos;
-    private Date calendar;
+    private Calendar calendar;
     private Owner owner;
 
-    public Listing(int apartment_id, String title, String description, double price, boolean promoted, double rating, String[] photos, Date calendar, Owner owner) {
-        this.apartment_id = apartment_id;
+    public Listing(String title, String description, double price, boolean promoted, double rating, String[] photos, Calendar calendar, Owner owner) {
+        last_apartment_ID++;
+        this.apartment_id = last_apartment_ID;
         this.title = title;
         this.description = description;
         this.price = price;
@@ -81,11 +81,11 @@ public class Listing {
         this.photos = photos;
     }
 
-    public Date getCalendar() {
+    public Calendar getCalendar() {
         return calendar;
     }
 
-    public void setCalendar(Date calendar) {
+    public void setCalendar(Calendar calendar) {
         this.calendar = calendar;
     }
 

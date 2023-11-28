@@ -30,6 +30,26 @@ class BookingRequest {
         notifyOwner(this.listing, "Booking Request", "Booking request from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
     }
 
+    // Methodos gia confirmation aithmatos
+    public void confirm() {
+        this.booking_status = ReservationStatus.CONFIRMED;
+        // upfront payment
+        int days_of_stay = daysBetween(this.check_in, this.check_out);
+        double upfront = days_of_stay * 0.2;
+        this.tenant.getCreditCard().makePayment(upfront);
+        // notify tenant
+        notifyTenant(this, "Booking Request Confirmed", "Your booking request " + this + " has been confirmed. An amount of " + upfront
+        + " has been removed from your credit card");
+        // update apartment availability
+        this.listing.getCalendar().setUnavailable(this.check_in, this.check_out);
+    }
+
+    // Methodos gia decline aithmatos krathshs apo ton idiokthth
+    public void declineRequest() {
+        this.booking_status = ReservationStatus.DECLINED;
+        notifyTenant(this, "Booking Request Declined", "Your booking request " + this + " has been declined.");
+    }
+
     //Methodos gia akyrwsh aithmatos krathshs (dhladh prin ginei enoikiash, opou o enoikiasths den exei xrewthei tipota akoma)
     public void cancelRequest() {
         this.booking_status = ReservationStatus.DECLINED;
@@ -37,9 +57,20 @@ class BookingRequest {
     }
 
     // Methodos gia thn enhmerwsh tou idiokthth se periptwsh aithmatos krathshs
-    public void notifyOwner(Listing listing, String Title, String Desc) {
+    private void notifyOwner(Listing listing, String Title, String Desc) {
         Owner owner = listing.getOwner();
         MainActivity.SYSTEM.getEmail().send(owner.getEmail(), Title, Desc);
+    }
+
+    // Methodos gia enhmerwsh tou enoikiasth se periptwsh apanthshs tou idiokthth
+    private void notifyTenant(BookingRequest booking_request, String Title, String Desc) {
+        Tenant tenant = booking_request.getTenant();
+        MainActivity.SYSTEM.getEmail().send(tenant.getEmail(), Title, Desc);
+    }
+
+    // count the days between two given dates
+    private int daysBetween(Date start, Date end) {
+        return 0;
     }
 
     // Setters and getters

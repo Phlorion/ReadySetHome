@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class User {
 
-    private static int last_tenant_ID = 0;
-    private static int last_owner_ID = 0;
-    private int id;
+    private static String last_tenant_ID = "t0";
+    private static String last_owner_ID = "o0";
+    private String id;
     private String firstName;
     private String lastName;
     private EmailAddress email;
@@ -28,16 +28,30 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getId() {
+        public String getId() {
         return id;
     }
 
     public void setId(String type) {
         if (type.equals("Tenant")) {
-            last_tenant_ID++;
+            char[] chars = last_tenant_ID.toCharArray();
+            String temp = "";
+            for (int i=1; i<chars.length; i++) {
+                temp = temp + chars[i];
+            }
+            int temp_int = Integer.parseInt(temp);
+            temp_int++;
+            last_tenant_ID = "t" + temp_int;
             this.id = last_tenant_ID;
         } else {
-            last_owner_ID++;
+            char[] chars = last_owner_ID.toCharArray();
+            String temp = "";
+            for (int i=1; i<chars.length; i++) {
+                temp = temp + chars[i];
+            }
+            int temp_int = Integer.parseInt(temp);
+            temp_int++;
+            last_owner_ID = "o" + temp_int;
             this.id = last_owner_ID;
         }
     }

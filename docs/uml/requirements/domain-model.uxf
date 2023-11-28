@@ -8,12 +8,13 @@ lastName: String
 email: EmailAddress
 password: Password
 creditCard: CreditCard
-account_bday: Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>405</x><y>216</y><w>108</w><h>90</h></coordinates><panel_attributes>
+account_bday: Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>405</x><y>216</y><w>108</w><h>54</h></coordinates><panel_attributes>
 *Ενοικιαστής*
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>576</x><y>216</y><w>252</w><h>81</h></coordinates><panel_attributes>
+*Ιδιοκτήτης*
 
 --
-bookings: Date[][]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>648</x><y>216</y><w>108</w><h>54</h></coordinates><panel_attributes>
-*Ιδιοκτήτης*</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>486</x><y>747</y><w>189</w><h>153</h></coordinates><panel_attributes>
+bookingRequests: ArrayList&lt;Αίτημα Κράτησης&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>486</x><y>747</y><w>189</w><h>153</h></coordinates><panel_attributes>
 *Apartment*
 
 --
@@ -74,10 +75,10 @@ check_in: Date
 check_out: Date
 booking_status: STATUS
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>261</y><w>117</w><h>288</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>288</y><w>117</w><h>261</h></coordinates><panel_attributes>lt=-
 m1=1
 m2=*
-καταχωρεί &gt;</panel_attributes><additional_attributes>40;10;40;290;10;290</additional_attributes></element><element><id>Relation</id><coordinates><x>567</x><y>648</y><w>81</w><h>117</h></coordinates><panel_attributes>m1=1
+καταχωρεί &gt;</panel_attributes><additional_attributes>40;10;40;260;10;260</additional_attributes></element><element><id>Relation</id><coordinates><x>567</x><y>648</y><w>81</w><h>117</h></coordinates><panel_attributes>m1=1
 m2=1
 έχει ένα &gt;</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>UMLNote</id><coordinates><x>828</x><y>324</y><w>135</w><h>72</h></coordinates><panel_attributes>Ένας ιδιοκτήτης
 μπορεί να καταχωρήσει
@@ -87,7 +88,7 @@ m2=1
 *Ημερολόγιο*
 
 --
-availability: HashTable&lt;Date, boolean&gt;
+availability: HashTable&lt;Date, Date&gt;
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>36</x><y>99</y><w>135</w><h>144</h></coordinates><panel_attributes>
 *&lt;&lt;Enum&gt;&gt;*
 *STATUS*
@@ -129,10 +130,10 @@ month: int
 year: int
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>333</x><y>252</y><w>90</w><h>117</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>333</x><y>234</y><w>90</w><h>135</h></coordinates><panel_attributes>lt=-
 m1=*
 m2=1
-&lt; κάνει</panel_attributes><additional_attributes>10;110;10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>333</x><y>477</y><w>171</w><h>126</h></coordinates><panel_attributes>lt=-
+&lt; κάνει</panel_attributes><additional_attributes>10;130;10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>333</x><y>477</y><w>171</w><h>126</h></coordinates><panel_attributes>lt=-
 m1=1
 m2=*
 αίτημα για &gt;</panel_attributes><additional_attributes>170;110;20;110;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>495</y><w>189</w><h>126</h></coordinates><panel_attributes>lt=-

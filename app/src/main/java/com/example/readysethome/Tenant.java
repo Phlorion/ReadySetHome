@@ -5,7 +5,7 @@ import java.util.Date;
 
 class Tenant extends User {
 
-    public Tenant(int id, String firstName, String lastName, EmailAddress email, Password password, CreditCard creditCard, Date acc_bday) {
+    public Tenant(String firstName, String lastName, EmailAddress email, Password password, CreditCard creditCard, Date acc_bday) {
         super(firstName, lastName, email, password, creditCard, acc_bday);
     }
 
