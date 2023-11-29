@@ -1,5 +1,6 @@
 package com.example.readysethome;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ChargingPolicy {
@@ -45,5 +46,28 @@ public class ChargingPolicy {
 
     public void setPrice_diff(double price_diff) {
         this.price_diff = price_diff;
+    }
+
+    public void addChargingPolicy(Listing listing) {
+        ArrayList<ChargingPolicy> listingChargingPolicies = listing.getChargingPolicies();
+        for (ChargingPolicy chargingPolicy : listingChargingPolicies) {
+            if (chargingPolicy.equals(this)) {
+                System.out.println("This charging policy already exists.");
+            }
+            else if ((chargingPolicy.getStart_index().getTime() >= this.getEnd_index().getTime()) && (chargingPolicy.getEnd_index().getTime() <= this.getStart_index().getTime())) {
+                System.out.println("This charging policy overlaps with another one.");
+            }
+            else {
+                listing.setChargingPolicies(this);
+            }
+        }
+    }
+
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof ChargingPolicy)) return false;
+        if (!super.equals(object)) return false;
+        ChargingPolicy that = (ChargingPolicy) object;
+        return java.lang.Double.compare(that.getPrice_diff(), getPrice_diff()) == 0 && getStart_index().equals(that.getStart_index()) && getEnd_index().equals(that.getEnd_index()) && getDescription().equals(that.getDescription());
     }
 }

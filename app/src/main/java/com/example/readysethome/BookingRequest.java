@@ -27,7 +27,17 @@ class BookingRequest {
     //Methodos gia thn ypovolh aithmatos
     public void submit() {
         this.booking_status = ReservationStatus.PENDING;
-        notifyOwner(this.listing, "Booking Request", "Booking request from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
+        Owner owner = listing.getOwner();
+        notifyOwner(owner, "Booking Request", "Booking request from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
+        owner.addToPending(this);
+    }
+
+    //Methodos gia akyrwsh aithmatos krathshs (dhladh prin ginei enoikiash, opou o enoikiasths den exei xrewthei tipota akoma)
+    public void cancelRequest() {
+        this.booking_status = ReservationStatus.DECLINED;
+        Owner owner = listing.getOwner();
+        notifyOwner(owner, "Booking Request Cancellation", "Booking request cancellation from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
+        owner.removeFromPending(this);
     }
 
     // Methodos gia confirmation aithmatos
@@ -38,33 +48,27 @@ class BookingRequest {
         double upfront = days_of_stay * 0.2;
         this.tenant.getCreditCard().makePayment(upfront);
         // notify tenant
-        notifyTenant(this, "Booking Request Confirmed", "Your booking request " + this + " has been confirmed. An amount of " + upfront
+        notifyTenant(this.tenant, "Booking Request Confirmed", "Your booking request " + this + " has been confirmed. An amount of " + upfront
         + " has been removed from your credit card");
         // update apartment availability
         this.listing.getCalendar().setUnavailable(this.check_in, this.check_out);
+        // create new booking
+        Booking new_booking = new Booking(this.booking_id, this.check_in, this.check_out, this.tenant, this.listing);
     }
 
     // Methodos gia decline aithmatos krathshs apo ton idiokthth
     public void declineRequest() {
         this.booking_status = ReservationStatus.DECLINED;
-        notifyTenant(this, "Booking Request Declined", "Your booking request " + this + " has been declined.");
-    }
-
-    //Methodos gia akyrwsh aithmatos krathshs (dhladh prin ginei enoikiash, opou o enoikiasths den exei xrewthei tipota akoma)
-    public void cancelRequest() {
-        this.booking_status = ReservationStatus.DECLINED;
-        notifyOwner(this.listing, "Booking Request Cancellation", "Booking request cancellation from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
+        notifyTenant(this.tenant, "Booking Request Declined", "Your booking request " + this + " has been declined.");
     }
 
     // Methodos gia thn enhmerwsh tou idiokthth se periptwsh aithmatos krathshs
-    private void notifyOwner(Listing listing, String Title, String Desc) {
-        Owner owner = listing.getOwner();
+    private void notifyOwner(Owner owner, String Title, String Desc) {
         MainActivity.SYSTEM.getEmail().send(owner.getEmail(), Title, Desc);
     }
 
     // Methodos gia enhmerwsh tou enoikiasth se periptwsh apanthshs tou idiokthth
-    private void notifyTenant(BookingRequest booking_request, String Title, String Desc) {
-        Tenant tenant = booking_request.getTenant();
+    private void notifyTenant(Tenant tenant, String Title, String Desc) {
         MainActivity.SYSTEM.getEmail().send(tenant.getEmail(), Title, Desc);
     }
 
