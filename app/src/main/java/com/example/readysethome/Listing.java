@@ -1,5 +1,7 @@
 package com.example.readysethome;
 
+import java.util.ArrayList;
+
 public class Listing {
     private static int last_apartment_ID = 0;
     private int apartment_id;
@@ -11,6 +13,8 @@ public class Listing {
     private String[] photos;
     private Calendar calendar;
     private Owner owner;
+
+    private ArrayList<ChargingPolicy> chargingPolicies;
 
     public Listing(String title, String description, double price, boolean promoted, double rating, String[] photos, Calendar calendar, Owner owner) {
         last_apartment_ID++;
@@ -95,5 +99,13 @@ public class Listing {
 
     public void setOwner(Owner owner) {
         this.owner = owner;
+    }
+
+    public ArrayList<ChargingPolicy> getChargingPolicies() {
+        return chargingPolicies;
+    }
+
+    public void setChargingPolicies(chargingPolicy) {
+        chargingPolicies.add(chargingPolicy);
     }
 }

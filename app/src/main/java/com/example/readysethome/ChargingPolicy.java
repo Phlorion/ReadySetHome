@@ -46,4 +46,26 @@ public class ChargingPolicy {
     public void setPrice_diff(double price_diff) {
         this.price_diff = price_diff;
     }
+
+    public void addChargingPolicy(Listing listing) {
+        for (chargingPolicy : listing.getChargingPolicies()) {
+            if (chargingPolicy.equals(this)) {
+                System.out.println("This charging policy already exists.");
+            }
+            else if ((chargingPolicy.getStart_index() >= this.getEnd_index()) && (chargingPolicy.getEnd_index() <= this.getStart_index())) {
+                System.out.println("This charging policy overlaps with anotherone.");
+            }
+            else {
+                listing.setChargingPolicies(this);
+            }
+        }
+    }
+
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof ChargingPolicy)) return false;
+        if (!super.equals(object)) return false;
+        ChargingPolicy that = (ChargingPolicy) object;
+        return java.lang.Double.compare(that.getPrice_diff(), getPrice_diff()) == 0 && getStart_index().equals(that.getStart_index()) && getEnd_index().equals(that.getEnd_index()) && getDescription().equals(that.getDescription());
+    }
 }
