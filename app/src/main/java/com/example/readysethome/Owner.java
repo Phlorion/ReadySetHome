@@ -11,12 +11,26 @@ public class Owner extends User {
         pendingBookingRequests = new ArrayList<>();
     }
 
-    public void confirmBookingRequest(BookingRequest booking_request) {
-        booking_request.confirm();
+    // add booking request to pendingBookingRequests
+    public void addToPending(BookingRequest booking_request) {
+        pendingBookingRequests.add(booking_request);
     }
 
-    public void declineBookingRequest(BookingRequest booking_request) {
+    // remove booking request from pendingBookingRequests
+    public void removeFromPending(BookingRequest booking_request) {
+        pendingBookingRequests.remove(booking_request);
+    }
+
+    // owner confirms a booking request
+    public void confirmBookingRequest(BookingRequest booking_request) {
         booking_request.confirm();
+        removeFromPending(booking_request);
+    }
+
+    // owner declines a booking request
+    public void declineBookingRequest(BookingRequest booking_request) {
+        booking_request.declineRequest();
+        removeFromPending(booking_request);
     }
 
     // Owner adds a new Listing for an apartment to his name
