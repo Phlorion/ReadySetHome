@@ -53,7 +53,7 @@ public class ChargingPolicy {
                 System.out.println("This charging policy already exists.");
             }
             else if ((chargingPolicy.getStart_index() >= this.getEnd_index()) && (chargingPolicy.getEnd_index() <= this.getStart_index())) {
-                System.out.println("This charging policy overlaps with anotherone.");
+                System.out.println("This charging policy overlaps with another one.");
             }
             else {
                 listing.setChargingPolicies(this);
