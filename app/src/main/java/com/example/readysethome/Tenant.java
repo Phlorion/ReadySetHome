@@ -22,9 +22,7 @@ class Tenant extends User {
     }
 
     public void cancelBooking(Booking booking) {
-
         if (!booking.isActive()) {
-
             booking.cancel();  // Set the booking status to canceled or update other relevant fields
             System.out.println("Booking canceled successfully.");
         } else {
