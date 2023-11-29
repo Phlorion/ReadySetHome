@@ -105,7 +105,7 @@ public class Listing {
         return chargingPolicies;
     }
 
-    public void setChargingPolicies(chargingPolicy) {
+    public void setChargingPolicies(ChargingPolicy chargingPolicy) {
         chargingPolicies.add(chargingPolicy);
     }
 }

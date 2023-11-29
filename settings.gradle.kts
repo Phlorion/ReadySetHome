@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ReadySetHome"
 include(":app")
- 
+include(":app")

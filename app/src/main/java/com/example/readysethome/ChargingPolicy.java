@@ -1,5 +1,6 @@
 package com.example.readysethome;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ChargingPolicy {
@@ -48,11 +49,12 @@ public class ChargingPolicy {
     }
 
     public void addChargingPolicy(Listing listing) {
-        for (chargingPolicy : listing.getChargingPolicies()) {
+        ArrayList<ChargingPolicy> listingChargingPolicies = listing.getChargingPolicies();
+        for (ChargingPolicy chargingPolicy : listingChargingPolicies) {
             if (chargingPolicy.equals(this)) {
                 System.out.println("This charging policy already exists.");
             }
-            else if ((chargingPolicy.getStart_index() >= this.getEnd_index()) && (chargingPolicy.getEnd_index() <= this.getStart_index())) {
+            else if ((chargingPolicy.getStart_index().getTime() >= this.getEnd_index().getTime()) && (chargingPolicy.getEnd_index().getTime() <= this.getStart_index().getTime())) {
                 System.out.println("This charging policy overlaps with another one.");
             }
             else {

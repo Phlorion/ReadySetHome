@@ -6,19 +6,36 @@ class Booking {
     private int id;
     private Date checkIn;
     private Date checkOut;
-    private Tenant tenant;
-    private Listing listing;
+    private User renter;
+    private Apartment apartment;
 
-    public Booking(int id, Date checkIn, Date checkOut, Tenant tenant, Listing listing) {
+    private boolean isCancelled = false;
+    public Booking(int id, Date checkIn, Date checkOut, User renter, Apartment apartment) {
         this.id = id;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        this.tenant = tenant;
-        this.listing = listing;
+        this.renter = renter;
+        this.apartment = apartment;
     }
-
+    //methodos elegxou na yparxei energh krathsh gia mia xronikh periodo
+    // TO DO
+    public boolean isActive() {
+        Date currentDate = new Date();
+        return false;
+    }
     public void rateApartment(int rating) {}
 
+    public boolean isCancelled() {
+        return isCancelled;
+    }
+    public void cancel() {
+        if (!isCancelled) {
+            isCancelled = true;
+            System.out.println("Booking canceled successfully.");
+        } else {
+            System.out.println("Booking is already canceled.");
+        }
+    }
 // Setters kai getters
 
     public int getId() {
@@ -45,19 +62,19 @@ class Booking {
         this.checkOut = checkOut;
     }
 
-    public Tenant getTenant() {
-        return this.tenant;
+    public User getRenter() {
+        return renter;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setRenter(User renter) {
+        this.renter = renter;
     }
 
-    public Listing getListing() {
-        return this.listing;
+    public Apartment getApartment() {
+        return apartment;
     }
 
-    public void setListing(Listing listing) {
-        this.listing = listing;
+    public void setApartment(Apartment apartment) {
+        this.apartment = apartment;
     }
 }
