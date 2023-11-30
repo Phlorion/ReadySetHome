@@ -105,7 +105,11 @@ public class Listing {
         return chargingPolicies;
     }
 
-    public void setChargingPolicies(ChargingPolicy chargingPolicy) {
+    public void setChargingPolicies(ArrayList<ChargingPolicy> chargingPolicies) {
+        this.chargingPolicies = chargingPolicies;
+    }
+
+    public void addChargingPolicies(ChargingPolicy chargingPolicy) {
         chargingPolicies.add(chargingPolicy);
     }
 }

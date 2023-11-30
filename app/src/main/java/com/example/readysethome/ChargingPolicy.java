@@ -58,7 +58,7 @@ public class ChargingPolicy {
                 System.out.println("This charging policy overlaps with another one.");
             }
             else {
-                listing.setChargingPolicies(this);
+                listing.addChargingPolicies(this);
             }
         }
     }
