@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 class Tenant extends User {
-
+    private ArrayList<BookingRequest> bookingRequests;
+    private ArrayList<Booking> bookings;
     public Tenant(String firstName, String lastName, EmailAddress email, Password password, CreditCard creditCard, Date acc_bday) {
         super(firstName, lastName, email, password, creditCard, acc_bday);
     }
@@ -20,7 +21,14 @@ class Tenant extends User {
         booking_request.cancelRequest();
     }
 
-    public void cancelBooking(Booking booking) {}
+    public void cancelBooking(Booking booking) {
+        if (!booking.isActive()) {
+            booking.cancel();  // Set the booking status to canceled or update other relevant fields
+            System.out.println("Booking canceled successfully.");
+        } else {
+            System.out.println("Cant cancel booking.");
+        }
+    }
 
     public void deleteBooking(int bookingId) {
         /*Iterator<Date> iterator = bookings.iterator();

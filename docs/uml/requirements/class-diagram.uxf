@@ -1,8 +1,102 @@
-<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>80</x><y>70</y><w>220</w><h>300</h></coordinates><panel_attributes>
-*Ενοικιαστής*
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>20</x><y>0</y><w>520</w><h>170</h></coordinates><panel_attributes>
+*Tenant*
 
 --
--bookings: ArrayList&lt;Date&gt;
+- bookings : ArrayList&lt;Booking&gt;
 
 --
-+makeReservation() : </panel_attributes><additional_attributes></additional_attributes></element></diagram>
++ makeBookingRequest(listing : Listing, check_in : Date, check_out : Date) : BookingRequest
++ cancelBookingRequest(booking_request : BookingRequest) : void
++ cancelBooking(booking : Booking) : void
++ getBookings() : ArrayList&lt;Booking&gt;
++ setBooking(bookingRequests : ArrayList&lt;Booking&gt;) : void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>190</y><w>670</w><h>200</h></coordinates><panel_attributes>
+*Owner*
+
+--
+- pendingBookingRequests : ArrayList&lt;BookingRequest&gt;
+
+--
++ addToPending(booking_request : BookingRequest) : void
++ removeFromPending(booking_request : BookingRequest) : void
++ confirmBookingRequest(booking_request : BookingRequest) : void
++ declineBookingRequest(booking_request : BookingRequest) : void
++ addListing(ap : Apartement, title : String, desc : String, price : double, promoted : boolean, photos : String[]) : Listing
++ getBookingRequests() : ArrayList&lt;BookingRequest&gt;
++ setBookingRequests(bookingRequests : ArrayList&lt;BookingRequest&gt;) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>0</y><w>370</w><h>440</h></coordinates><panel_attributes>
+*User*
+
+--
+_- last_tenant_ID : String_
+_- last_owner_ID : String_
+- id : String
+- firstName : String
+- lastName : String
+- email : EmailAddress
+- password : Password
+- creditCard : CreditCard
+- acc_bday : Date
+
+--
++ getId() : String
++ setId(type : String) : void
++ getFirstName() : String
++ setFirstName(firstName : String) : void
++ getLastName() : String
++ setLastName(lastName : String) : void
++ getEmail() : EmailAddress
++ setEmail(email : EmailAddress) : void
++ getPassword() : Password
++ setPassword(password : Password) : void
++ getCreditCard() : CreditCard
++ setCreditCard(creditCard : CreditCard) : void
++ getAcc_bday() : Date
++ setAcc_bday(acc_bday : Date) : void
++ getAllDetails() : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>420</y><w>360</w><h>510</h></coordinates><panel_attributes>
+*BookingRequest*
+
+--
+_- lastBookingId : int_
+- booking_id : int
+- submission_date : Date
+- check_in : Date
+- check_out : Date
+- booking_status : ReservationStatus
+- listing : Listing
+- tenant : Tenant
+
+--
++ submit() : void
++ cancelRequest() : void
++ confirm() : void
++ declineRequest() : void
+- notifyUser(user : User, Title : String, Desc : String) : void
+- daysBetween(start : Date, end : Date) : int
++ getBookingId() : int
++ setBookingId(booking_id : int) : void
++ getSubmission_date() : Date
++ setSubmission_date(submission_date : Date) : void
++ getCheck_in() : Date
++ setCheck_in(check_in : Date) : void
++ getCheck_out() : Date
++ setCheck_out(check_out : Date) : void
++ getBooking_status() : ReservationStatus
++ setBooking_status(booking_status : ResrvationStatus) : void
++ getListing() : Listing
++ setListing(listing : Listing) : void
++ getTenant() : Tenant
++ setTenant(tenant : Tenant) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>420</y><w>290</w><h>460</h></coordinates><panel_attributes>
+*Listing*
+
+--
+_- last_aprartement_ID : int_
+- apartment_id : int
+- title : String
+- description : String
+- price : double
+- promoted : boolean
+- rating : double
+- photos : String[]
+- calendar : Calendar
+- owner : Owner
+- chargingPolicies : ArrayList&lt;ChargingPolicy&gt;</panel_attributes><additional_attributes></additional_attributes></element></diagram>

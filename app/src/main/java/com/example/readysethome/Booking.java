@@ -9,6 +9,7 @@ class Booking {
     private Tenant tenant;
     private Listing listing;
 
+    private boolean isCancelled = false;
     public Booking(int id, Date checkIn, Date checkOut, Tenant tenant, Listing listing) {
         this.id = id;
         this.checkIn = checkIn;
@@ -16,9 +17,25 @@ class Booking {
         this.tenant = tenant;
         this.listing = listing;
     }
-
+    //methodos elegxou na yparxei energh krathsh gia mia xronikh periodo
+    // TO DO
+    public boolean isActive() {
+        Date currentDate = new Date();
+        return false;
+    }
     public void rateApartment(int rating) {}
 
+    public boolean isCancelled() {
+        return isCancelled;
+    }
+    public void cancel() {
+        if (!isCancelled) {
+            isCancelled = true;
+            System.out.println("Booking canceled successfully.");
+        } else {
+            System.out.println("Booking is already canceled.");
+        }
+    }
 // Setters kai getters
 
     public int getId() {
@@ -45,7 +62,7 @@ class Booking {
         this.checkOut = checkOut;
     }
 
-    public Tenant getTenant() {
+    public User getTenant() {
         return this.tenant;
     }
 
