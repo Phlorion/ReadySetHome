@@ -7,6 +7,7 @@ public class Password {
     public Password(String password) {
         this.password = password;
     }
+    public Password() {}
 
     public String getPassword() {
         return password;

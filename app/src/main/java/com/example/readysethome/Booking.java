@@ -6,16 +6,16 @@ class Booking {
     private int id;
     private Date checkIn;
     private Date checkOut;
-    private User renter;
-    private Apartment apartment;
+    private Tenant tenant;
+    private Listing listing;
 
     private boolean isCancelled = false;
-    public Booking(int id, Date checkIn, Date checkOut, User renter, Apartment apartment) {
+    public Booking(int id, Date checkIn, Date checkOut, Tenant tenant, Listing listing) {
         this.id = id;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        this.renter = renter;
-        this.apartment = apartment;
+        this.tenant = tenant;
+        this.listing = listing;
     }
     //methodos elegxou na yparxei energh krathsh gia mia xronikh periodo
     // TO DO
@@ -62,19 +62,19 @@ class Booking {
         this.checkOut = checkOut;
     }
 
-    public User getRenter() {
-        return renter;
+    public User getTenant() {
+        return this.tenant;
     }
 
-    public void setRenter(User renter) {
-        this.renter = renter;
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
     }
 
-    public Apartment getApartment() {
-        return apartment;
+    public Listing getListing() {
+        return this.listing;
     }
 
-    public void setApartment(Apartment apartment) {
-        this.apartment = apartment;
+    public void setListing(Listing listing) {
+        this.listing = listing;
     }
 }

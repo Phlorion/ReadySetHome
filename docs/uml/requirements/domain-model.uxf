@@ -2,7 +2,7 @@
 *Χρήστης*
 
 --
-id: int
+String: int
 firstName: String
 lastName: String
 email: EmailAddress

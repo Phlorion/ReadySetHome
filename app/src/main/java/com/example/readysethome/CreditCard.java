@@ -8,6 +8,7 @@ public class CreditCard {
     public CreditCard (long number) {
         this.number = number;
     }
+    public CreditCard () {}
 
     public long getNumber() {
         return number;

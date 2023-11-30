@@ -28,7 +28,7 @@ public class User {
         this.lastName = lastName;
     }
 
-        public String getId() {
+    public String getId() {
         return id;
     }
 
@@ -54,6 +54,16 @@ public class User {
             last_owner_ID = "o" + temp_int;
             this.id = last_owner_ID;
         }
+    }
+
+    public String getAllDetails() {
+        String temp = "";
+        temp += this.id + ": " + this.firstName + " " + this.lastName + "\n";
+        temp += this.email.getAddress() + "\n";
+        temp += this.password.getPassword() + "\n";
+        temp += this.creditCard.getNumber() + "\n";
+        temp += "Account Creation: " + this.acc_bday;
+        return temp;
     }
 
     public String getFirstName() {

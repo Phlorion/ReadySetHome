@@ -34,8 +34,8 @@ public class Owner extends User {
     }
 
     // Owner adds a new Listing for an apartment to his name
-    public Listing addListing(Apartment ap, String title, String description, double price, boolean promoted, String[] photos) {
-        return new Listing(title, description, price, promoted, 0, photos, new Calendar(), this);
+    public Listing addListing(Apartment ap, String title, String desc, double price, boolean promoted, String[] photos) {
+        return new Listing(title, desc, price, promoted, 0, photos, new Calendar(), this);
     }
 
     public ArrayList<BookingRequest> getBookingRequests() {
