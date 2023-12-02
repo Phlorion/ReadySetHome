@@ -13,8 +13,12 @@ public class Listing {
     private String[] photos;
     private Calendar calendar;
     private Owner owner;
-
+    private double original_Price;
+    private double updated_Price;
     private ArrayList<ChargingPolicy> chargingPolicies;
+    private ArrayList<ListingsServices> services;
+    private double monthlyIncome;
+    private double monthlyOccupancy;
 
     public Listing(String title, String description, double price, boolean promoted, double rating, String[] photos, Calendar calendar, Owner owner) {
         last_apartment_ID++;
@@ -109,7 +113,69 @@ public class Listing {
         this.chargingPolicies = chargingPolicies;
     }
 
+    public double getMonthlyIncome() {
+        return monthlyIncome;
+    }
+
+    public void setMonthlyIncome(double monthlyIncome) {
+        this.monthlyIncome = monthlyIncome;
+    }
+
+    public double getMonthlyOccupancy() {
+        return monthlyOccupancy;
+    }
+
+    public void setMonthlyOccupancy(double monthlyOccupancy) {
+        this.monthlyOccupancy = monthlyOccupancy;
+    }
+
+    public double getOriginal_Price() {
+        return original_Price;
+    }
+
+    public void setOriginal_Price(double original_Price) {
+        this.original_Price = original_Price;
+    }
+
+    public double getUpdated_Price() {
+        return updated_Price;
+    }
+
+    public void setUpdated_Price(double updated_Price) {
+        this.updated_Price = updated_Price;
+    }
+
+    public ArrayList<ListingsServices> getServices() {
+        return services;
+    }
+
+    public void setServices(ArrayList<ListingsServices> services) {
+        this.services = services;
+    }
+
     public void addChargingPolicies(ChargingPolicy chargingPolicy) {
         chargingPolicies.add(chargingPolicy);
+    }
+
+    // Method to get the price after the charging policies are applied
+    public void updatePriceDueToPolicy() {
+        double tmp_Price = getOriginal_Price();
+        for (ChargingPolicy chargingPolicy : getChargingPolicies()) {
+            tmp_Price += chargingPolicy.getPrice_diff();
+        }
+        setUpdated_Price(tmp_Price + getUpdated_Price());
+    }
+
+    public void addService(ListingsServices listingsServices) {
+        services.add(listingsServices);
+    }
+
+    // Method to get the price after the services are applied
+    public void updatePriceDueToServices() {
+        double tmp_price = getOriginal_Price();
+        for (ListingsServices listingsServices : getServices()) {
+            tmp_price += listingsServices.getPrice();
+        }
+        setUpdated_Price(tmp_price + getUpdated_Price());
     }
 }

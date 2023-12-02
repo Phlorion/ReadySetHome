@@ -33,9 +33,14 @@ public class Owner extends User {
         removeFromPending(booking_request);
     }
 
-    // Owner adds a new Listing for an apartment to his name
-    public Listing addListing(Apartment ap, String title, String desc, double price, boolean promoted, String[] photos) {
-        return new Listing(title, desc, price, promoted, 0, photos, new Calendar(), this);
+
+    // Owner add a new Listing with services for an apartment
+    public Listing addListing(Apartment ap, String title, String desc, double price, boolean promoted, String[] photos, ListingsServices[] listingsServices) {
+        Listing listing =  new Listing(title, desc, price, promoted, 0, photos, new Calendar(), this);
+        for (ListingsServices service : listingsServices) {
+            listing.addService(service);
+        }
+        return listing;
     }
 
     public ArrayList<BookingRequest> getBookingRequests() {
