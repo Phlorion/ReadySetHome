@@ -1,4 +1,4 @@
-package com.example.readysethome;
+package com.example.readysethome.model;
 
 public enum ListingsServicesType {
     CLEANING_SERVICE,

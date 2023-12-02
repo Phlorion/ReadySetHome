@@ -1,6 +1,6 @@
-package com.example.readysethome;
+package com.example.readysethome.model;
 
-import com.example.readysethome.ReservationStatus;
+import com.example.readysethome.MainActivity;
 
 import java.util.Date;
 

@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.readysethome.model.EmailAddress;
+import com.example.readysethome.model.User;
+
 // test
 public class MainActivity extends AppCompatActivity {
 

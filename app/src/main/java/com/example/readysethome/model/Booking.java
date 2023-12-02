@@ -1,4 +1,4 @@
-package com.example.readysethome;
+package com.example.readysethome.model;
 
 import java.util.Date;
 
@@ -21,10 +21,12 @@ class Booking {
     }
     //methodos elegxou na yparxei energh krathsh gia mia xronikh periodo
     // TO DO
-    public boolean isActive() {
-        Date currentDate=//get todays date //TO DO
-       // return currentDate.after(checkIn) && currentDate.before(checkOut);
-    }
+
+
+    /*public boolean isActive() {
+        //Date currentDate= get todays date //TO DO
+        // return currentDate.after(checkIn) && currentDate.before(checkOut);
+    }*/
     public void rateApartment(int rating) {
         if (isStayCompleted()) {
             apartmentRating = rating;

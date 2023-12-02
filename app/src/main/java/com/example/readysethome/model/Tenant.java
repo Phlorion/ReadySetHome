@@ -1,4 +1,4 @@
-package com.example.readysethome;
+package com.example.readysethome.model;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,14 +21,15 @@ class Tenant extends User {
         booking_request.cancelRequest();
     }
 
-    public void cancelBooking(Booking booking) {
+
+    /*public void cancelBooking(Booking booking) {
         if (!booking.isActive()) {
             booking.cancel();
             System.out.println("Booking canceled successfully.");
         } else {
             System.out.println("Cant cancel booking.");
         }
-    }
+    }*/
 
 
     public void deleteBooking(int bookingId) {

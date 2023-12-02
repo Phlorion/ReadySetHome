@@ -1,4 +1,4 @@
-package com.example.readysethome;
+package com.example.readysethome.model;
 
 public class Bathroom {
 
