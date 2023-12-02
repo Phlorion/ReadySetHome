@@ -10,6 +10,8 @@ class Booking {
     private Listing listing;
 
     private boolean isCancelled = false;
+
+    int apartmentRating=-1;
     public Booking(int id, Date checkIn, Date checkOut, Tenant tenant, Listing listing) {
         this.id = id;
         this.checkIn = checkIn;
@@ -20,10 +22,27 @@ class Booking {
     //methodos elegxou na yparxei energh krathsh gia mia xronikh periodo
     // TO DO
     public boolean isActive() {
-        Date currentDate = new Date();
-        return false;
+        Date currentDate=//get todays date //TO DO
+       // return currentDate.after(checkIn) && currentDate.before(checkOut);
     }
-    public void rateApartment(int rating) {}
+    public void rateApartment(int rating) {
+        if (isStayCompleted()) {
+            apartmentRating = rating;
+            System.out.println("Apartment rated with " + rating + " stars.");
+        } else {
+            System.out.println("Cannot rate the apartment before the stay is completed.");
+        }
+    }
+
+    // Method to check if stay is completed
+    private boolean isStayCompleted() {
+        Date currentDate = new Date();
+        return currentDate.after(checkOut);
+    }
+
+    public int getApartmentRating() {
+        return apartmentRating;
+    }
 
     public boolean isCancelled() {
         return isCancelled;
