@@ -2,29 +2,44 @@ package com.example.readysethome.model;
 
 public class CreditCard {
 
-    private long number;
+    private String number;
     private double balance;
 
-    public CreditCard (long number) {
+    public CreditCard (String number) {
         this.number = number;
+    }
+    // debugging
+    public CreditCard(String number, double balance) {
+        this.number = number;
+        this.balance = balance;
     }
     public CreditCard () {}
 
-    public long getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(long number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
-    public int validate() {return 0;}
-
-    public void makePayment(double amount) {
-        balance = balance - amount;
+    public double getBalance() {
+        return balance;
     }
 
-    public void refund(double amount) {
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public boolean makePayment(double amount) {
+        if (amount > this.balance || amount <= 0) return false;
+        balance = balance - amount;
+        return true;
+    }
+
+    public boolean refund(double amount) {
+        if (amount < 0) return false;
         balance = balance + amount;
+        return true;
     }
 }

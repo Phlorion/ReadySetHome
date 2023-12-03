@@ -1,6 +1,7 @@
 package com.example.readysethome.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Listing {
     private static int last_apartment_ID = 0;
@@ -31,7 +32,13 @@ public class Listing {
         this.photos = photos;
         this.calendar = calendar;
         this.owner = owner;
+
+        this.services = new ArrayList<>();
+        this.chargingPolicies = new ArrayList<>();
     }
+
+    // debugging
+    public Listing() {}
 
     public int getApartment_id() {
         return apartment_id;
