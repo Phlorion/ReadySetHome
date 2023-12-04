@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.1"><zoom_level>4</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>548</x><y>276</y><w>268</w><h>80</h></coordinates><panel_attributes>
+<diagram program="umletino" version="15.1"><zoom_level>4</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>644</x><y>473</y><w>268</w><h>80</h></coordinates><panel_attributes>
 *Owner*
 
 --
@@ -11,7 +11,7 @@
 + declineBookingRequest(booking_request : BookingRequest) : void
 + addListing(ap : Apartement, title : String, desc : String, price : double, promoted : boolean, photos : String[]) : Listing
 + getBookingRequests() : ArrayList&lt;BookingRequest&gt;
-+ setBookingRequests(bookingRequests : ArrayList&lt;BookingRequest&gt;) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>56</y><w>148</w><h>176</h></coordinates><panel_attributes>
++ setBookingRequests(bookingRequests : ArrayList&lt;BookingRequest&gt;) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>428</x><y>225</y><w>148</w><h>176</h></coordinates><panel_attributes>
 *User*
 
 --
@@ -40,7 +40,7 @@ _- last_owner_ID : String_
 + setCreditCard(creditCard : CreditCard) : void
 + getAcc_bday() : Date
 + setAcc_bday(acc_bday : Date) : void
-+ getAllDetails() : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>244</x><y>428</y><w>144</w><h>192</h></coordinates><panel_attributes>
++ getAllDetails() : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>156</x><y>597</y><w>144</w><h>192</h></coordinates><panel_attributes>
 *BookingRequest*
 
 --
@@ -71,21 +71,71 @@ _- lastBookingId : int_
 + getListing() : Listing
 + setListing(listing : Listing) : void
 + getTenant() : Tenant
-+ setTenant(tenant : Tenant) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>460</x><y>564</y><w>116</w><h>180</h></coordinates><panel_attributes>
++ setTenant(tenant : Tenant) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>312</x><y>733</y><w>400</w><h>392</h></coordinates><panel_attributes>
 *Listing*
 
 --
-_- last_apartement_ID : int_
-- apartment_id : int
-- title : String
-- description : String
-- price : double
-- promoted : boolean
-- rating : double
-- photos : String[]
-- calendar : Calendar
-- owner : Owner
-- chargingPolicies : ArrayList&lt;ChargingPolicy&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>212</x><y>276</y><w>296</w><h>96</h></coordinates><panel_attributes> Tenant  
+- last_listing_ID: int
+    - listing_id: int
+    - title: String
+    - description: String
+    - price: double
+    - promoted: boolean
+    - rating: double
+    - photos: String[]
+    - calendar: Calendar
+    - owner: Owner
+    - original_Price: double
+    - updated_Price: double
+    - chargingPolicies: ArrayList&lt;ChargingPolicy&gt;
+    - services: ArrayList&lt;ListingsServices&gt;
+    - monthlyIncome: HashMap&lt;String, Double&gt;
+    - monthlyCancellations: HashMap&lt;String, Integer&gt;
+
+--
+    + Listing(title: String, description: String, price: double, promoted: boolean, rating: double, photos: String[], calendar: Calendar, owner: Owner, apartment: Apartment)
+    + Listing(listing: Listing)
+    + Listing()
+    + getApartment(): Apartment
+    + setApartment(apartment: Apartment): void
+    + getListing_id(): int
+    + setListing_id(listing_id: int): void
+    + getTitle(): String
+    + setTitle(title: String): void
+    + getDescription(): String
+    + setDescription(description: String): void
+    + getPrice(): double
+    + setPrice(price: double): void
+    + isPromoted(): boolean
+    + setPromoted(promoted: boolean): void
+    + getRating(): double
+    + setRating(rating: double): void
+    + getPhotos(): String[]
+    + setPhotos(photos: String[]): void
+    + getCalendar(): Calendar
+    + setCalendar(calendar: Calendar): void
+    + getOwner(): Owner
+    + setOwner(owner: Owner): void
+    + getChargingPolicies(): ArrayList&lt;ChargingPolicy&gt;
+    + setChargingPolicies(chargingPolicies: ArrayList&lt;ChargingPolicy&gt;): void
+    + getOriginal_Price(): double
+    + setOriginal_Price(original_Price: double): void
+    + getUpdated_Price(): double
+    + setUpdated_Price(updated_Price: double): void
+    + getServices(): ArrayList&lt;ListingsServices&gt;
+    + setServices(services: ArrayList&lt;ListingsServices&gt;): void
+    + getMonthlyIncome(): HashMap&lt;String, Double&gt;
+    + setMonthlyIncome(monthlyIncome: HashMap&lt;String, Double&gt;): void
+    + getMonthlyCancellations(): HashMap&lt;String, Integer&gt;
+    + setMonthlyCancellations(monthlyCancellations: HashMap&lt;String, Integer&gt;): void
+    + addNewChargingPolicies(cPolicy: ChargingPolicy): void
+    + updatePriceDueToPolicy(): void
+    + addService(listingsServices: ListingsServices): void
+    + updatePriceDueToServices(): void
+    + addChargingPolicy(cPolicy: ChargingPolicy): void
+    + calculateOccupancy(date: java.util.Calendar): double
+    + calculateMonthlyIncome(date: Date): void
+    + calculateCancellationsPerMonth(date: Date): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>124</x><y>445</y><w>296</w><h>96</h></coordinates><panel_attributes> Tenant  
 --
 -bookingRequests: ArrayList&lt;BookingRequest&gt; 
  -bookings: ArrayList&lt;Booking&gt;
@@ -101,7 +151,7 @@ _- last_apartement_ID : int_
 +getBookings(): ArrayList&lt;Booking&gt; 
  +addBookingRequest(bookingRequest: BookingRequest): void 
 +getBookingRequests(): ArrayList&lt;BookingRequest
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>688</x><y>564</y><w>160</w><h>184</h></coordinates><panel_attributes> Booking  
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>772</x><y>733</y><w>160</w><h>184</h></coordinates><panel_attributes> Booking  
 --
 - isCancelled: boolean                 
 - bookingRequest: BookingRequest       
@@ -128,15 +178,15 @@ _- last_apartement_ID : int_
 + setCheckIn(checkIn: Date): void       
 + setCheckOut(checkOut: Date): void     
 + setTenant(tenant: Tenant): void       
-+ setListing(listing: Listing): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>564</x><y>148</y><w>132</w><h>136</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;310;320</additional_attributes></element><element><id>Relation</id><coordinates><x>328</x><y>152</y><w>100</w><h>132</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>230;10;10;310</additional_attributes></element><element><id>Relation</id><coordinates><x>324</x><y>368</y><w>16</w><h>68</h></coordinates><panel_attributes>lt=-
++ setListing(listing: Listing): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>572</x><y>317</y><w>220</w><h>164</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;530;390</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>321</y><w>196</w><h>132</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>470;10;10;310</additional_attributes></element><element><id>Relation</id><coordinates><x>236</x><y>537</y><w>16</w><h>68</h></coordinates><panel_attributes>lt=-
 m1=1
-m2=*</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>324</x><y>616</y><w>144</w><h>80</h></coordinates><panel_attributes>lt=-
+m2=*</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>236</x><y>785</y><w>84</w><h>80</h></coordinates><panel_attributes>lt=-
 m1=*
-m2=1</panel_attributes><additional_attributes>10;10;10;170;340;170</additional_attributes></element><element><id>Relation</id><coordinates><x>572</x><y>680</y><w>124</w><h>16</h></coordinates><panel_attributes>lt=-
+m2=1</panel_attributes><additional_attributes>10;10;10;170;190;170</additional_attributes></element><element><id>Relation</id><coordinates><x>708</x><y>849</y><w>72</w><h>16</h></coordinates><panel_attributes>lt=-
 m1=1
-m2=*</panel_attributes><additional_attributes>10;10;290;10</additional_attributes></element><element><id>Relation</id><coordinates><x>572</x><y>352</y><w>92</w><h>308</h></coordinates><panel_attributes>lt=-
+m2=*</panel_attributes><additional_attributes>10;10;160;10</additional_attributes></element><element><id>Relation</id><coordinates><x>708</x><y>549</y><w>52</w><h>280</h></coordinates><panel_attributes>lt=-
 m1=1
-m2=*</panel_attributes><additional_attributes>200;10;200;740;10;740</additional_attributes></element><element><id>UMLClass</id><coordinates><x>272</x><y>804</y><w>472</w><h>208</h></coordinates><panel_attributes>
+m2=*</panel_attributes><additional_attributes>100;10;100;670;10;670</additional_attributes></element><element><id>UMLClass</id><coordinates><x>272</x><y>1329</y><w>472</w><h>208</h></coordinates><panel_attributes>
 *Apartment*
 
 --
@@ -171,9 +221,9 @@ m2=*</panel_attributes><additional_attributes>200;10;200;740;10;740</additional_
   + setKitchens(kitchens: ArrayList&lt;Kitchen&gt;): void
   + equals(o: Object): boolean
   + hashCode(): int
-  </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>508</x><y>740</y><w>16</w><h>72</h></coordinates><panel_attributes>lt=-
+  </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>508</x><y>1125</y><w>16</w><h>212</h></coordinates><panel_attributes>lt=-
 m1=1
-m2=1</panel_attributes><additional_attributes>10;10;10;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>88</x><y>852</y><w>132</w><h>104</h></coordinates><panel_attributes>
+m2=1</panel_attributes><additional_attributes>10;10;10;510</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>1377</y><w>132</w><h>104</h></coordinates><panel_attributes>
 *Address*
    
 --
@@ -190,6 +240,145 @@ m2=1</panel_attributes><additional_attributes>10;10;10;160</additional_attribute
    + setAddress_num(address_num: String): void
    + equals(o: Object): boolean
    + hashCode(): int
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>216</x><y>912</y><w>64</w><h>16</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>128</x><y>1437</y><w>152</w><h>16</h></coordinates><panel_attributes>lt=-
 m1=1
-m2=*</panel_attributes><additional_attributes>10;10;140;10</additional_attributes></element></diagram>
+m2=*</panel_attributes><additional_attributes>10;10;360;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>784</x><y>977</y><w>116</w><h>108</h></coordinates><panel_attributes>
+*ChargingPolicy*
+
+--
+- start_index: Date
+ - end_index: Date
+ - description: String
+ - price_diff: double
+--
+ + ChargingPolicy(Date, Date, String, double)
+ + getStart_index(): Date
+ + setStart_index(Date): void
+ + getEnd_index(): Date
+ + setEnd_index(Date): void
+ + getDescription(): String
+ + setDescription(String): void
+ + getPrice_diff(): double
+ + setPrice_diff(double): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>708</x><y>1037</y><w>84</w><h>16</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;10;190;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>1197</y><w>116</w><h>80</h></coordinates><panel_attributes>
+*Calendar*
+
+--
+- availability: Hashtable&lt;Date, Date&gt;
+--
+ + Calendar()
+ + getAvailability(): Hashtable&lt;Date, Date&gt;
+ + setAvailability(Hashtable&lt;Date, Date&gt;): void
+ + setUnavailable(Date, Date): void
+ + setAvailable(Date, Date): void
+ + isAvailable(Date, Date): boolean
+ + toString(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>616</x><y>1121</y><w>16</w><h>84</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes><additional_attributes>10;10;10;190</additional_attributes></element><element><id>UMLClass</id><coordinates><x>232</x><y>245</y><w>88</w><h>96</h></coordinates><panel_attributes>
+*CreditCard*
+
+--
+- number: String
+- balance: double
+--
+ + CreditCard(String)
+ + CreditCard(String, double)
+ + CreditCard()
+ + getNumber(): String
+ + setNumber(String): void
+ + getBalance(): double
+ + setBalance(double): void
+ + makePayment(double): boolean
+ + refund(double): boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>316</x><y>285</y><w>120</w><h>16</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes><additional_attributes>280;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>684</x><y>237</y><w>88</w><h>80</h></coordinates><panel_attributes>
+*Password*
+
+--
+ - password: String
+--
+ + Password(String)
+ + Password()
+ + getPassword(): String
+ + setPassword(String): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>572</x><y>269</y><w>120</w><h>16</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes><additional_attributes>280;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>452</x><y>65</y><w>88</w><h>80</h></coordinates><panel_attributes>
+*EmailAddress*
+
+--
+ - address: String
+--
+ + EmailAddress(String)
+ + EmailAddress()
+ + getAddress(): String
+ + setAddress(String): void
+ + send(EmailAddress, String, String): int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>492</x><y>141</y><w>16</w><h>92</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes><additional_attributes>10;10;10;210</additional_attributes></element><element><id>UMLClass</id><coordinates><x>304</x><y>1597</y><w>88</w><h>112</h></coordinates><panel_attributes>
+*Bathroom*
+
+--
+ - size: double
+ - shower: boolean
+ - toilet: boolean
+ - hairdryer: boolean
+--
+ + Bathroom(double, boolean, boolean, boolean)
+ + getSize(): double
+ + setSize(double): void
+ + isShower(): boolean
+ + setShower(boolean): void
+ + isToilet(): boolean
+ + setToilet(boolean): void
+ + isHairdryer(): boolean
+ + setHairdryer(boolean): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>344</x><y>1533</y><w>16</w><h>72</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;10;10;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>452</x><y>1597</y><w>92</w><h>112</h></coordinates><panel_attributes>
+*Bedroom*
+
+--
+ - size: double
+ - double_beds: int
+ - single_beds: int
+ - tv: boolean
+--
+ + Bedroom(double, int, int, boolean)
+ + getSize(): double
+ + setSize(double): void
+ + getDouble_beds(): int
+ + setDouble_beds(int): void
+ + getSingle_beds(): int
+ + setSingle_beds(int): void
+ + isTv(): boolean
+ + setTv(boolean): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>492</x><y>1533</y><w>16</w><h>72</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;10;10;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>608</x><y>1597</y><w>92</w><h>164</h></coordinates><panel_attributes>
+*Kitchen*
+
+--
+- size: double
+ - oven: boolean
+ - microwave: boolean
+ - refrigerator: boolean
+ - toaster: boolean
+ - coffee_machine: boolean
+ - dining_table: boolean
+--
+ + Kitchen(double, boolean, boolean, boolean, boolean, boolean, boolean)
+ + getSize(): double
+ + setSize(double): void
+ + isOven(): boolean
+ + setOven(boolean): void
+ + isMicrowave(): boolean
+ + setMicrowave(boolean): void
+ + isRefrigerator(): boolean
+ + setRefrigerator(boolean): void
+ + isToaster(): boolean
+ + setToaster(boolean): void
+ + isCoffee_machine(): boolean
+ + setCoffee_machine(boolean): void
+ + isDining_table(): boolean
+ + setDining_table(boolean): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>644</x><y>1533</y><w>16</w><h>72</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;10;10;160</additional_attributes></element></diagram>
