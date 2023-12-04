@@ -3,6 +3,7 @@ package com.example.readysethome.model;
 import com.example.readysethome.MainActivity;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 class BookingRequest {
      private static int lastBookingId = 0;
@@ -38,14 +39,15 @@ class BookingRequest {
         Owner owner = listing.getOwner();
         notifyUser(owner, "Booking Request Cancellation", "Booking request cancellation from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
         owner.removeFromPending(this);
+        tenant.getBookingRequests().remove(this);
     }
 
     // Methodos gia confirmation aithmatos
     public void confirm() {
         this.booking_status = ReservationStatus.CONFIRMED;
         // upfront payment
-        int days_of_stay = daysBetween(this.check_in, this.check_out);
-        double upfront = days_of_stay * 0.2;
+        long days_of_stay = daysBetween(this.check_in, this.check_out);
+        double upfront = 0.2 * (days_of_stay * this.listing.getPrice());
         this.tenant.getCreditCard().makePayment(upfront);
         // notify tenant
         notifyUser(this.tenant, "Booking Request Confirmed", "Your booking request " + this + " has been confirmed. An amount of " + upfront
@@ -53,7 +55,7 @@ class BookingRequest {
         // update apartment availability
         this.listing.getCalendar().setUnavailable(this.check_in, this.check_out);
         // create new booking
-        Booking new_booking = new Booking(this.booking_id, this.check_in, this.check_out, this.tenant, this.listing);
+        Booking new_booking = new Booking(this);
     }
 
     // Methodos gia decline aithmatos krathshs apo ton idiokthth
@@ -68,18 +70,18 @@ class BookingRequest {
     }
 
     // count the days between two given dates
-    private int daysBetween(Date start, Date end) {
-        return 0;
+    private long daysBetween(Date start, Date end) {
+        long diff = end.getTime() - start.getTime();
+        diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        // System.out.println ("Days: " + diff);
+        return diff;
     }
 
     // Setters and getters
     public int getBooking_id() {
         return booking_id;
     }
-
-    public void setBooking_id(int booking_id) {
-        this.booking_id = booking_id;
-    }
+    public void setBooking_id(int booking_id) {this.booking_id = booking_id;}
 
     public Date getSubmission_date() {
         return submission_date;

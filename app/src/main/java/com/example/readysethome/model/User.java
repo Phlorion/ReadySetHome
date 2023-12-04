@@ -23,6 +23,7 @@ public class User {
         this.acc_bday = acc_bday;
     }
 
+    // debugging
     public User (String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,6 +44,7 @@ public class User {
             temp_int++;
             last_tenant_ID = "t" + temp_int;
             this.id = last_tenant_ID;
+            // System.out.println(this.id);
         } else {
             char[] chars = last_owner_ID.toCharArray();
             String temp = "";

@@ -1,6 +1,7 @@
 package com.example.readysethome.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Apartment {
 
@@ -25,6 +26,9 @@ public class Apartment {
         this.bedrooms = bedrooms;
         this.kitchens = kitchens;
     }
+
+    // debugging
+    public Apartment() {}
 
     public Address getLocation() {
         return location;
@@ -96,5 +100,18 @@ public class Apartment {
 
     public void setKitchens(ArrayList<Kitchen> kitchens) {
         this.kitchens = kitchens;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Apartment apartment = (Apartment) o;
+        return floor == apartment.floor && location.equals(apartment.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(location, floor);
     }
 }
