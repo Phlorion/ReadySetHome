@@ -26,6 +26,10 @@ public class Calendar {
         this.availability.put(check_in, check_out);
     }
 
+    public void setAvailable(Date check_in, Date check_out) {
+        this.availability.remove(check_in, check_out);
+    }
+
     public boolean isAvailable(Date start, Date end) {
         Enumeration<Date> e = availability.keys();
         while(e.hasMoreElements()) {
