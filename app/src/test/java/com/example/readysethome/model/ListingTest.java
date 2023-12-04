@@ -349,6 +349,34 @@ public class ListingTest {
     }
 
     @Test
+    public void getMonthlyIncome() {
+        final HashMap<String, Double> tmp = new HashMap<>();
+        test.setMonthlyIncome(tmp);
+        assertEquals(tmp, test.getMonthlyIncome());
+    }
+
+    @Test
+    public void setMonthlyIncome() {
+        final HashMap<String, Double> tmp = new HashMap<>();
+        test.setMonthlyIncome(tmp);
+        assertEquals(tmp, test.getMonthlyIncome());
+    }
+
+    @Test
+    public void getMonthlyCancellations() {
+        final HashMap<String, Integer> tmp = new HashMap<>();
+        test.setMonthlyCancellations(tmp);
+        assertEquals(tmp, test.getMonthlyCancellations());
+    }
+
+    @Test
+    public void setMonthlyCancellations() {
+        final HashMap<String, Integer> tmp = new HashMap<>();
+        test.setMonthlyCancellations(tmp);
+        assertEquals(tmp, test.getMonthlyCancellations());
+    }
+
+    @Test
     public void calculateCancellationsPerMonth() {
         // Set up Tenant, Listing, BookingRequest, and Booking instances
         Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
