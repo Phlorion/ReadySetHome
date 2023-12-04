@@ -114,20 +114,11 @@ number: long int
 address: String
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>846</x><y>135</y><w>135</w><h>90</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>999</x><y>135</y><w>135</w><h>90</h></coordinates><panel_attributes>
 *Password*
 
 --
 password: String
-
-
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>999</x><y>126</y><w>135</w><h>108</h></coordinates><panel_attributes>
-*Date*
-
---
-day: int
-month: int
-year: int
 
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>333</x><y>234</y><w>90</w><h>135</h></coordinates><panel_attributes>lt=-

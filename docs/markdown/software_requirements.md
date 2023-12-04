@@ -159,6 +159,9 @@
 
 ![Domain Model](/docs/markdown/uml/requirements/domain_model.png)
 
+## Class Diagram
+![Class Diagram](uml/requirements/class_diagram.png)
+
 ## Ανάλυση περιπτώσεων χρήσης
 --------------------------
 
@@ -184,4 +187,8 @@
 |---------------|----------|
 | ΕΚ1           |Η ηλικία του χρήστη θα πρεπεί να είναι μεγαλύτερη των 18 ετών.|
 | ΕΚ2           |Ολά τα στοιχεία που δυνάται να συμπληρώσει ο χρήστης κατά την εγγραφή του είναι υποχρεωτικά.|
+
+## JUnit tests coverage
+
+![Junit tests coverage](uml/requirements/coverage_report.png)
 
