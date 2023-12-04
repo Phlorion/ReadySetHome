@@ -252,7 +252,7 @@ public class Listing {
     }
 
 
-    public double calculateOccupancy(java.util.Calendar date) {
+    /*public double calculateOccupancy(java.util.Calendar date) {
         int bookedDays = 0;
         for (Date checkIn : calendar.getAvailability().keySet()) {
             Date checkOut = calendar.getAvailability().get(checkIn);
@@ -277,7 +277,46 @@ public class Listing {
             }
         }
         return bookedDays;
+    }*/
+
+    public double calculateOccupancy(java.util.Calendar date) {
+        int bookedDays = 0;
+        for (Date checkIn : calendar.getAvailability().keySet()) {
+            Date checkOut = calendar.getAvailability().get(checkIn);
+            java.util.Calendar cal = java.util.Calendar.getInstance();
+            cal.setTime(checkIn);
+            java.util.Calendar cal2 = java.util.Calendar.getInstance();
+            cal2.setTime(checkOut);
+
+            java.util.Calendar providedDate = java.util.Calendar.getInstance();
+            providedDate.setTime(date.getTime());
+
+            if ((cal.get(java.util.Calendar.YEAR) < providedDate.get(java.util.Calendar.YEAR) ||
+                    (cal.get(java.util.Calendar.YEAR) == providedDate.get(java.util.Calendar.YEAR) &&
+                    cal.get(java.util.Calendar.MONTH) <= providedDate.get(java.util.Calendar.MONTH)))
+                    && (cal2.get(java.util.Calendar.YEAR) > providedDate.get(java.util.Calendar.YEAR) ||
+                    (cal2.get(java.util.Calendar.YEAR) == providedDate.get(java.util.Calendar.YEAR) &&
+                    cal2.get(java.util.Calendar.MONTH) >= providedDate.get(java.util.Calendar.MONTH)))) {
+
+                if (cal.get(java.util.Calendar.YEAR) == cal2.get(java.util.Calendar.YEAR) &&
+                        cal.get(java.util.Calendar.MONTH) == cal2.get(java.util.Calendar.MONTH)) {
+                    bookedDays += daysBetween(checkIn, checkOut);
+                } else if (cal.get(java.util.Calendar.YEAR) == providedDate.get(java.util.Calendar.YEAR) &&
+                        cal.get(java.util.Calendar.MONTH) == providedDate.get(java.util.Calendar.MONTH)) {
+                    int maxDay = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+                    bookedDays += maxDay - cal.get(java.util.Calendar.DAY_OF_MONTH);
+                } else if (cal2.get(java.util.Calendar.YEAR) == providedDate.get(java.util.Calendar.YEAR) &&
+                        cal2.get(java.util.Calendar.MONTH) == providedDate.get(java.util.Calendar.MONTH)) {
+                    bookedDays += cal2.get(java.util.Calendar.DAY_OF_MONTH);
+                } else {
+                    int maxDay = providedDate.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+                    bookedDays += maxDay;
+                }
+            }
+        }
+        return bookedDays;
     }
+
 
 
     public void calculateMonthlyIncome(Date date) {
