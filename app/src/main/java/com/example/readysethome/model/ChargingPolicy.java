@@ -7,7 +7,6 @@ public class ChargingPolicy {
     private Date end_index;
     private String description;
     private double price_diff;
-    public String test;
 
     public ChargingPolicy(Date start_index, Date end_index, String description, double price_diff) {
         this.start_index = start_index;

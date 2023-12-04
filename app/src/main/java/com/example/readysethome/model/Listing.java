@@ -9,6 +9,8 @@ import java.time.Instant;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class Listing {
     private static int last_listing_ID = 0;
@@ -26,6 +28,8 @@ public class Listing {
     private double updated_Price;
     private ArrayList<ChargingPolicy> chargingPolicies = new ArrayList<>();
     private ArrayList<ListingsServices> services = new ArrayList<>();
+    private HashMap<Date, Double> monthlyIncome = new HashMap<>();
+    private HashMap<Date, Integer> monthlyCancellations = new HashMap<>();
 
     public Listing(String title, String description, double price, boolean promoted, double rating, String[] photos, Calendar calendar, Owner owner, Apartment apartment) {
         last_listing_ID++;
@@ -170,8 +174,8 @@ public class Listing {
         this.services = services;
     }
 
-    public void addNewChargingPolicies(ChargingPolicy chargingPolicy) {
-        chargingPolicies.add(chargingPolicy);
+    public HashMap<Date, Double> getMonthlyIncome() {
+        return monthlyIncome;
     }
 
     public void updatePriceDueToPolicy() {
@@ -217,66 +221,60 @@ public class Listing {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public double calculateAverageOccupancy(YearMonth targetMonth) {
-        int totalDays = targetMonth.lengthOfMonth();
+    private long daysBetween(Date start, Date end) {
+        long diff = end.getTime() - start.getTime();
+        diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        // System.out.println ("Days: " + diff);
+        return diff;
+    }
+
+
+    public double calculateOccupancy(java.util.Calendar date) {
         int bookedDays = 0;
-
         for (Date checkIn : calendar.getAvailability().keySet()) {
             Date checkOut = calendar.getAvailability().get(checkIn);
-            YearMonth checkInMonth = YearMonth.from(checkIn.toInstant());
-            YearMonth checkOutMonth = YearMonth.from(checkOut.toInstant());
+            java.util.Calendar cal = java.util.Calendar.getInstance();
+            cal.setTime(checkIn);
+            java.util.Calendar cal2 = java.util.Calendar.getInstance();
+            cal2.setTime(checkOut);
 
-            if (checkInMonth.equals(targetMonth) || checkOutMonth.equals(targetMonth) ||
-                    (checkInMonth.isBefore(targetMonth) && checkOutMonth.isAfter(targetMonth))) {
-                long daysBetween = daysBetween(checkIn, checkOut);
-                bookedDays += daysBetween;
+            if (cal.get(java.util.Calendar.MONTH) < date.get(java.util.Calendar.MONTH) && cal2.get(java.util.Calendar.MONTH) > date.get(java.util.Calendar.MONTH)) {
+                int maxDay = date.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+                bookedDays += maxDay;
+            }
+            else if (cal.get(java.util.Calendar.MONTH) == date.get(java.util.Calendar.MONTH) && cal2.get(java.util.Calendar.MONTH) > date.get(java.util.Calendar.MONTH)) {
+                int maxDay = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+                bookedDays += maxDay - cal.get(java.util.Calendar.DAY_OF_MONTH);
+            }
+            else if (cal.get(java.util.Calendar.MONTH) == date.get(java.util.Calendar.MONTH) && cal2.get(java.util.Calendar.MONTH) == date.get(java.util.Calendar.MONTH)) {
+                bookedDays += daysBetween(checkIn, checkOut);
+            }
+            else if (cal.get(java.util.Calendar.MONTH) < date.get(java.util.Calendar.MONTH) && cal2.get(java.util.Calendar.MONTH) == date.get(java.util.Calendar.MONTH)) {
+                bookedDays += cal2.get(java.util.Calendar.DAY_OF_MONTH);
             }
         }
-
-        return (double) bookedDays / totalDays;
+        return bookedDays;
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public double calculateTotalIncomePerMonth(YearMonth targetMonth) {
-        double totalIncome = 0;
-
-        for (Date checkIn : calendar.getAvailability().keySet()) {
-            Date checkOut = calendar.getAvailability().get(checkIn);
-            YearMonth checkInMonth = YearMonth.from(checkIn.toInstant());
-            YearMonth checkOutMonth = YearMonth.from(checkOut.toInstant());
-
-            if (checkInMonth.equals(targetMonth) || checkOutMonth.equals(targetMonth) ||
-                    (checkInMonth.isBefore(targetMonth) && checkOutMonth.isAfter(targetMonth))) {
-                long daysBetween = daysBetween(checkIn, checkOut);
-                totalIncome += daysBetween * getPrice();
-            }
+    public void calculateMonthlyIncome(Date date) {
+        if (!monthlyIncome.containsKey(date)) {
+            monthlyIncome.put(date, getPrice());
         }
-
-        return totalIncome;
+        else {
+            double previousPrice = monthlyIncome.get(date);
+            monthlyIncome.replace(date, previousPrice + getPrice());
+        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public int calculateCancellationsPerMonth(YearMonth targetMonth) {
-        int cancellations = 0;
 
-        for (Date checkIn : calendar.getAvailability().keySet()) {
-            Date checkOut = calendar.getAvailability().get(checkIn);
-            YearMonth checkInMonth = YearMonth.from(checkIn.toInstant());
-            YearMonth checkOutMonth = YearMonth.from(checkOut.toInstant());
-
-            if ((checkInMonth.equals(targetMonth) || checkOutMonth.equals(targetMonth)) &&
-                    checkOut.before(new Date())) { // Assuming cancellations are for past months
-                cancellations++;
-            }
+    public void calculateCancellationsPerMonth(Date date) {
+        if (!monthlyCancellations.containsKey(date)) {
+            monthlyCancellations.put(date, 1);
         }
-
-        return cancellations;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private long daysBetween(Date startDate, Date endDate) {
-        return Duration.between(startDate.toInstant(), endDate.toInstant()).toDays();
+        else {
+            int previousCancellations = monthlyCancellations.get(date);
+            monthlyCancellations.replace(date, previousCancellations + 1);
+        }
     }
 }
