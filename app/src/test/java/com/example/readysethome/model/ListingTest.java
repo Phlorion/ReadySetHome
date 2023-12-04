@@ -339,11 +339,20 @@ public class ListingTest {
         BookingRequest br2 = tenant.makeBookingRequest(test, customDate1, customDate12);
         owner.confirmBookingRequest(br2);
 
+        // Set up Tenant, Listing, BookingRequest, and Booking instances
+        Tenant tenant3 = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
+                new Password("password123"), new CreditCard("1234567890123456", 100000), new Date());
+        final Date customDate3 = Date.from(Instant.parse("2024-01-12T00:00:00.000Z"));
+        final Date customDate32 = Date.from(Instant.parse("2024-01-23T00:00:00.000Z"));
+        BookingRequest br3 = tenant.makeBookingRequest(test, customDate1, customDate12);
+        owner.confirmBookingRequest(br3);
+
 
 
         HashMap<String, Double> monthlyIncome2 = new HashMap<>();
         monthlyIncome2.put("2023-00", test.getPrice());
         monthlyIncome2.put("2024-00", test.getPrice());
+        monthlyIncome2.replace("2024-00", test.getPrice()*2);
 
         assertEquals(monthlyIncome2, test.getMonthlyIncome());
     }
@@ -398,8 +407,6 @@ public class ListingTest {
         Booking idBr2 =  tenant.getBookingById(br2.getBooking_id());
 
         idBr.cancel();
-
-
 
         assertEquals(1, tenant.getBookings().size());
     }
