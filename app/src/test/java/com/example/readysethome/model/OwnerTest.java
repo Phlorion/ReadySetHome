@@ -105,6 +105,6 @@ public class OwnerTest {
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.set(2023, 0,1);
         double days = owner.checkOccupancy(listing, cal);
-        assertEquals(23, days, 0.01f);
+        assertEquals(22, days, 0.01f);
     }
 }

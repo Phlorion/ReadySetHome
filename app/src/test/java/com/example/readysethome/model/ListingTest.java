@@ -29,6 +29,7 @@ public class ListingTest {
     final Password password = new Password("password");
     final Owner owner = new Owner("John", "Doe", emailAddress, password, creditcard, b_day);
     final Listing test = new Listing("House1", "Description1", 100, false, 4.5, photos, calendar, owner, apartment);
+    final Listing testListing = new Listing();
 
     @Test
     public void getApartment_id() {
