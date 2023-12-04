@@ -1,6 +1,9 @@
 package com.example.readysethome.model;
 
+import com.example.readysethome.MainActivity;
+
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 class Booking {
     private int id;
@@ -9,6 +12,8 @@ class Booking {
     private Tenant tenant;
     private Listing listing;
 
+
+    private ReservationStatus booking_status;
     private boolean isCancelled = false;
 
     int apartmentRating=-1;
@@ -20,13 +25,12 @@ class Booking {
         this.listing = listing;
     }
     //methodos elegxou na yparxei energh krathsh gia mia xronikh periodo
-    // TO DO
 
+    public boolean isActive() {
+        Date currentDate = new Date(); //today's date
+        return currentDate.after(checkIn) && currentDate.before(checkOut);
+    }
 
-    /*public boolean isActive() {
-        //Date currentDate= get todays date //TO DO
-        // return currentDate.after(checkIn) && currentDate.before(checkOut);
-    }*/
     public void rateApartment(int rating) {
         if (isStayCompleted()) {
             apartmentRating = rating;
@@ -52,10 +56,45 @@ class Booking {
     public void cancel() {
         if (!isCancelled) {
             isCancelled = true;
-            System.out.println("Booking canceled successfully.");
-        } else {
-            System.out.println("Booking is already canceled.");
+            this.booking_status = ReservationStatus.CANCELLED_BY_TENANT;
+
+
+            double refundAmount = calculateRefundAmount();
+            this.tenant.getCreditCard().refund(refundAmount);
+            notifyUser(this.tenant, "Booking Canceled", "Your booking has been canceled successfully. A refund of $" + refundAmount + " has been processed.");
+
+            this.listing.getCalendar().setAvailable(this.checkIn, this.checkOut);
         }
+    }
+
+    // Calculates the refund amount
+    private double calculateRefundAmount() {
+        long days_of_stay = daysBetween(this.checkIn, this.checkOut);
+        double totalCost =(days_of_stay * this.listing.getPrice());
+        double refundPercentage = (daysUntilCheckIn() > 30) ? 0.95 : 1.0;
+        return totalCost * refundPercentage;
+    }
+
+    public ReservationStatus getBooking_status() {
+        return booking_status;
+    }
+    // Methodos gia thn enhmerwsh
+    private void notifyUser(User user, String Title, String Desc) {
+        MainActivity.SYSTEM.getEmail().send(user.getEmail(), Title, Desc);
+    }
+
+    // count the days between two given dates
+    public long daysBetween(Date start, Date end) {
+        long diff = end.getTime() - start.getTime();
+        diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        // System.out.println ("Days: " + diff);
+        return diff;
+    }
+
+    public long daysUntilCheckIn() {
+        Date currentDate = new Date();
+        long daysDifference = daysBetween(currentDate, this.checkIn);
+        return daysDifference;
     }
 // Setters kai getters
 
