@@ -56,6 +56,8 @@ class BookingRequest {
         this.listing.getCalendar().setUnavailable(this.check_in, this.check_out);
         // create new booking
         Booking new_booking = new Booking(this);
+        // Used for the statistics
+        listing.calculateMonthlyIncome(check_in);
     }
 
     // Methodos gia decline aithmatos krathshs apo ton idiokthth
