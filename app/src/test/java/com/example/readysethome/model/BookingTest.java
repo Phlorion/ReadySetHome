@@ -39,6 +39,7 @@ public class BookingTest {
 
 
         booking = new Booking(new BookingRequest(listing,new Date(),checkIn,checkOut,tenant));
+
     }
 
 
@@ -46,6 +47,7 @@ public class BookingTest {
     public void tearDown() {
 
         booking = null;
+
     }
 
     @Test

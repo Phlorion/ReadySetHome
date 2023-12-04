@@ -2,7 +2,6 @@ package com.example.readysethome.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-
 class Tenant extends User {
     private ArrayList<BookingRequest> bookingRequests;
     private ArrayList<Booking> bookings;
@@ -27,6 +26,7 @@ class Tenant extends User {
         }
 
         bookingRequests.add(booking_request);
+
         return booking_request;
     }
 
@@ -56,10 +56,6 @@ class Tenant extends User {
         }
     }
 
-    public ArrayList<Booking> GetBookings(){
-        return this.bookings;
-    }
-
     public void addBooking(Booking booking) {
         this.bookings.add(booking);
     }
@@ -84,4 +80,5 @@ class Tenant extends User {
         }
         return null;
     }
+
 }
