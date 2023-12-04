@@ -276,7 +276,7 @@ public class Listing {
                 bookedDays += cal2.get(java.util.Calendar.DAY_OF_MONTH);
             }
         }
-        return bookedDays + 1;
+        return bookedDays;
     }
 
 
