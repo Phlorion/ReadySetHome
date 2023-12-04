@@ -251,34 +251,6 @@ public class Listing {
         return diff;
     }
 
-
-    /*public double calculateOccupancy(java.util.Calendar date) {
-        int bookedDays = 0;
-        for (Date checkIn : calendar.getAvailability().keySet()) {
-            Date checkOut = calendar.getAvailability().get(checkIn);
-            java.util.Calendar cal = java.util.Calendar.getInstance();
-            cal.setTime(checkIn);
-            java.util.Calendar cal2 = java.util.Calendar.getInstance();
-            cal2.setTime(checkOut);
-
-            if (cal.get(java.util.Calendar.MONTH) < date.get(java.util.Calendar.MONTH) && cal2.get(java.util.Calendar.MONTH) > date.get(java.util.Calendar.MONTH)) {
-                int maxDay = date.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-                bookedDays += maxDay;
-            }
-            else if (cal.get(java.util.Calendar.MONTH) == date.get(java.util.Calendar.MONTH) && cal2.get(java.util.Calendar.MONTH) > date.get(java.util.Calendar.MONTH)) {
-                int maxDay = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-                bookedDays += maxDay - cal.get(java.util.Calendar.DAY_OF_MONTH);
-            }
-            else if (cal.get(java.util.Calendar.MONTH) == date.get(java.util.Calendar.MONTH) && cal2.get(java.util.Calendar.MONTH) == date.get(java.util.Calendar.MONTH)) {
-                bookedDays += daysBetween(checkIn, checkOut);
-            }
-            else if (cal.get(java.util.Calendar.MONTH) < date.get(java.util.Calendar.MONTH) && cal2.get(java.util.Calendar.MONTH) == date.get(java.util.Calendar.MONTH)) {
-                bookedDays += cal2.get(java.util.Calendar.DAY_OF_MONTH);
-            }
-        }
-        return bookedDays;
-    }*/
-
     public double calculateOccupancy(java.util.Calendar date) {
         int bookedDays = 0;
         for (Date checkIn : calendar.getAvailability().keySet()) {
