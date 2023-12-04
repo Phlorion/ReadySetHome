@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 
 public class TenantTest {
     private Tenant tenant;
+    private Tenant tenant2;
     private Listing listing;
     private BookingRequest bookingRequest;
     private Booking booking;
@@ -20,6 +21,7 @@ public class TenantTest {
         // Set up Tenant, Listing, BookingRequest, and Booking instances
         tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
                 new Password("password123"), new CreditCard("1234567890123456", 10000), new Date());
+        tenant2 = new Tenant("asdga", "sdjghsg");
         listing = new Listing("Cozy Apartment", "A nice place to stay", 50.0, false, 4.5, new String[]{"photo1", "photo2"},
                 new Calendar(), new Owner("Owner", "Smith", new EmailAddress("owner@example.com"),
                 new Password("ownerPass"), new CreditCard("9876543210987654"), new Date()), new Apartment());
@@ -44,6 +46,16 @@ public class TenantTest {
         assertTrue(tenant.getBookingRequests().contains(newBookingRequest));
     }
 
+    @Test
+    public void makeBookingRequestWhenInsufficientFunds() {
+        Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
+                new Password("password123"), new CreditCard("1234567890123456", 0), new Date());
+        Date checkIn = new Date();
+        Date checkOut = new Date(checkIn.getTime() + 86400000);  // 1 day later
+        BookingRequest newBookingRequest = tenant.makeBookingRequest(listing, checkIn, checkOut);
+        assertNull(newBookingRequest);
+    }
+
 
     @Test
     public void cancelBookingRequest() {
@@ -61,9 +73,8 @@ public class TenantTest {
 
     @Test
     public void deleteBooking() {
-        assertTrue(tenant.getBookings().contains(booking));
-        tenant.deleteBookingById(booking.getId());
-        assertFalse(tenant.getBookings().contains(booking));
+        assertTrue(tenant.deleteBookingById(booking.getId()));
+        assertFalse(tenant.deleteBookingById(booking.getId()));
     }
 
     @Test
@@ -81,5 +92,23 @@ public class TenantTest {
         ArrayList<Booking> bookings = tenant.getBookings();
         assertNotNull(bookings);
         assertTrue(bookings.contains(newBooking));
+    }
+
+    @Test
+    public void getBookingByID() {
+        BookingRequest br = tenant.makeBookingRequest(listing, new Date(), new Date());
+        br.confirm();
+        Booking b = new Booking(br);
+        int id = br.getBooking_id();
+        Booking b2 = tenant.getBookingById(id);
+        assertEquals(b.getId(), b2.getId());
+    }
+
+    @Test
+    public void getBookingByIDButBookingDoesntExist() {
+        BookingRequest br = tenant.makeBookingRequest(listing, new Date(), new Date());
+        Booking b = new Booking(br);
+        int id = br.getBooking_id();
+        assertNull(tenant.getBookingById(id));
     }
 }

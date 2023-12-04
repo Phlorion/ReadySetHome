@@ -2,6 +2,8 @@ package com.example.readysethome.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+
 class Tenant extends User {
     private ArrayList<BookingRequest> bookingRequests;
     private ArrayList<Booking> bookings;
@@ -43,17 +45,16 @@ class Tenant extends User {
         }
     }
 
-
-    public void deleteBookingById(int bookingId) {
-        Booking bookingToRemove = null;
-        for (Booking booking : bookings) {
+    public boolean deleteBookingById(int bookingId) {
+        boolean state = false;
+        for (Iterator<Booking> iterator = bookings.iterator(); iterator.hasNext();) {
+            Booking booking = iterator.next();
             if (booking.getId() == bookingId) {
-                bookingToRemove = booking;
-                break;
-            }}
-        if (bookingToRemove != null) {
-            bookings.remove(bookingToRemove);
+                iterator.remove();
+                state = true;
+            }
         }
+        return state;
     }
 
     public void addBooking(Booking booking) {

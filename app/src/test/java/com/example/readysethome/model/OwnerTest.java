@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -93,5 +94,17 @@ public class OwnerTest {
 
         owner.setBookingRequests(new_pend);
         Assert.assertEquals(new_pend, owner.getBookingRequests());
+    }
+
+    @Test
+    public void checkOccupancy() {
+        final Date customDate6 = Date.from(Instant.parse("2023-01-09T00:00:00.000Z"));
+        final Date customDate62 = Date.from(Instant.parse("2023-02-05T00:00:00.000Z"));
+        BookingRequest br = tenant.makeBookingRequest(listing, customDate6, customDate62);
+        owner.confirmBookingRequest(br);
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(2023, 0,1);
+        double days = owner.checkOccupancy(listing, cal);
+        assertEquals(23, days, 0.01f);
     }
 }
