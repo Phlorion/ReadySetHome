@@ -441,8 +441,6 @@ public class ListingTest {
 
         idBr.cancel();
 
-
-
         assertEquals(1, tenant.getBookings().size());
     }
 }
