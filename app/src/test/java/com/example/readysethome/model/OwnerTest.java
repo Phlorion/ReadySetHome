@@ -62,7 +62,7 @@ public class OwnerTest {
     @Test
     public void updateListing() {
         Listing newListing = owner.updateListing(listing, "Ap", "...", 32, true, new String[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.CLEANING_SERVICE)});
-        Assert.assertEquals(newListing.getApartment_id(), listing.getApartment_id());
+        Assert.assertEquals(newListing.getListing_id(), listing.getListing_id());
     }
 
     @Test
@@ -71,10 +71,13 @@ public class OwnerTest {
         Listing new_l = owner.addListing(new Apartment(), "Ap", "...", 32, true, new String[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.CLEANING_SERVICE)});
         listings.add(listing);
         listings.add(new_l);
+        BookingRequest br1 = tenant.makeBookingRequest(listing, new Date(), new Date());
+        BookingRequest br2 = tenant.makeBookingRequest(listing, new Date(), new Date());
+        BookingRequest br3 = tenant.makeBookingRequest(new_l, new Date(), new Date());
         ArrayList<Booking> bookings = new ArrayList<>();
-        bookings.add(new Booking(1, new Date(), new Date(), tenant, listing));
-        bookings.add(new Booking(2, new Date(), new Date(), tenant, listing));
-        bookings.add(new Booking(3, new Date(), new Date(), tenant, new_l));
+        bookings.add(new Booking(br1));
+        bookings.add(new Booking(br2));
+        bookings.add(new Booking(br3));
 
         owner.removeListing(listing, listings, bookings);
         Assert.assertEquals(1, listings.size());

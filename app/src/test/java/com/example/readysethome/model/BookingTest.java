@@ -50,6 +50,7 @@ public class BookingTest {
 
     @Test
     public void getId() {
+        booking.setId(11);
         assertEquals(11, booking.getId());
     }
 

@@ -35,6 +35,7 @@ class BookingRequest {
         Owner owner = listing.getOwner();
         notifyUser(owner, "Booking Request", "Booking request from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
         owner.addToPending(this);
+        tenant.getBookingRequests().add(this);
         return true;
     }
 
@@ -44,6 +45,7 @@ class BookingRequest {
         Owner owner = listing.getOwner();
         notifyUser(owner, "Booking Request Cancellation", "Booking request cancellation from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
         owner.removeFromPending(this);
+        tenant.getBookingRequests().remove(this);
     }
 
     // Methodos gia confirmation aithmatos
@@ -69,15 +71,19 @@ class BookingRequest {
         // update apartment availability
         this.listing.getCalendar().setUnavailable(this.check_in, this.check_out);
         // create new booking
-        Booking new_booking = new Booking(this.booking_id, this.check_in, this.check_out, this.tenant, this.listing);
+        Booking new_booking = new Booking(this);
+        this.tenant.addBooking(new_booking);
+        this.tenant.getBookingRequests().remove(this);
         // Used for the statistics
         listing.calculateMonthlyIncome(check_in);
+        return true;
     }
 
     // Methodos gia decline aithmatos krathshs apo ton idiokthth
     public void declineRequest() {
         this.booking_status = ReservationStatus.DECLINED;
         notifyUser(this.tenant, "Booking Request Declined", "Your booking request " + this + " has been declined.");
+        this.tenant.getBookingRequests().remove(this);
     }
 
     // Methodos gia thn enhmerwsh
