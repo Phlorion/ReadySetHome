@@ -18,7 +18,11 @@ class Tenant extends User {
     public BookingRequest makeBookingRequest(Listing listing, Date checkIn, Date checkOut) {
         Date submit_date = new Date();
         BookingRequest booking_request = new BookingRequest(listing, submit_date, checkIn, checkOut, this);
-        booking_request.submit();
+        // if something went wrong during submit
+        if (!booking_request.submit()) {
+            cancelBookingRequest(booking_request);
+            return null;
+        }
         return booking_request;
     }
 

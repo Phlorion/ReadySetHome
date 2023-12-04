@@ -57,8 +57,8 @@ class Booking {
             System.out.println("Booking is already canceled.");
         }
     }
-// Setters kai getters
 
+// Setters kai getters
     public int getId() {
         return id;
     }

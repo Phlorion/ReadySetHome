@@ -32,7 +32,7 @@ public class CreditCard {
     }
 
     public boolean makePayment(double amount) {
-        if (amount > this.balance || amount <= 0) return false;
+        if (amount > this.balance || amount < 0) return false;
         balance = balance - amount;
         return true;
     }
