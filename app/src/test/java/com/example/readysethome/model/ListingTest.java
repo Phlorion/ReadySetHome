@@ -306,9 +306,9 @@ public class ListingTest {
         assertEquals(apartment, test.getApartment());
     }
 
+    // check-in during month of interest, check-out after
     @Test
     public void calculateOccupancy() {
-        // Set up Tenant, Listing, BookingRequest, and Booking instances
         Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
                 new Password("password123"), new CreditCard("1234567890123456", 10000), new Date());
         final Date customDate6 = Date.from(Instant.parse("2023-01-09T00:00:00.000Z"));
@@ -318,7 +318,49 @@ public class ListingTest {
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.set(2023, 0,1);
         double days = test.calculateOccupancy(cal);
-        assertEquals(23, days, 0.01f);
+        assertEquals(22, days, 0.01f);
+    }
+    // check-in during month of interest, check-out during month of interest as well
+    @Test
+    public void calculateOccupancy2() {
+        Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
+                new Password("password123"), new CreditCard("1234567890123456", 10000), new Date());
+        final Date customDate6 = Date.from(Instant.parse("2023-01-09T00:00:00.000Z"));
+        final Date customDate62 = Date.from(Instant.parse("2023-01-15T00:00:00.000Z"));
+        BookingRequest br = tenant.makeBookingRequest(test, customDate6, customDate62);
+        owner.confirmBookingRequest(br);
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(2023, 0,1);
+        double days = test.calculateOccupancy(cal);
+        assertEquals(6, days, 0.01f);
+    }
+    // check-in before month of interest, check-out during month of interest
+    @Test
+    public void calculateOccupancy3() {
+        Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
+                new Password("password123"), new CreditCard("1234567890123456", 10000), new Date());
+        final Date customDate6 = Date.from(Instant.parse("2023-01-23T00:00:00.000Z"));
+        final Date customDate62 = Date.from(Instant.parse("2023-02-03T00:00:00.000Z"));
+        BookingRequest br = tenant.makeBookingRequest(test, customDate6, customDate62);
+        owner.confirmBookingRequest(br);
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(2023, 1,1);
+        double days = test.calculateOccupancy(cal);
+        assertEquals(3, days, 0.01f);
+    }
+    // check-in before month of interest, check-out after month of interest
+    @Test
+    public void calculateOccupancy4() {
+        Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
+                new Password("password123"), new CreditCard("1234567890123456", 10000), new Date());
+        final Date customDate6 = Date.from(Instant.parse("2022-12-23T00:00:00.000Z"));
+        final Date customDate62 = Date.from(Instant.parse("2023-02-03T00:00:00.000Z"));
+        BookingRequest br = tenant.makeBookingRequest(test, customDate6, customDate62);
+        owner.confirmBookingRequest(br);
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(2023, 0,1);
+        double days = test.calculateOccupancy(cal);
+        assertEquals(31, days, 0.01f);
     }
 
     @Test
