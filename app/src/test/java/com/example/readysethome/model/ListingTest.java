@@ -23,7 +23,7 @@ public class ListingTest {
     final String[] photos = {"1.png", "2.png"};
     final Calendar calendar = new Calendar();
     final String cnumber = "1234567890123456";
-    final CreditCard creditcard = new CreditCard(cnumber);
+    final CreditCard creditcard = new CreditCard(cnumber, 1000000);
     final Date b_day = new Date();
     final EmailAddress emailAddress = new EmailAddress("johndoe@email.com");
     final Password password = new Password("password");
@@ -310,7 +310,7 @@ public class ListingTest {
     public void calculateOccupancy() {
         // Set up Tenant, Listing, BookingRequest, and Booking instances
         Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
-                new Password("password123"), new CreditCard("1234567890123456"), new Date());
+                new Password("password123"), new CreditCard("1234567890123456", 10000), new Date());
         final Date customDate6 = Date.from(Instant.parse("2023-01-09T00:00:00.000Z"));
         final Date customDate62 = Date.from(Instant.parse("2023-02-05T00:00:00.000Z"));
         BookingRequest br = tenant.makeBookingRequest(test, customDate6, customDate62);
@@ -325,7 +325,7 @@ public class ListingTest {
     public void calculateMonthlyIncome() {
         // Set up Tenant, Listing, BookingRequest, and Booking instances
         Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
-                new Password("password123"), new CreditCard("1234567890123456"), new Date());
+                new Password("password123"), new CreditCard("1234567890123456", 10000), new Date());
         final Date customDate6 = Date.from(Instant.parse("2023-01-09T00:00:00.000Z"));
         final Date customDate62 = Date.from(Instant.parse("2023-02-05T00:00:00.000Z"));
         BookingRequest br = tenant.makeBookingRequest(test, customDate6, customDate62);
@@ -333,7 +333,7 @@ public class ListingTest {
 
         // Set up Tenant, Listing, BookingRequest, and Booking instances
         Tenant tenant2 = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
-                new Password("password123"), new CreditCard("1234567890123456"), new Date());
+                new Password("password123"), new CreditCard("1234567890123456", 100000), new Date());
         final Date customDate1 = Date.from(Instant.parse("2024-01-06T00:00:00.000Z"));
         final Date customDate12 = Date.from(Instant.parse("2024-01-07T00:00:00.000Z"));
         BookingRequest br2 = tenant.makeBookingRequest(test, customDate1, customDate12);
@@ -380,7 +380,7 @@ public class ListingTest {
     public void calculateCancellationsPerMonth() {
         // Set up Tenant, Listing, BookingRequest, and Booking instances
         Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
-                new Password("password123"), new CreditCard("1234567890123456"), new Date());
+                new Password("password123"), new CreditCard("1234567890123456", 100000), new Date());
         final Date customDate6 = Date.from(Instant.parse("2023-01-09T00:00:00.000Z"));
         final Date customDate62 = Date.from(Instant.parse("2023-02-05T00:00:00.000Z"));
         BookingRequest br = tenant.makeBookingRequest(test, customDate6, customDate62);
@@ -388,7 +388,7 @@ public class ListingTest {
 
         // Set up Tenant, Listing, BookingRequest, and Booking instances
         Tenant tenant2 = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
-                new Password("password123"), new CreditCard("1234567890123456"), new Date());
+                new Password("password123"), new CreditCard("1234567890123456", 100000), new Date());
         final Date customDate1 = Date.from(Instant.parse("2024-01-06T00:00:00.000Z"));
         final Date customDate12 = Date.from(Instant.parse("2024-01-07T00:00:00.000Z"));
         BookingRequest br2 = tenant.makeBookingRequest(test, customDate1, customDate12);

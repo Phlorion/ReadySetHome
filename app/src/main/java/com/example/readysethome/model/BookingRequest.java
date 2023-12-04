@@ -26,11 +26,17 @@ class BookingRequest {
     }
 
     //Methodos gia thn ypovolh aithmatos
-    public void submit() {
+    public boolean submit() {
+        // check if tenant has sufficient amount in credit card
+        long days_of_stay = daysBetween(this.check_in, this.check_out);
+        double upfront = 0.2 * (days_of_stay * this.listing.getPrice());
+        if (tenant.getCreditCard().getBalance() < upfront) return false;
         this.booking_status = ReservationStatus.PENDING;
         Owner owner = listing.getOwner();
         notifyUser(owner, "Booking Request", "Booking request from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
         owner.addToPending(this);
+        tenant.getBookingRequests().add(this);
+        return true;
     }
 
     //Methodos gia akyrwsh aithmatos krathshs (dhladh prin ginei enoikiash, opou o enoikiasths den exei xrewthei tipota akoma)
@@ -43,27 +49,41 @@ class BookingRequest {
     }
 
     // Methodos gia confirmation aithmatos
-    public void confirm() {
-        this.booking_status = ReservationStatus.CONFIRMED;
+    public boolean confirm() {
         // upfront payment
         long days_of_stay = daysBetween(this.check_in, this.check_out);
         double upfront = 0.2 * (days_of_stay * this.listing.getPrice());
-        this.tenant.getCreditCard().makePayment(upfront);
-        // notify tenant
+        // if something goes wrong with the payment
+        if (!this.tenant.getCreditCard().makePayment(upfront)) {
+            notifyUser(this.tenant, "Your booking request has been declined", "Admin: Insufficient funds / negative amount");
+            notifyUser(this.listing.getOwner(), "This booking request has been declined", "Admin: Insufficient funds / negative amount");
+            return false;
+        }
+        // owner payment
+        Owner owner = this.listing.getOwner();
+        owner.getCreditCard().refund(upfront);
+        this.booking_status = ReservationStatus.CONFIRMED;
+        // notify tenant, owner
         notifyUser(this.tenant, "Booking Request Confirmed", "Your booking request " + this + " has been confirmed. An amount of " + upfront
-        + " has been removed from your credit card");
+                + " has been removed from your credit card");
+        notifyUser(owner, "Booking Request Confirmed", this.tenant + "'s booking request " + this + " has been confirmed. An amount of " + upfront
+                + " has been added to your credit card");
         // update apartment availability
         this.listing.getCalendar().setUnavailable(this.check_in, this.check_out);
         // create new booking
         Booking new_booking = new Booking(this);
+        this.tenant.addBooking(new_booking);
+        this.tenant.getBookingRequests().remove(this);
         // Used for the statistics
         listing.calculateMonthlyIncome(check_in);
+        return true;
     }
 
     // Methodos gia decline aithmatos krathshs apo ton idiokthth
     public void declineRequest() {
         this.booking_status = ReservationStatus.DECLINED;
         notifyUser(this.tenant, "Booking Request Declined", "Your booking request " + this + " has been declined.");
+        this.tenant.getBookingRequests().remove(this);
     }
 
     // Methodos gia thn enhmerwsh

@@ -52,7 +52,7 @@ class Booking {
 
             getListing().calculateCancellationsPerMonth(getCheckIn());
 
-
+            getTenant().getBookings().remove(this);
         }
     }
 

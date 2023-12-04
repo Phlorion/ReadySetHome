@@ -19,16 +19,20 @@ class Tenant extends User {
     public BookingRequest makeBookingRequest(Listing listing, Date checkIn, Date checkOut) {
         Date submit_date = new Date();
         BookingRequest booking_request = new BookingRequest(listing, submit_date, checkIn, checkOut, this);
-        booking_request.submit();
+        // if something went wrong during submit
+        if (!booking_request.submit()) {
+            cancelBookingRequest(booking_request);
+            return null;
+        }
 
         bookingRequests.add(booking_request);
 
         return booking_request;
     }
 
-        public void cancelBookingRequest (BookingRequest booking_request){
-            booking_request.cancelRequest();
-        }
+    public void cancelBookingRequest(BookingRequest booking_request) {
+        booking_request.cancelRequest();
+    }
 
 
     public void cancelBooking(Booking booking) {
@@ -50,11 +54,6 @@ class Tenant extends User {
         if (bookingToRemove != null) {
             bookings.remove(bookingToRemove);
         }
-    }
-
-
-    public ArrayList<Booking> GetBookings(){
-        return this.bookings;
     }
 
     public void addBooking(Booking booking) {

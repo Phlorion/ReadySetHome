@@ -22,7 +22,7 @@ public class BookingRequestTest {
         tenant = new Tenant("John", "Papadopoulos", new EmailAddress("johnpapadop@gmail.com"),
                 new Password("j0001"), new CreditCard("1600150014001300", 1000), new Date());
         owner = new Owner("George", "Avrabos", new EmailAddress("georgeavr@gmail.com"),
-                new Password("qwerty1234"), new CreditCard("1234123412341234"), new Date());
+                new Password("qwerty1234"), new CreditCard("1234123412341234", 0), new Date());
         listing = owner.addListing(new Apartment(), "Apartment", "...", 34, false, new String[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.WIFI)});
 
         Calendar check_in_c = Calendar.getInstance();
@@ -44,6 +44,14 @@ public class BookingRequestTest {
     }
 
     @Test
+    public void submitWhenInsufficientFunds() {
+        Tenant tenant1 = new Tenant("John", "Papadopoulos", new EmailAddress("johnpapadop@gmail.com"),
+                new Password("j0001"), new CreditCard("1600150014001300", -1), new Date());
+        BookingRequest newBR = new BookingRequest(listing, new Date(), new Date(), new Date(), tenant1);
+        assertFalse(newBR.submit());
+    }
+
+    @Test
     public void cancelRequest() {
         tenant.cancelBookingRequest(b_r);
         Assert.assertEquals(0, owner.getBookingRequests().size());
@@ -52,6 +60,7 @@ public class BookingRequestTest {
     @Test
     public void confirm() {
         double tenant_balance = tenant.getCreditCard().getBalance();
+        double owner_balance = owner.getCreditCard().getBalance();
 
         // the booking request is removed from owners pending
         owner.confirmBookingRequest(b_r);
@@ -69,6 +78,15 @@ public class BookingRequestTest {
         // upfront payment is correct
         double upfront = 0.2 * (12 * listing.getPrice());
         Assert.assertEquals(tenant_balance - upfront, tenant.getCreditCard().getBalance(), 0.001);
+        Assert.assertEquals(owner_balance + upfront, owner.getCreditCard().getBalance(), 0.001);
+    }
+
+    @Test
+    public void confirmWhenInsufficientFunds() {
+        Tenant tenant1 = new Tenant("John", "Papadopoulos", new EmailAddress("johnpapadop@gmail.com"),
+                new Password("j0001"), new CreditCard("1600150014001300", -1), new Date());
+        BookingRequest newBR = new BookingRequest(listing, new Date(), new Date(), new Date(), tenant1);
+        assertFalse(newBR.confirm());
     }
 
     @Test
@@ -115,6 +133,7 @@ public class BookingRequestTest {
         Calendar check_out_c = Calendar.getInstance();
         check_out_c.set(2023, 11, 13);
         Date check_out = check_out_c.getTime();
+
         Assert.assertEquals(check_in, b_r.getCheck_in());
         Assert.assertEquals(check_out, b_r.getCheck_out());
 
@@ -122,10 +141,12 @@ public class BookingRequestTest {
         other_check_in_c.set(2023, 10, 23);
         Date other_check_in = other_check_in_c.getTime();
         b_r.setCheck_in(other_check_in);
+
         Calendar other_check_out_c = Calendar.getInstance();
         other_check_out_c.set(2023, 11, 5);
         Date other_check_out = other_check_out_c.getTime();
         b_r.setCheck_out(other_check_out);
+
         Assert.assertEquals(other_check_in, b_r.getCheck_in());
         Assert.assertEquals(other_check_out, b_r.getCheck_out());
     }
