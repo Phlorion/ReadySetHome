@@ -115,6 +115,7 @@ public class BookingRequestTest {
         Calendar check_out_c = Calendar.getInstance();
         check_out_c.set(2023, 11, 13);
         Date check_out = check_out_c.getTime();
+
         Assert.assertEquals(check_in, b_r.getCheck_in());
         Assert.assertEquals(check_out, b_r.getCheck_out());
 
@@ -122,10 +123,12 @@ public class BookingRequestTest {
         other_check_in_c.set(2023, 10, 23);
         Date other_check_in = other_check_in_c.getTime();
         b_r.setCheck_in(other_check_in);
+
         Calendar other_check_out_c = Calendar.getInstance();
         other_check_out_c.set(2023, 11, 5);
         Date other_check_out = other_check_out_c.getTime();
         b_r.setCheck_out(other_check_out);
+
         Assert.assertEquals(other_check_in, b_r.getCheck_in());
         Assert.assertEquals(other_check_out, b_r.getCheck_out());
     }

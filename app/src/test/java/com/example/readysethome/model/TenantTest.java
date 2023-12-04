@@ -61,7 +61,7 @@ public class TenantTest {
 
     @Test
     public void deleteBooking() {
-        assertTrue(tenant.GetBookings().contains(booking));
+        assertTrue(tenant.getBookings().contains(booking));
         tenant.deleteBookingById(booking.getId());
         assertFalse(tenant.getBookings().contains(booking));
     }

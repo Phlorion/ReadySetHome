@@ -56,10 +56,6 @@ class Tenant extends User {
     }
 
 
-    public ArrayList<Booking> GetBookings(){
-        return this.bookings;
-    }
-
     public void addBooking(Booking booking) {
         this.bookings.add(booking);
     }
