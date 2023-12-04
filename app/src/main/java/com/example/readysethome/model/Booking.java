@@ -50,6 +50,7 @@ class Booking {
             notifyUser(bookingRequest.getTenant(), "Booking Canceled", "Your booking has been canceled successfully. A refund of $" + refundAmount + " has been processed.");
             bookingRequest.getListing().getCalendar().setAvailable(bookingRequest.getCheck_in(), bookingRequest.getCheck_out());
 
+            getListing().calculateCancellationsPerMonth(getCheckIn());
 
 
         }

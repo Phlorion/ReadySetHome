@@ -21,9 +21,6 @@ class Tenant extends User {
         BookingRequest booking_request = new BookingRequest(listing, submit_date, checkIn, checkOut, this);
         booking_request.submit();
 
-       // if (bookingRequests == null) {
-       //     bookingRequests = new ArrayList<>();
-       // }
         bookingRequests.add(booking_request);
 
         return booking_request;
@@ -74,6 +71,15 @@ class Tenant extends User {
 
     public ArrayList<BookingRequest> getBookingRequests() {
         return this.bookingRequests;
+    }
+
+    public Booking getBookingById(int id) {
+        for (Booking booking : bookings) {
+            if (booking.getId() == id) {
+                return booking;
+            }
+        }
+        return null;
     }
 
 }

@@ -33,6 +33,10 @@ public class Owner extends User {
         removeFromPending(booking_request);
     }
 
+    public double checkOccupancy(Listing listing, java.util.Calendar calendar) {
+        return listing.calculateOccupancy(calendar);
+    }
+
 
     // Owner add a new Listing with services for an apartment
     public Listing addListing(Apartment ap, String title, String desc, double price, boolean promoted, String[] photos, ListingsServices[] listingsServices) {

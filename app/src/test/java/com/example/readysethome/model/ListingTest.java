@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class ListingTest {
     final Address address = new Address("", "", "");
@@ -21,7 +22,7 @@ public class ListingTest {
     final Apartment apartment = new Apartment(address, floor, size, wifi, balcony, living_room, bathrooms, bedrooms, kitchens);
     final String[] photos = {"1.png", "2.png"};
     final Calendar calendar = new Calendar();
-    final long cnumber = 1234567890123456L;
+    final String cnumber = "1234567890123456";
     final CreditCard creditcard = new CreditCard(cnumber);
     final Date b_day = new Date();
     final EmailAddress emailAddress = new EmailAddress("johndoe@email.com");
@@ -136,7 +137,7 @@ public class ListingTest {
     public void setOwner() {
         final EmailAddress emailAddress2 = new EmailAddress("jackjones@email.com");
         final Password password2 = new Password("jackjones");
-        final long cnumber2 = 1234561234567890L;
+        final String cnumber2 = "1234561234567890";
         final CreditCard creditcard2 = new CreditCard(cnumber2);
         final Date b_day2 = new Date();
         Owner owner = new Owner("John", "Doe", emailAddress2, password2, creditcard2, b_day2);
@@ -266,7 +267,7 @@ public class ListingTest {
 
         final String[] photos = {"1.png", "2.png"};
         final Calendar calendar = new Calendar();
-        final long cnumber = 1234567890123456L;
+        final String cnumber = "1234567890123456";
         final CreditCard creditcard = new CreditCard(cnumber);
         final Date b_day = new Date();
         final EmailAddress emailAddress = new EmailAddress("johndoe@email.com");
@@ -303,5 +304,75 @@ public class ListingTest {
     @Test
     public void getApartment() {
         assertEquals(apartment, test.getApartment());
+    }
+
+    @Test
+    public void calculateOccupancy() {
+        // Set up Tenant, Listing, BookingRequest, and Booking instances
+        Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
+                new Password("password123"), new CreditCard("1234567890123456"), new Date());
+        final Date customDate6 = Date.from(Instant.parse("2023-01-09T00:00:00.000Z"));
+        final Date customDate62 = Date.from(Instant.parse("2023-02-05T00:00:00.000Z"));
+        BookingRequest br = tenant.makeBookingRequest(test, customDate6, customDate62);
+        owner.confirmBookingRequest(br);
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(2023, 0,1);
+        double days = test.calculateOccupancy(cal);
+        assertEquals(23, days, 0.01f);
+    }
+
+    @Test
+    public void calculateMonthlyIncome() {
+        // Set up Tenant, Listing, BookingRequest, and Booking instances
+        Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
+                new Password("password123"), new CreditCard("1234567890123456"), new Date());
+        final Date customDate6 = Date.from(Instant.parse("2023-01-09T00:00:00.000Z"));
+        final Date customDate62 = Date.from(Instant.parse("2023-02-05T00:00:00.000Z"));
+        BookingRequest br = tenant.makeBookingRequest(test, customDate6, customDate62);
+        owner.confirmBookingRequest(br);
+
+        // Set up Tenant, Listing, BookingRequest, and Booking instances
+        Tenant tenant2 = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
+                new Password("password123"), new CreditCard("1234567890123456"), new Date());
+        final Date customDate1 = Date.from(Instant.parse("2024-01-06T00:00:00.000Z"));
+        final Date customDate12 = Date.from(Instant.parse("2024-01-07T00:00:00.000Z"));
+        BookingRequest br2 = tenant.makeBookingRequest(test, customDate1, customDate12);
+        owner.confirmBookingRequest(br2);
+
+
+
+        HashMap<String, Double> monthlyIncome2 = new HashMap<>();
+        monthlyIncome2.put("2023-00", test.getPrice());
+        monthlyIncome2.put("2024-00", test.getPrice());
+
+        assertEquals(monthlyIncome2, test.getMonthlyIncome());
+    }
+
+    @Test
+    public void calculateCancellationsPerMonth() {
+        // Set up Tenant, Listing, BookingRequest, and Booking instances
+        Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
+                new Password("password123"), new CreditCard("1234567890123456"), new Date());
+        final Date customDate6 = Date.from(Instant.parse("2023-01-09T00:00:00.000Z"));
+        final Date customDate62 = Date.from(Instant.parse("2023-02-05T00:00:00.000Z"));
+        BookingRequest br = tenant.makeBookingRequest(test, customDate6, customDate62);
+        owner.confirmBookingRequest(br);
+
+        // Set up Tenant, Listing, BookingRequest, and Booking instances
+        Tenant tenant2 = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
+                new Password("password123"), new CreditCard("1234567890123456"), new Date());
+        final Date customDate1 = Date.from(Instant.parse("2024-01-06T00:00:00.000Z"));
+        final Date customDate12 = Date.from(Instant.parse("2024-01-07T00:00:00.000Z"));
+        BookingRequest br2 = tenant.makeBookingRequest(test, customDate1, customDate12);
+        owner.confirmBookingRequest(br2);
+
+        Booking idBr = tenant.getBookingById(br.getBooking_id());
+        Booking idBr2 =  tenant.getBookingById(br2.getBooking_id());
+
+        idBr.cancel();
+
+
+
+        assertEquals(1, tenant.getBookings().size());
     }
 }

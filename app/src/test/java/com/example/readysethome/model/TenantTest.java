@@ -22,7 +22,7 @@ public class TenantTest {
                 new Password("password123"), new CreditCard("1234567890123456"), new Date());
         listing = new Listing("Cozy Apartment", "A nice place to stay", 50.0, false, 4.5, new String[]{"photo1", "photo2"},
                 new Calendar(), new Owner("Owner", "Smith", new EmailAddress("owner@example.com"),
-                new Password("ownerPass"), new CreditCard("9876543210987654"), new Date()));
+                new Password("ownerPass"), new CreditCard("9876543210987654"), new Date()), new Apartment());
         Date checkIn = new Date();
         Date checkOut = new Date(checkIn.getTime() + 86400000);  // 1 day later
         bookingRequest = new BookingRequest(listing, new Date(), checkIn, checkOut, tenant);

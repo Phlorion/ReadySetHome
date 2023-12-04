@@ -4,6 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.YearMonth;
@@ -28,8 +30,8 @@ public class Listing {
     private double updated_Price;
     private ArrayList<ChargingPolicy> chargingPolicies = new ArrayList<>();
     private ArrayList<ListingsServices> services = new ArrayList<>();
-    private HashMap<Date, Double> monthlyIncome = new HashMap<>();
-    private HashMap<Date, Integer> monthlyCancellations = new HashMap<>();
+    private HashMap<String, Double> monthlyIncome = new HashMap<>();
+    private HashMap<String, Integer> monthlyCancellations = new HashMap<>();
 
     public Listing(String title, String description, double price, boolean promoted, double rating, String[] photos, Calendar calendar, Owner owner, Apartment apartment) {
         last_listing_ID++;
@@ -60,6 +62,11 @@ public class Listing {
         this.updated_Price = listing.updated_Price;
         this.chargingPolicies = listing.chargingPolicies;
         this.services = listing.services;
+    }
+
+
+    public Listing() {
+
     }
 
     public Apartment getApartment() {
@@ -174,8 +181,24 @@ public class Listing {
         this.services = services;
     }
 
-    public HashMap<Date, Double> getMonthlyIncome() {
+    public HashMap<String, Double> getMonthlyIncome() {
         return monthlyIncome;
+    }
+
+    public void setMonthlyIncome(HashMap<String, Double> monthlyIncome) {
+        this.monthlyIncome = monthlyIncome;
+    }
+
+    public HashMap<String, Integer> getMonthlyCancellations() {
+        return monthlyCancellations;
+    }
+
+    public void setMonthlyCancellations(HashMap<String, Integer> monthlyCancellations) {
+        this.monthlyCancellations = monthlyCancellations;
+    }
+
+    public void addNewChargingPolicies(ChargingPolicy cPolicy) {
+        chargingPolicies.add(cPolicy);
     }
 
     public void updatePriceDueToPolicy() {
@@ -253,28 +276,32 @@ public class Listing {
                 bookedDays += cal2.get(java.util.Calendar.DAY_OF_MONTH);
             }
         }
-        return bookedDays;
+        return bookedDays + 1;
     }
 
 
     public void calculateMonthlyIncome(Date date) {
-        if (!monthlyIncome.containsKey(date)) {
-            monthlyIncome.put(date, getPrice());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm");
+        String yearmonth = dateFormat.format(date);
+        if (!monthlyIncome.containsKey(yearmonth)) {
+            monthlyIncome.put(yearmonth, getPrice());
         }
         else {
-            double previousPrice = monthlyIncome.get(date);
-            monthlyIncome.replace(date, previousPrice + getPrice());
+            double previousPrice = monthlyIncome.get(yearmonth);
+            monthlyIncome.replace(yearmonth, previousPrice + getPrice());
         }
     }
 
 
     public void calculateCancellationsPerMonth(Date date) {
-        if (!monthlyCancellations.containsKey(date)) {
-            monthlyCancellations.put(date, 1);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm");
+        String yearmonth = dateFormat.format(date);
+        if (!monthlyCancellations.containsKey(yearmonth)) {
+            monthlyCancellations.put(yearmonth, 1);
         }
         else {
-            int previousCancellations = monthlyCancellations.get(date);
-            monthlyCancellations.replace(date, previousCancellations + 1);
+            int previousCancellations = monthlyCancellations.get(yearmonth);
+            monthlyCancellations.replace(yearmonth, previousCancellations + 1);
         }
     }
 }
