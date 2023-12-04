@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.1"><zoom_level>9</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>9</x><y>9</y><w>468</w><h>153</h></coordinates><panel_attributes>
+<diagram program="umletino" version="15.1"><zoom_level>9</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>0</x><y>36</y><w>468</w><h>153</h></coordinates><panel_attributes>
 *Tenant*
 
 --
@@ -10,7 +10,7 @@
 + cancelBooking(booking : Booking) : void
 + getBookings() : ArrayList&lt;Booking&gt;
 + setBooking(bookingRequests : ArrayList&lt;Booking&gt;) : void
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>9</x><y>180</y><w>603</w><h>180</h></coordinates><panel_attributes>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>207</y><w>603</w><h>180</h></coordinates><panel_attributes>
 *Owner*
 
 --
@@ -23,7 +23,7 @@
 + declineBookingRequest(booking_request : BookingRequest) : void
 + addListing(ap : Apartement, title : String, desc : String, price : double, promoted : boolean, photos : String[]) : Listing
 + getBookingRequests() : ArrayList&lt;BookingRequest&gt;
-+ setBookingRequests(bookingRequests : ArrayList&lt;BookingRequest&gt;) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>702</x><y>9</y><w>333</w><h>396</h></coordinates><panel_attributes>
++ setBookingRequests(bookingRequests : ArrayList&lt;BookingRequest&gt;) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>18</y><w>333</w><h>396</h></coordinates><panel_attributes>
 *User*
 
 --
@@ -52,7 +52,7 @@ _- last_owner_ID : String_
 + setCreditCard(creditCard : CreditCard) : void
 + getAcc_bday() : Date
 + setAcc_bday(acc_bday : Date) : void
-+ getAllDetails() : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>9</x><y>387</y><w>324</w><h>459</h></coordinates><panel_attributes>
++ getAllDetails() : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>414</y><w>324</w><h>459</h></coordinates><panel_attributes>
 *BookingRequest*
 
 --
@@ -85,11 +85,11 @@ _- lastBookingId : int_
 + getListing() : Listing
 + setListing(listing : Listing) : void
 + getTenant() : Tenant
-+ setTenant(tenant : Tenant) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>351</x><y>387</y><w>261</w><h>414</h></coordinates><panel_attributes>
++ setTenant(tenant : Tenant) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>414</y><w>261</w><h>414</h></coordinates><panel_attributes>
 *Listing*
 
 --
-_- last_aprartement_ID : int_
+_- last_apartement_ID : int_
 - apartment_id : int
 - title : String
 - description : String
@@ -99,4 +99,47 @@ _- last_aprartement_ID : int_
 - photos : String[]
 - calendar : Calendar
 - owner : Owner
-- chargingPolicies : ArrayList&lt;ChargingPolicy&gt;</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+- chargingPolicies : ArrayList&lt;ChargingPolicy&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>666</x><y>441</y><w>666</w><h>234</h></coordinates><panel_attributes> Tenant  
+--
+-bookingRequests: ArrayList&lt;BookingRequest&gt; 
+ -bookings: ArrayList&lt;Booking&gt;
+--
++Tenant(firstName: String, lastName: String, email: EmailAddress, password: Password, creditCard: CreditCard, acc_bday: Date) 
++Tenant(f_n: String, l_n: String) 
++makeBookingRequest(listing: Listing, checkIn: Date, checkOut: Date): BookingRequest 
++cancelBookingRequest(booking_request: BookingRequest): void 
++cancelBooking(booking: Booking): void 
++deleteBookingById(bookingId: int): void 
++GetBookings(): ArrayList&lt;Booking&gt; 
++addBooking(booking: Booking): void 
++getBookings(): ArrayList&lt;Booking&gt; 
+ +addBookingRequest(bookingRequest: BookingRequest): void 
++getBookingRequests(): ArrayList&lt;BookingRequest
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1008</x><y>0</y><w>360</w><h>414</h></coordinates><panel_attributes> Booking  
+--
+- isCancelled: boolean                 
+- bookingRequest: BookingRequest       
+- apartmentRating: int 
+--
++ Booking(bookingRequest: BookingRequest) 
++ isActive(): boolean                   
++ rateApartment(rating: int): void      
++ isStayCompleted(): boolean            
++ getApartmentRating(): int             
++ isCancelled(): boolean                
++ cancel(): void                        
++ calculateRefundAmount(): double      
++ getBookingStatus(): ReservationStatus 
++ notifyUser(user: User, title: String, desc: String): void 
++ daysBetween(start: Date, end: Date): long 
++ daysUntilCheckIn(currentDate: Date): long 
++ getId(): int                          
++ getCheckIn(): Date                    
++ getCheckOut(): Date                   
++ getTenant(): Tenant                   
++ getListing(): Listing                 
++ setId(id: int): void                  
++ setCheckIn(checkIn: Date): void       
++ setCheckOut(checkOut: Date): void     
++ setTenant(tenant: Tenant): void       
++ setListing(listing: Listing): void</panel_attributes><additional_attributes></additional_attributes></element></diagram>
