@@ -6,29 +6,17 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 class Booking {
-    private int id;
-    private Date checkIn;
-    private Date checkOut;
-    private Tenant tenant;
-    private Listing listing;
-
-
-    private ReservationStatus booking_status;
     private boolean isCancelled = false;
-
+    private BookingRequest bookingRequest;
     int apartmentRating=-1;
-    public Booking(int id, Date checkIn, Date checkOut, Tenant tenant, Listing listing) {
-        this.id = id;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
-        this.tenant = tenant;
-        this.listing = listing;
+    public Booking(BookingRequest bookingRequest) {
+        this.bookingRequest=bookingRequest;
     }
     //methodos elegxou na yparxei energh krathsh gia mia xronikh periodo
 
     public boolean isActive() {
         Date currentDate = new Date(); //today's date
-        return currentDate.after(checkIn) && currentDate.before(checkOut);
+        return currentDate.after(bookingRequest.getCheck_in()) && currentDate.before(bookingRequest.getCheck_out());
     }
 
     public void rateApartment(int rating) {
@@ -43,7 +31,7 @@ class Booking {
     // Method to check if stay is completed
     private boolean isStayCompleted() {
         Date currentDate = new Date();
-        return currentDate.after(checkOut);
+        return currentDate.after(bookingRequest.getCheck_out());
     }
 
     public int getApartmentRating() {
@@ -56,27 +44,27 @@ class Booking {
     public void cancel() {
         if (!isCancelled) {
             isCancelled = true;
-            this.booking_status = ReservationStatus.CANCELLED_BY_TENANT;
-
-
+            bookingRequest.setBooking_status( ReservationStatus.CANCELLED_BY_TENANT);
             double refundAmount = calculateRefundAmount();
-            this.tenant.getCreditCard().refund(refundAmount);
-            notifyUser(this.tenant, "Booking Canceled", "Your booking has been canceled successfully. A refund of $" + refundAmount + " has been processed.");
+            bookingRequest.getTenant().getCreditCard().refund(refundAmount);
+            notifyUser(bookingRequest.getTenant(), "Booking Canceled", "Your booking has been canceled successfully. A refund of $" + refundAmount + " has been processed.");
+            bookingRequest.getListing().getCalendar().setAvailable(bookingRequest.getCheck_in(), bookingRequest.getCheck_out());
 
-            this.listing.getCalendar().setAvailable(this.checkIn, this.checkOut);
+
+
         }
     }
 
     // Calculates the refund amount
     private double calculateRefundAmount() {
-        long days_of_stay = daysBetween(this.checkIn, this.checkOut);
-        double totalCost =(days_of_stay * this.listing.getPrice());
-        double refundPercentage = (daysUntilCheckIn() > 30) ? 0.95 : 1.0;
+        long days_of_stay = daysBetween(bookingRequest.getCheck_in(), bookingRequest.getCheck_out());
+        double totalCost =(days_of_stay * bookingRequest.getListing().getPrice());
+        double refundPercentage = (daysUntilCheckIn(new Date()) <= 30) ? 0.95 : 1.0;
         return totalCost * refundPercentage;
     }
 
     public ReservationStatus getBooking_status() {
-        return booking_status;
+        return bookingRequest.getBooking_status();
     }
     // Methodos gia thn enhmerwsh
     private void notifyUser(User user, String Title, String Desc) {
@@ -84,57 +72,55 @@ class Booking {
     }
 
     // count the days between two given dates
-    public long daysBetween(Date start, Date end) {
+    private long daysBetween(Date start, Date end) {
         long diff = end.getTime() - start.getTime();
         diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-        // System.out.println ("Days: " + diff);
         return diff;
     }
 
-    public long daysUntilCheckIn() {
-        Date currentDate = new Date();
-        long daysDifference = daysBetween(currentDate, this.checkIn);
+    public long daysUntilCheckIn(Date currentDate) {
+        long daysDifference = daysBetween(currentDate, bookingRequest.getCheck_in());
         return daysDifference;
     }
-// Setters kai getters
+
 
     public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        return bookingRequest.getBooking_id();
     }
 
     public Date getCheckIn() {
-        return checkIn;
-    }
-
-    public void setCheckIn(Date checkIn) {
-        this.checkIn = checkIn;
+        return bookingRequest.getCheck_in();
     }
 
     public Date getCheckOut() {
-        return checkOut;
+        return bookingRequest.getCheck_out();
     }
 
-    public void setCheckOut(Date checkOut) {
-        this.checkOut = checkOut;
-    }
-
-    public User getTenant() {
-        return this.tenant;
-    }
-
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public Tenant getTenant() {
+        return bookingRequest.getTenant();
     }
 
     public Listing getListing() {
-        return this.listing;
+        return bookingRequest.getListing();
+    }
+
+    public void setId(int id) {
+        bookingRequest.setBooking_id(id);
+    }
+
+    public void setCheckIn(Date checkIn) {
+        bookingRequest.setCheck_in(checkIn);
+    }
+
+    public void setCheckOut(Date checkOut) {
+        bookingRequest.setCheck_out(checkOut);
+    }
+
+    public void setTenant(Tenant tenant) {
+        bookingRequest.setTenant(tenant);
     }
 
     public void setListing(Listing listing) {
-        this.listing = listing;
+        bookingRequest.setListing(listing);
     }
 }

@@ -2,7 +2,6 @@ package com.example.readysethome.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 class Tenant extends User {
     private ArrayList<BookingRequest> bookingRequests;
     private ArrayList<Booking> bookings;
@@ -22,10 +21,9 @@ class Tenant extends User {
         BookingRequest booking_request = new BookingRequest(listing, submit_date, checkIn, checkOut, this);
         booking_request.submit();
 
-        // Add the booking request to the list
-        if (bookingRequests == null) {
-            bookingRequests = new ArrayList<>();
-        }
+       // if (bookingRequests == null) {
+       //     bookingRequests = new ArrayList<>();
+       // }
         bookingRequests.add(booking_request);
 
         return booking_request;
@@ -39,9 +37,8 @@ class Tenant extends User {
     public void cancelBooking(Booking booking) {
         if (!booking.isActive()) {
             booking.cancel();
+            deleteBookingById(booking.getId());
             System.out.println("Booking canceled successfully.");
-        } else {
-            System.out.println("Cant cancel booking.");
         }
     }
 
@@ -52,9 +49,7 @@ class Tenant extends User {
             if (booking.getId() == bookingId) {
                 bookingToRemove = booking;
                 break;
-            }
-        }
-
+            }}
         if (bookingToRemove != null) {
             bookings.remove(bookingToRemove);
         }

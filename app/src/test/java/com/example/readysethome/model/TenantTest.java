@@ -26,7 +26,7 @@ public class TenantTest {
         Date checkIn = new Date();
         Date checkOut = new Date(checkIn.getTime() + 86400000);  // 1 day later
         bookingRequest = new BookingRequest(listing, new Date(), checkIn, checkOut, tenant);
-        booking = new Booking(1, checkIn, checkOut, tenant, listing);
+        booking = new Booking(bookingRequest);
         tenant.addBookingRequest(bookingRequest);
         tenant.addBooking(booking);
     }
@@ -47,17 +47,13 @@ public class TenantTest {
 
     @Test
     public void cancelBookingRequest() {
-        // Test the cancelBookingRequest method
+
         assertTrue(tenant.getBookingRequests().contains(bookingRequest));
-
-        // Call the cancelBookingRequest method
         tenant.cancelBookingRequest(bookingRequest);
-
         assertFalse(tenant.getBookingRequests().contains(bookingRequest));
     }
     @Test
     public void cancelBooking() {
-        // Test the cancelBooking method
         assertTrue(tenant.getBookings().contains(booking));
         tenant.cancelBooking(booking);
         assertFalse(tenant.getBookings().contains(booking));
@@ -65,7 +61,6 @@ public class TenantTest {
 
     @Test
     public void deleteBooking() {
-        // Test the deleteBooking method
         assertTrue(tenant.GetBookings().contains(booking));
         tenant.deleteBookingById(booking.getId());
         assertFalse(tenant.getBookings().contains(booking));
@@ -73,16 +68,15 @@ public class TenantTest {
 
     @Test
     public void addBooking() {
-        // Test the addBooking method
-        Booking newBooking = new Booking(2, new Date(), new Date(), tenant, listing);
+
+        Booking newBooking = new Booking(new BookingRequest(listing, new Date(), new Date(), new Date(), tenant));
         tenant.addBooking(newBooking);
         assertTrue(tenant.getBookings().contains(newBooking));
     }
 
     @Test
     public void getBookings() {
-        // Test the getBookings method
-        Booking newBooking = new Booking(2, new Date(), new Date(), tenant, listing);
+        Booking newBooking = new Booking(new BookingRequest(listing, new Date(), new Date(), new Date(), tenant));
         tenant.addBooking(newBooking);
         ArrayList<Booking> bookings = tenant.getBookings();
         assertNotNull(bookings);

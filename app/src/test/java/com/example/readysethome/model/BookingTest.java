@@ -37,7 +37,8 @@ public class BookingTest {
         checkOutCalendar.set(2023, 11, 13);
         Date checkOut = checkOutCalendar.getTime();
 
-        booking = new Booking(1, checkIn, checkOut, tenant, listing);
+
+        booking = new Booking(new BookingRequest(listing,new Date(),checkIn,checkOut,tenant));
     }
 
 
@@ -49,7 +50,7 @@ public class BookingTest {
 
     @Test
     public void getId() {
-        assertEquals(1, booking.getId());
+        assertEquals(11, booking.getId());
     }
 
     @Test
@@ -133,7 +134,7 @@ public class BookingTest {
         Date completedStayCheckOut = checkOutCalendar.getTime();
 
         //Booking instance with completed stay
-        Booking bookingWithCompletedStay = new Booking(2, currentDate, completedStayCheckOut, tenant, listing);
+        Booking bookingWithCompletedStay = new Booking(new BookingRequest(listing,new Date(), currentDate, completedStayCheckOut, tenant));
 
         bookingWithCompletedStay.rateApartment(4);
 
@@ -149,7 +150,7 @@ public class BookingTest {
         Date notCompletedStayCheckOut = checkOutCalendar.getTime();
 
         // Booking instance with not completed stay
-        Booking bookingWithNotCompletedStay = new Booking(3, currentDate, notCompletedStayCheckOut, tenant, listing);
+        Booking bookingWithNotCompletedStay = new Booking(new BookingRequest(listing, new Date(), new Date(), new Date(), tenant));
 
         bookingWithNotCompletedStay.rateApartment(4);
 
@@ -167,13 +168,13 @@ public class BookingTest {
     @Test
     public void cancelBooking() {
         // 1. booking that has not been canceled before
-        Booking bookingToCancel = new Booking(1, new Date(), new Date(), tenant, listing);
+        Booking bookingToCancel = new Booking(new BookingRequest(listing, new Date(), new Date(), new Date(), tenant));
         assertFalse(bookingToCancel.isCancelled());
         bookingToCancel.cancel();
         assertTrue(bookingToCancel.isCancelled());
         assertEquals(ReservationStatus.CANCELLED_BY_TENANT, bookingToCancel.getBooking_status());
         // 2.cancel a booking that has already been canceled
-        Booking alreadyCancelledBooking = new Booking(2, new Date(), new Date(), tenant, listing);
+        Booking alreadyCancelledBooking = new Booking(new BookingRequest(listing, new Date(), new Date(), new Date(), tenant));
         alreadyCancelledBooking.cancel();
         //try to cancel again
         alreadyCancelledBooking.cancel();
@@ -186,29 +187,12 @@ public class BookingTest {
     }
 
     @Test
-    public void daysBetween() {
-
-        Calendar checkInCalendar = Calendar.getInstance();
-        checkInCalendar.set(2023, Calendar.NOVEMBER, 1);
-        Date checkIn = checkInCalendar.getTime();
-
-        Calendar checkOutCalendar = Calendar.getInstance();
-        checkOutCalendar.set(2023, Calendar.NOVEMBER, 13);
-        Date checkOut = checkOutCalendar.getTime();
-
-        long daysDifference = booking.daysBetween(checkIn, checkOut);
-
-        assertEquals(12, daysDifference);
-    }
-
-
-    @Test
     public void daysUntilCheckIn() {
         Calendar todayCalendar = Calendar.getInstance();
         todayCalendar.set(2023, 10, 1);
         Date currentDate = todayCalendar.getTime();
 
-        long daysUntilFutureCheckIn = booking.daysUntilCheckIn();
+        long daysUntilFutureCheckIn = booking.daysUntilCheckIn(currentDate);
 
         assertEquals(30, daysUntilFutureCheckIn);
     }
