@@ -66,9 +66,11 @@ public class TenantTest {
     }
     @Test
     public void cancelBooking() {
-        assertTrue(tenant.getBookings().contains(booking));
-        tenant.cancelBooking(booking);
-        assertFalse(tenant.getBookings().contains(booking));
+        Booking newBooking = new Booking(new BookingRequest(listing, new Date(), new Date(), new Date(), tenant));
+        tenant.addBooking(newBooking);
+        assertTrue(tenant.getBookings().contains(newBooking));
+        tenant.cancelBooking(newBooking);
+        assertFalse(tenant.getBookings().contains(newBooking));
     }
 
     @Test
@@ -79,7 +81,6 @@ public class TenantTest {
 
     @Test
     public void addBooking() {
-
         Booking newBooking = new Booking(new BookingRequest(listing, new Date(), new Date(), new Date(), tenant));
         tenant.addBooking(newBooking);
         assertTrue(tenant.getBookings().contains(newBooking));
