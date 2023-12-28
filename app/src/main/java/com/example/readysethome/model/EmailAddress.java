@@ -1,5 +1,7 @@
 package com.example.readysethome.model;
 
+import java.util.Objects;
+
 public class EmailAddress {
 
     private String address;
@@ -19,4 +21,17 @@ public class EmailAddress {
     }
 
     public int send(EmailAddress to, String Title, String Details) {return 0;}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EmailAddress)) return false;
+        EmailAddress that = (EmailAddress) o;
+        return address.equals(that.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(address);
+    }
 }

@@ -47,7 +47,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
      * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα.
      */
     public void login() {
-        Intent intent = new Intent(this, UserLoginActivity.class);
+        Intent intent = new Intent(HomePageActivity.this, UserLoginActivity.class);
         startActivity(intent);
     }
 
@@ -56,7 +56,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
      * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα.
      */
     public void signup() {
-        Intent intent = new Intent(this, UserSignUpActivity.class);
+        Intent intent = new Intent(HomePageActivity.this, UserSignUpActivity.class);
         startActivity(intent);
     }
 

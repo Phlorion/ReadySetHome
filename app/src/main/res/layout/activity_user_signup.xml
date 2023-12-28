@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/accTypeSpinner"
+        android:id="@+id/signup_accTypeSpinner"
         android:layout_width="220dp"
         android:layout_height="48dp"
         android:layout_marginStart="48dp"
@@ -35,8 +35,8 @@
         android:ems="10"
         android:hint="FirstName"
         android:inputType="text"
-        app:layout_constraintStart_toStartOf="@+id/accTypeSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/accTypeSpinner" />
+        app:layout_constraintStart_toStartOf="@+id/signup_accTypeSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/signup_accTypeSpinner" />
 
     <EditText
         android:id="@+id/signup_lname"

@@ -10,41 +10,23 @@ public interface UserSignUpView {
 
     String getFirstName();
     String getLastName();
-    EmailAddress getEmail();
-    Password getPass();
-    CreditCard getCreditCard();
-    Date getAccBirthday();
-    String getAttachedID();
+    String getEmail();
+    String getPass();
+    String getCreditCard();
+    int getAccountType();
 
     /**
-     * Θέτει το πρώτο όνομα του user.
-     * @param value Το πρώτο όνομα του user
+     * Το μήνυμα που εμφανίζεται όταν τελειώνει
+     * επιτυχώς ένα activity.
+     * @param message Το μήνυμα που θα εμφανίσει
      */
-    void setFirstName(String value);
+    void successfullyFinishActivity(String message);
 
     /**
-     * Θέτει το επώνυμο του user.
-     * @param value Το επώνυμο του user
+     * Το μήνυμα που εμφανίζεται σε
+     * περίπτωση error.
+     * @param title O τίτλος του μηνύματος
+     * @param message Το περιεχόμενο του μηνύματος
      */
-    void setLastName(String value);
-
-    /**
-     * Θέτει το email του user.
-     * @param value Το email (σε string) του user
-     */
-    void setEmail(String value);
-
-    /**
-     * Θέτει το password του user.
-     * @param value Το password (σε string) του user
-     */
-    void setPass(String value);
-
-    /**
-     * Θέτει το credit card του user.
-     * @param value Το credit card (σε string) του user
-     */
-    void setCreditCard(String value);
-
-
+    void showErrorMessage(String title, String message);
 }

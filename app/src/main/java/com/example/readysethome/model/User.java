@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class User {
 
-    private static String last_tenant_ID = "t0";
-    private static String last_owner_ID = "o0";
+    public static String last_tenant_ID = "t0";
+    public static String last_owner_ID = "o0";
     private String id;
     private String firstName;
     private String lastName;

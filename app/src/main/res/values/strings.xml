@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ReadySetHome</string>
+    <string name="ok">OK</string>
+    <string-array name="account_types">
+        <item>Tenant</item>
+        <item>Owner</item>
+    </string-array>
 </resources>

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
-class Tenant extends User {
+public class Tenant extends User {
     private ArrayList<BookingRequest> bookingRequests;
     private ArrayList<Booking> bookings;
 
