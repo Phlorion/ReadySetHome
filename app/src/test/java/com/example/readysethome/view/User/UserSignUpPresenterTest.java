@@ -33,24 +33,24 @@ public class UserSignUpPresenterTest {
         view.setCredit_card("0001000200030004");
         view.setAccount_type(1);
         presenter.onSaveUser();
-        Assert.assertEquals(view.getError_title(), "Σφάλμα!");
-        Assert.assertEquals(view.getError_message(), "Παρακαλώ εισάγετε όλα τα παραπάνω στοιχεία.");
+        Assert.assertEquals("Σφάλμα!", view.getError_title());
+        Assert.assertEquals("Παρακαλώ εισάγετε όλα τα παραπάνω στοιχεία.", view.getError_message());
 
         view.setFirstName("1");
         presenter.onSaveUser();
-        Assert.assertEquals(view.getError_title(), "Σφάλμα!");
-        Assert.assertEquals(view.getError_message(), "Παρακαλώ συμπληρώστε 2 εώς και 20 χαρακτήρες στο όνομα.");
+        Assert.assertEquals("Σφάλμα!", view.getError_title());
+        Assert.assertEquals("Παρακαλώ συμπληρώστε 2 εώς και 20 χαρακτήρες στο όνομα.", view.getError_message());
 
         view.setFirstName("John");
         view.setEmail("123124125135");
         presenter.onSaveUser();
-        Assert.assertEquals(view.getError_title(), "Σφάλμα!");
-        Assert.assertEquals(view.getError_message(), "Παρακαλώ εισάγετε μία έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου.");
+        Assert.assertEquals("Σφάλμα!", view.getError_title());
+        Assert.assertEquals("Παρακαλώ εισάγετε μία έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου.", view.getError_message());
 
         view.setEmail("p3210001@aueb.gr");
         presenter.onSaveUser();
-        Assert.assertEquals(view.getError_title(), "Σφάλμα!");
-        Assert.assertEquals(view.getError_message(), "Υπάρχει ήδη λογαριασμός με αυτή τη διεύθυνση ηλεκτρονικού ταχυδρομείου.");
+        Assert.assertEquals("Σφάλμα!", view.getError_title());
+        Assert.assertEquals("Υπάρχει ήδη λογαριασμός με αυτή τη διεύθυνση ηλεκτρονικού ταχυδρομείου.", view.getError_message());
 
         view.setFirstName("John");
         view.setLastName("Bob");
@@ -59,6 +59,6 @@ public class UserSignUpPresenterTest {
         view.setCredit_card("8989787867675656");
         view.setAccount_type(2);
         presenter.onSaveUser();
-        Assert.assertEquals(view.getSuccess_message(), "Επιτυχής εγγραφή του 'Bob John'!");
+        Assert.assertEquals("Επιτυχής εγγραφή του 'Bob John'!", view.getSuccess_message());
     }
 }

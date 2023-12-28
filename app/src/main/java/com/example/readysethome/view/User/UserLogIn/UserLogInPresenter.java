@@ -4,6 +4,9 @@ import com.example.readysethome.dao.UserDAO;
 import com.example.readysethome.model.Password;
 import com.example.readysethome.model.User;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class UserLogInPresenter {
     private UserLogInView view;
     private UserDAO users;
@@ -18,6 +21,19 @@ public class UserLogInPresenter {
     public UserLogInPresenter(UserLogInView view, UserDAO users) {
         this.view = view;
         this.users = users;
+    }
+
+    /**
+     * Επαληθεύει την διεύθυνση ηλεκτρονικού ταχυδρομείου.
+     * @param email Η διεύθυνση ηλεκτρονικού ταχυδρομείου
+     * @return Ένα boolean ανάλογα με το αν ήταν valid
+     * η διεύθυνση ηλεκτρονικού ταχυδρομείου
+     */
+    private boolean validateEmail(String email)
+    {
+        Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher m = p.matcher(email);
+        return m.matches();
     }
 
     /**
@@ -56,6 +72,10 @@ public class UserLogInPresenter {
 
         if (isNull(email) || isNull(password)) {
             view.showErrorMessage("Σφάλμα!", "Παρακαλώ εισάγετε όλα τα παραπάνω στοιχεία.");
+            return;
+        }
+        else if (!validateEmail(email)) {
+            view.showErrorMessage("Σφάλμα!", "Παρακαλώ εισάγετε μία έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου.");
             return;
         }
         else if (!emailExists(email)) {
