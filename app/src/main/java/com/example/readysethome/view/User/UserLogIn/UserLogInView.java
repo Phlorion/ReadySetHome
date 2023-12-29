@@ -1,5 +1,7 @@
 package com.example.readysethome.view.User.UserLogIn;
 
+import com.example.readysethome.model.User;
+
 public interface UserLogInView {
 
     String getEmail();
@@ -10,7 +12,7 @@ public interface UserLogInView {
      * επιτυχώς ένα activity.
      * @param message Το μήνυμα που θα εμφανίσει
      */
-    void successfullyFinishActivity(String message);
+    void successfullyFinishActivity(String message, User user);
 
     /**
      * Το μήνυμα που εμφανίζεται σε

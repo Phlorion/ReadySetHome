@@ -68,6 +68,12 @@ public class User {
         return temp;
     }
 
+    public int getUserType() {
+        char[] chars = id.toCharArray();
+        if (chars[0] == 't') return 0;
+        return 1;
+    }
+
     public String getFirstName() {
         return firstName;
     }

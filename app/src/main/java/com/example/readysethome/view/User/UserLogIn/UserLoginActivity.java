@@ -2,6 +2,7 @@ package com.example.readysethome.view.User.UserLogIn;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.readysethome.R;
 import com.example.readysethome.memorydao.UserDAOMemory;
+import com.example.readysethome.model.User;
+import com.example.readysethome.view.Owner.OwnerMain.OwnerMainActivity;
+import com.example.readysethome.view.Tenant.TenantMain.TenantMainActivity;
 import com.example.readysethome.view.User.UserSignUp.UserSignUpActivity;
 
 public class UserLoginActivity extends AppCompatActivity implements UserLogInView {
@@ -44,10 +48,17 @@ public class UserLoginActivity extends AppCompatActivity implements UserLogInVie
      * επιτυχώς ένα activity.
      * @param message Το μήνυμα που θα εμφανίσει
      */
-    public void successfullyFinishActivity(String message)
+    public void successfullyFinishActivity(String message, User user)
     {
         Toast.makeText(UserLoginActivity.this, message, Toast.LENGTH_SHORT).show();
-        finish();
+
+        Intent intent = null;
+        if (user.getUserType() == 0) {
+            intent = new Intent(UserLoginActivity.this, TenantMainActivity.class);
+        } else {
+            intent = new Intent(UserLoginActivity.this, OwnerMainActivity.class);
+        }
+        startActivity(intent);
     }
 
     /**

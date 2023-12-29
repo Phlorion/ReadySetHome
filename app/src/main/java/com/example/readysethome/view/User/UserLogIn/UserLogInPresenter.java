@@ -88,7 +88,7 @@ public class UserLogInPresenter {
         }
 
         User user = users.findByEmail(email);
-        view.successfullyFinishActivity("Καλωσήρθες " + user.getLastName() + " " + user.getFirstName()+ "!");
+        view.successfullyFinishActivity("Καλωσήρθες " + user.getLastName() + " " + user.getFirstName()+ "!", user);
     }
 
 }
