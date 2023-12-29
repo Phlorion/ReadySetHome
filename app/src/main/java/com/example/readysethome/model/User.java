@@ -1,6 +1,7 @@
 package com.example.readysethome.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class User {
 
@@ -56,6 +57,10 @@ public class User {
             last_owner_ID = "o" + temp_int;
             this.id = last_owner_ID;
         }
+    }
+
+    public void _setId(String id) {
+        this.id = id;
     }
 
     public String getAllDetails() {
@@ -120,5 +125,18 @@ public class User {
 
     public void setAcc_bday(Date acc_bday) {
         this.acc_bday = acc_bday;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id.equals(user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && email.equals(user.email) && Objects.equals(password, user.password) && Objects.equals(creditCard, user.creditCard) && Objects.equals(acc_bday, user.acc_bday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, password, creditCard, acc_bday);
     }
 }

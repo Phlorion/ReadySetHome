@@ -7,6 +7,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.readysethome.R;
+import com.example.readysethome.dao.Initializer;
+import com.example.readysethome.memorydao.MemoryInitializer;
 import com.example.readysethome.view.User.UserLogIn.UserLoginActivity;
 import com.example.readysethome.view.User.UserSignUp.UserSignUpActivity;
 
@@ -24,6 +26,8 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
         setContentView(R.layout.activity_home_page);
 
         final HomePagePresenter presenter = new HomePagePresenter(this);
+        Initializer dataHelper = new MemoryInitializer();
+        dataHelper.prepareData();
 
         // user login
         findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {

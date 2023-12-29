@@ -58,6 +58,7 @@ public class UserLoginActivity extends AppCompatActivity implements UserLogInVie
         } else {
             intent = new Intent(UserLoginActivity.this, OwnerMainActivity.class);
         }
+        intent.putExtra("user_id", user.getId());
         startActivity(intent);
     }
 

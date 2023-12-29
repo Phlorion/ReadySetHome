@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.readysethome.R;
+import com.example.readysethome.view.Owner.OwnerMain.OwnerMainPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
