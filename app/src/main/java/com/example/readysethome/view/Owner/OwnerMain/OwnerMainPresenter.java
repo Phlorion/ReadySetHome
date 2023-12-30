@@ -43,7 +43,12 @@ public class OwnerMainPresenter {
     public ArrayList<OwnerHomeListingModel> setUpListingModels() {
         ArrayList<Listing> owned = listings.findByOwner(attachedOwner);
         for (Listing listing : owned) {
-            listingModels.add(new OwnerHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + "€", R.drawable.child_po));
+            int preview_photo;
+            if (listing.getPhotos() != null)
+                preview_photo = listing.getPhotos()[0];
+            else
+                preview_photo = R.drawable.child_po;
+            listingModels.add(new OwnerHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + "€", preview_photo));
         }
         return listingModels;
     }

@@ -1,5 +1,6 @@
 package com.example.readysethome.view.Owner;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +16,23 @@ import com.example.readysethome.R;
 import java.util.ArrayList;
 
 public class OwnerHome_RecyclerViewAdaptor extends RecyclerView.Adapter<OwnerHome_RecyclerViewAdaptor.MyViewHolder> {
+    OwnerHomeFragment fragment;
     Context context;
     ArrayList<OwnerHomeListingModel> listingModels;
-    public OwnerHome_RecyclerViewAdaptor(Context context, ArrayList<OwnerHomeListingModel> listingModels) {
+    public OwnerHome_RecyclerViewAdaptor(Context context, ArrayList<OwnerHomeListingModel> listingModels, OwnerHomeFragment fragment) {
         this.context = context;
         this.listingModels = listingModels;
+        this.fragment = fragment;
+    }
+
+    /**
+     * Όταν ο ιδιοκτήτης κάνει αναζήτηση μίας αγγελίας αλλάζουμε τα περιεχόμενα του recycler view.
+     * @param filteredListingModels Οι φιλτραρισμένη λίστα που περιέχει όλα τα μοντέλα των αγγελιών
+     * που πληρούσαν τις προυποθέσεις της αναζήτησης
+     */
+    public void setFilteredList(ArrayList<OwnerHomeListingModel> filteredListingModels) {
+        this.listingModels = filteredListingModels;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -29,7 +42,7 @@ public class OwnerHome_RecyclerViewAdaptor extends RecyclerView.Adapter<OwnerHom
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_view_owner_home, parent, false);
 
-        return new OwnerHome_RecyclerViewAdaptor.MyViewHolder(view);
+        return new OwnerHome_RecyclerViewAdaptor.MyViewHolder(view, fragment);
     }
 
     @Override
@@ -53,13 +66,25 @@ public class OwnerHome_RecyclerViewAdaptor extends RecyclerView.Adapter<OwnerHom
 
         ImageView imageView;
         TextView tvTitle, tvDesc, tvPrice;
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, OwnerHomeFragment fragment) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.recycler_view_owner_home_image);
             tvTitle = itemView.findViewById(R.id.recycler_view_owner_home_title);
             tvDesc = itemView.findViewById(R.id.recycler_view_owner_home_desc);
             tvPrice = itemView.findViewById(R.id.recycler_view_owner_home_price);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (fragment != null) {
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION) {
+                            fragment.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 

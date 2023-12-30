@@ -23,7 +23,7 @@ public class BookingRequestTest {
                 new Password("j0001"), new CreditCard("1600150014001300", 1000), new Date());
         owner = new Owner("George", "Avrabos", new EmailAddress("georgeavr@gmail.com"),
                 new Password("qwerty1234"), new CreditCard("1234123412341234", 0), new Date());
-        listing = owner.addListing(new Apartment(), "Apartment", "...", 34, false, new String[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.WIFI)});
+        listing = owner.addListing(new Apartment(), "Apartment", "...", 34, false, new int[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.WIFI)});
 
         Calendar check_in_c = Calendar.getInstance();
         check_in_c.set(2023, 11, 1);

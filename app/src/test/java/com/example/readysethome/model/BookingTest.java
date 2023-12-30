@@ -26,7 +26,7 @@ public class BookingTest {
 
 
         listing = owner.addListing(new Apartment(), "Apartment", "...", 34, false,
-                new String[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.WIFI)});
+                new int[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.WIFI)});
 
 
         Calendar checkInCalendar = Calendar.getInstance();

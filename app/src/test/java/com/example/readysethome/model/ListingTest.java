@@ -20,7 +20,7 @@ public class ListingTest {
     final ArrayList <Bedroom> bedrooms = new ArrayList<>();
     final ArrayList <Kitchen> kitchens = new ArrayList<>();
     final Apartment apartment = new Apartment(address, floor, size, wifi, balcony, living_room, bathrooms, bedrooms, kitchens);
-    final String[] photos = {"1.png", "2.png"};
+    final int[] photos = {1, 2};
     final Calendar calendar = new Calendar();
     final String cnumber = "1234567890123456";
     final CreditCard creditcard = new CreditCard(cnumber, 1000000);
@@ -100,14 +100,14 @@ public class ListingTest {
 
     @Test
     public void getPhotos() {
-        final String[] tmp = test.getPhotos();
+        final int[] tmp = test.getPhotos();
         assertEquals(tmp, test.getPhotos());
     }
 
     @Test
     public void setPhotos() {
-        final String[] photos2 = {"2.png", "1.png"};
-        final String[] photos3 = {"2.png", "1.png"};
+        final int[] photos2 = {2, 1};
+        final int[] photos3 = {2, 1};
         test.setPhotos(photos2);
         assertEquals(photos3, test.getPhotos());
     }
@@ -266,7 +266,7 @@ public class ListingTest {
         final Date customDate62 = Date.from(Instant.parse("2023-01-02T00:00:00.000Z"));
         final ChargingPolicy chargingPolicy6 = new ChargingPolicy(customDate6, customDate62, "chargingPolicy6", 6);
 
-        final String[] photos = {"1.png", "2.png"};
+        final int[] photos = {1, 2};
         final Calendar calendar = new Calendar();
         final String cnumber = "1234567890123456";
         final CreditCard creditcard = new CreditCard(cnumber);

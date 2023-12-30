@@ -25,7 +25,7 @@ public class OwnerTest {
                 new Password("j0001"), new CreditCard("1600150014001300", 1000), new Date());
         owner = new Owner("George", "Avrabos", new EmailAddress("georgeavr@gmail.com"),
                 new Password("qwerty1234"), new CreditCard("1234123412341234"), new Date());
-        listing = owner.addListing(new Apartment(), "Apartment", "...", 34, false, new String[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.WIFI)});
+        listing = owner.addListing(new Apartment(), "Apartment", "...", 34, false, new int[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.WIFI)});
     }
 
     @After
@@ -62,14 +62,14 @@ public class OwnerTest {
 
     @Test
     public void updateListing() {
-        Listing newListing = owner.updateListing(listing, "Ap", "...", 32, true, new String[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.CLEANING_SERVICE)});
+        Listing newListing = owner.updateListing(listing, "Ap", "...", 32, true, new int[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.CLEANING_SERVICE)});
         Assert.assertEquals(newListing.getListing_id(), listing.getListing_id());
     }
 
     @Test
     public void removeListing() {
         ArrayList<Listing> listings = new ArrayList<>();
-        Listing new_l = owner.addListing(new Apartment(), "Ap", "...", 32, true, new String[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.CLEANING_SERVICE)});
+        Listing new_l = owner.addListing(new Apartment(), "Ap", "...", 32, true, new int[5], new ListingsServices[]{new ListingsServices(10, ListingsServicesType.CLEANING_SERVICE)});
         listings.add(listing);
         listings.add(new_l);
         BookingRequest br1 = tenant.makeBookingRequest(listing, new Date(), new Date());

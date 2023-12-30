@@ -22,6 +22,9 @@
             android:name=".view.Owner.OwnerMain.OwnerMainActivity"
             android:exported="false"/>
         <activity
+            android:name=".view.Owner.OwnerViewListing.OwnerViewListingActivity"
+            android:exported="false"/>
+        <activity
             android:name=".view.HomePage.HomePageActivity"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden">

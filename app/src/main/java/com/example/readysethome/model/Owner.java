@@ -49,7 +49,7 @@ public class Owner extends User {
     }
 
     // Owner add a new Listing with services for an apartment
-    public Listing addListing(Apartment ap, String title, String desc, double price, boolean promoted, String[] photos, ListingsServices[] listingsServices) {
+    public Listing addListing(Apartment ap, String title, String desc, double price, boolean promoted, int[] photos, ListingsServices[] listingsServices) {
         Listing listing =  new Listing(title, desc, price, promoted, 0, photos, new Calendar(), this, ap);
         if (listingsServices != null) {
             for (ListingsServices service : listingsServices) {
@@ -59,7 +59,7 @@ public class Owner extends User {
         return listing;
     }
 
-    public Listing updateListing(Listing listing, String title, String desc, double price, boolean promoted, String[] photos, ListingsServices[] listingsServices) {
+    public Listing updateListing(Listing listing, String title, String desc, double price, boolean promoted, int[] photos, ListingsServices[] listingsServices) {
         listing.setTitle(title);
         listing.setDescription(desc);
         listing.setPrice(price);

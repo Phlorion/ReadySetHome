@@ -23,7 +23,7 @@ public class Listing {
     private double price;
     private boolean promoted;
     private double rating;
-    private String[] photos;
+    private int[] photos;
     private Calendar calendar;
     private Owner owner;
     private double original_Price;
@@ -33,7 +33,7 @@ public class Listing {
     private HashMap<String, Double> monthlyIncome = new HashMap<>();
     private HashMap<String, Integer> monthlyCancellations = new HashMap<>();
 
-    public Listing(String title, String description, double price, boolean promoted, double rating, String[] photos, Calendar calendar, Owner owner, Apartment apartment) {
+    public Listing(String title, String description, double price, boolean promoted, double rating, int[] photos, Calendar calendar, Owner owner, Apartment apartment) {
         last_listing_ID++;
         this.listing_id = last_listing_ID;
         this.title = title;
@@ -125,11 +125,11 @@ public class Listing {
         this.rating = rating;
     }
 
-    public String[] getPhotos() {
+    public int[] getPhotos() {
         return photos;
     }
 
-    public void setPhotos(String[] photos) {
+    public void setPhotos(int[] photos) {
         this.photos = photos;
     }
 
