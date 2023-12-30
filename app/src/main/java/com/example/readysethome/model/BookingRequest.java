@@ -5,7 +5,7 @@ import com.example.readysethome.MainActivity;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-class BookingRequest {
+public class BookingRequest {
      private static int lastBookingId = 0;
      private int booking_id;
     private Date submission_date;
