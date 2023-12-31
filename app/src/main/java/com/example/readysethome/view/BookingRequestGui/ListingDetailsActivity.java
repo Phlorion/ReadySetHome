@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.readysethome.R;
 
+// TODO: Κάνε implement το ListingDetailsView
 public class ListingDetailsActivity extends AppCompatActivity {
 
     private EditText checkInEditText;
@@ -28,9 +29,13 @@ public class ListingDetailsActivity extends AppCompatActivity {
         submitRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO: Αυτό δεν είναι λάθος αλλά είναι καλό ότι λογική υπάρχει στο σύστημα να
+                // TODO: γίνεται στο presenter. Οπότε θα ήταν καλύτερο να φτιάξεις 2 extra μεθόδους get
+                // TODO: στο view interface για να παίρνεις τα checkin-check-out. Τέλος φτίαξε μία μέθοδο
+                // TODO: στο presenter, πχ onUserSubmit() και να καλείς εκεί μέσα τις μεθόδους του view
                 // Get the entered check-in and check-out times
-                String checkInTime = checkInEditText.getText().toString();
-                String checkOutTime = checkOutEditText.getText().toString();
+                String checkInTime = checkInEditText.getText().toString().trim();
+                String checkOutTime = checkOutEditText.getText().toString().trim();
 
                 // TODO: check if the listing is available for that time period
 

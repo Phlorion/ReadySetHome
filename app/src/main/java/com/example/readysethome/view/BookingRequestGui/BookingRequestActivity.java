@@ -27,10 +27,12 @@ public class BookingRequestActivity extends AppCompatActivity implements Booking
 
 
         Button confirmSubmitButton = findViewById(R.id.confirmandsubmitBookingButton);
+
+        // TODO: Ξανά, εδώ θα ήταν καλύτερο να φτιάξεις μεθόδους στο presenter που απλά καλούν τα displayBookingConfirmation()
+        // TODO: και displayCancellationConfirmation(), οπού μέσα σε αυτά θα υλοποιήσεις τα intents που κάνεις παρακάτω
         confirmSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(BookingRequestActivity.this, BookingConfirmationActivity.class);
                 startActivity(intent);
             }
@@ -48,6 +50,7 @@ public class BookingRequestActivity extends AppCompatActivity implements Booking
         });
     }
 
+    // TODO: Κάνε εδώ μέσα τα intents καλύτερα
     @Override
     public void displayBookingConfirmation() {
 
@@ -61,6 +64,7 @@ public class BookingRequestActivity extends AppCompatActivity implements Booking
     @Override
     public void updatePaymentAndDepositAmounts(double paymentAmount) {
 
+        // TODO: ξανά θα ήταν καλό να φτιάξεις μία μέθοδο στο presenter που το κάνει αυτο και εδώ να καλέσεις απλά αυτήν τη μέθοδο
         TextView paymentAmountTextView = findViewById(R.id.paymentAmountTextView);
         TextView depositAmountTextView = findViewById(R.id.depositAmountTextView);
 
