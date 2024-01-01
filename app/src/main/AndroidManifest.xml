@@ -24,6 +24,8 @@
         <activity
             android:name=".view.Owner.OwnerViewListing.OwnerViewListingActivity"
             android:exported="false"/>
+        <activity android:name=".view.Owner.OwnerAddListing.OwnerAddListingActivity"
+            android:exported="false"/>
         <activity
             android:name=".view.HomePage.HomePageActivity"
             android:exported="true"

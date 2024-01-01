@@ -1,5 +1,6 @@
 package com.example.readysethome.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;

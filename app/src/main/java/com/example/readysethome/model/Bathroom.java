@@ -1,6 +1,8 @@
 package com.example.readysethome.model;
 
-public class Bathroom {
+import java.io.Serializable;
+
+public class Bathroom implements Serializable {
 
     private double size;
     private boolean shower;

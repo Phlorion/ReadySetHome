@@ -1,6 +1,8 @@
 package com.example.readysethome.model;
 
-public class Kitchen {
+import java.io.Serializable;
+
+public class Kitchen implements Serializable {
 
     private double size;
     private boolean oven;

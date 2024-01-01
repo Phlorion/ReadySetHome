@@ -2,11 +2,12 @@ package com.example.readysethome.model;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-public class Calendar {
+public class Calendar implements Serializable {
 
     private Hashtable<Date, Date> availability;
 

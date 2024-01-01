@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Address Info"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_city"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="City"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_street"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="Street"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_city" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_addrNum"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:ems="10"
+                android:hint="Adr Number"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_street"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_city" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Apartment Info"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_street" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_floor"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="Floor"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_ap_size"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:ems="10"
+                android:hint="Size"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_floor"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Bathroom"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_wifi" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Kitchen"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_bath_shower" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_bath_size"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="Size"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_kitch_size"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="Size"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_bed_size"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="Size"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_bath_shower"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Shower"
+                app:layout_constraintStart_toStartOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_bath_size" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_bath_toilet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Toilet"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_bath_shower"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_bath_size" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_bath_hairdryer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Hairdryer"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_bath_toilet"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_bath_size" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_kitch_oven"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Oven"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_kitch_size" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_kitch_micro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Microwave"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_kitch_oven"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_kitch_size" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_kitch_refr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Refrigerator"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_kitch_micro"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_kitch_size" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_kitch_toast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Toaster"
+                app:layout_constraintStart_toStartOf="@+id/owner_add_listing_kitch_size"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_kitch_oven" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_kitch_coffee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Coffee Machine"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_kitch_toast"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_kitch_micro" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_kitch_dining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Dining Table"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_kitch_coffee"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_kitch_refr" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Bedroom"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_kitch_toast" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_bed_double"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:ems="10"
+                android:hint="Double Beds"
+                android:inputType="text"
+                app:layout_constraintEnd_toStartOf="@+id/owner_add_listing_bed_single"
+                app:layout_constraintStart_toStartOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_bed_size" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_bed_single"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="Single Beds"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@+id/owner_add_listing_bed_size"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_bed_double"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_bed_size" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_bed_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="TV"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_bed_single"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_bed_size" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_wifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="WiFi"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_floor" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_living"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Living Room"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_wifi"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_floor" />
+
+            <CheckBox
+                android:id="@+id/owner_add_listing_balcony"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Balcony"
+                app:layout_constraintStart_toEndOf="@+id/owner_add_listing_living"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_floor" />
+
+            <Button
+                android:id="@+id/owner_add_listing_addBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"
+                android:text="Add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_price" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Listing Info"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_bed_double" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_title"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="Title"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_desc"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="Description"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_title" />
+
+            <EditText
+                android:id="@+id/owner_add_listing_price"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="Price"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_desc" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,9 @@
 package com.example.readysethome.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class EmailAddress {
+public class EmailAddress implements Serializable {
 
     private String address;
 
