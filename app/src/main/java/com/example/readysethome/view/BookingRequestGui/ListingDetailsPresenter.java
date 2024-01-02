@@ -17,8 +17,6 @@ public class ListingDetailsPresenter {
         this.listingDAO = listingDAO;
     }
 
-
-
     protected boolean isListingAvailable(int listingId, Date checkInTime, Date checkOutTime) {
 
         Listing listing = listingDAO.findByID(listingId);

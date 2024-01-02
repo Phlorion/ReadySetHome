@@ -1,6 +1,5 @@
 package com.example.readysethome.view.Owner;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +61,6 @@ public class OwnerHome_RecyclerViewAdaptor extends RecyclerView.Adapter<OwnerHom
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // grabbing the views from our recycler_view_owner_home layout file
-
         ImageView imageView;
         TextView tvTitle, tvDesc, tvPrice;
         public MyViewHolder(@NonNull View itemView, OwnerHomeFragment fragment) {

@@ -27,6 +27,12 @@
         <activity android:name=".view.Owner.OwnerAddListing.OwnerAddListingActivity"
             android:exported="false"/>
         <activity
+            android:name=".view.Tenant.TenantMain.TenantMainActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".view.Tenant.TenantViewListing.TenantViewListingActivity"
+            android:exported="false"/>
+        <activity
             android:name=".view.HomePage.HomePageActivity"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden">
