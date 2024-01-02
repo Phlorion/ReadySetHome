@@ -1,5 +1,10 @@
 package com.example.readysethome.view.Owner.OwnerMain;
 
+import android.app.Fragment;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.example.readysethome.R;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.UserDAO;
@@ -8,6 +13,7 @@ import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Owner;
 import com.example.readysethome.model.User;
 import com.example.readysethome.view.Owner.OwnerHomeListingModel;
+import com.example.readysethome.view.Owner.OwnerProfileFragment;
 
 import java.util.ArrayList;
 
@@ -53,5 +59,11 @@ public class OwnerMainPresenter {
         return listingModels;
     }
 
+    public void setUpProfileInfo(View view) {
+        ((TextView) view.findViewById(R.id.owner_profile_nameView)).setText(attachedOwner.getFirstName());
+        ((TextView) view.findViewById(R.id.owner_profile_surnameView)).setText(attachedOwner.getLastName());
+        ((TextView) view.findViewById(R.id.owner_profile_emailView)).setText(attachedOwner.getEmail().getAddress());
+        ((ImageView)view.findViewById(R.id.owner_profile_profilePicture)).setImageResource(R.drawable.child_po);
+    }
 
 }
