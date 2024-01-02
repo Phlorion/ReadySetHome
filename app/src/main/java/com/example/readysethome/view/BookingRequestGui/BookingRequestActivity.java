@@ -10,16 +10,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.readysethome.R;
 import com.example.readysethome.view.HomePage.HomePageActivity;
 
+
+import java.util.Date;
+
 public class BookingRequestActivity extends AppCompatActivity implements BookingRequestView {
 
     private TextView paymentAmountTextView;
     private TextView depositAmountTextView;
 
-    @Override
+    private Date checkin;
+    private Date checkout;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_request_confrimation);
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            checkin = (Date) intent.getSerializableExtra("checkInTime");
+            checkout = (Date) intent.getSerializableExtra("checkOutTime");
+        }
         final BookingRequestPresenter presenter = new BookingRequestPresenter(this);
 
         paymentAmountTextView = findViewById(R.id.paymentAmountTextView);
@@ -28,8 +39,7 @@ public class BookingRequestActivity extends AppCompatActivity implements Booking
 
         Button confirmSubmitButton = findViewById(R.id.confirmandsubmitBookingButton);
 
-        // TODO: Ξανά, εδώ θα ήταν καλύτερο να φτιάξεις μεθόδους στο presenter που απλά καλούν τα displayBookingConfirmation()
-        // TODO: και displayCancellationConfirmation(), οπού μέσα σε αυτά θα υλοποιήσεις τα intents που κάνεις παρακάτω
+
         confirmSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,28 +60,36 @@ public class BookingRequestActivity extends AppCompatActivity implements Booking
         });
     }
 
-    // TODO: Κάνε εδώ μέσα τα intents καλύτερα
     @Override
-    public void displayBookingConfirmation() {
+    public void Confirmation() {
 
     }
 
     @Override
-    public void displayCancellationConfirmation() {
+    public void Cancellation() {
 
     }
 
     @Override
-    public void updatePaymentAndDepositAmounts(double paymentAmount) {
+    public void updatePaymentAndDepositAmounts() {
 
-        // TODO: ξανά θα ήταν καλό να φτιάξεις μία μέθοδο στο presenter που το κάνει αυτο και εδώ να καλέσεις απλά αυτήν τη μέθοδο
         TextView paymentAmountTextView = findViewById(R.id.paymentAmountTextView);
         TextView depositAmountTextView = findViewById(R.id.depositAmountTextView);
-
-
+       double paymentAmount= presenter.calculatePaymentAmount();
         paymentAmountTextView.setText(paymentAmount +"$");
         depositAmountTextView.setText(paymentAmount*0.2 +"$");
     }
+
+    @Override
+    public Date getCheckin() {
+        return checkin;
+    }
+
+    @Override
+    public Date getCheckout() {
+        return checkout;
+    }
+
 
 
 }

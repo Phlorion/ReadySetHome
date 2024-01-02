@@ -2,6 +2,7 @@
 package com.example.readysethome.view.BookingRequestGui;
 
 import com.example.readysethome.model.Listing;
+import java.util.Date;
 
 public class BookingRequestPresenter {
     private BookingRequestView view;
@@ -17,20 +18,17 @@ public class BookingRequestPresenter {
 
     public void onSubmitBookingRequest() {
         double paymentAmount = calculatePaymentAmount();
-        view.updatePaymentAndDepositAmounts(
-                paymentAmount
-
-        );
-        view.displayBookingConfirmation();
+        view.updatePaymentAndDepositAmounts();
+        view.Confirmation();
     }
 
     public void onCancelBookingRequest() {
-        view.displayCancellationConfirmation();
+        view.Cancellation();
     }
 
     private double calculatePaymentAmount() {
         if (listing != null) {
-            return listing.getPrice();
+            return listing.getPrice()* listing.daysBetween(view.getCheckin(),view.getCheckout());
         }
         return 0;
     }

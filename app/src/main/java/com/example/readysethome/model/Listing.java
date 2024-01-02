@@ -245,7 +245,7 @@ public class Listing implements Serializable {
         }
     }
 
-    private long daysBetween(Date start, Date end) {
+    public long daysBetween(Date start, Date end) {
         long diff = end.getTime() - start.getTime();
         diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
         // System.out.println ("Days: " + diff);
