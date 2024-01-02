@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.readysethome.R;
 import com.example.readysethome.memorydao.ListingDAOMemory;
+import com.example.readysethome.memorydao.TenantDAOMemory;
 import com.example.readysethome.view.Tenant.TenantBookingsFragment;
 import com.example.readysethome.view.Tenant.TenantHomeFragment;
 import com.example.readysethome.view.Tenant.TenantNotificationsFragment;
@@ -29,7 +30,7 @@ public class TenantMainActivity extends AppCompatActivity implements TenantMainV
         Intent intent = getIntent();
         String user_id = intent.getStringExtra("user_id");
 
-        final TenantMainPresenter presenter = new TenantMainPresenter(TenantMainActivity.this, new ListingDAOMemory(), user_id);
+        final TenantMainPresenter presenter = new TenantMainPresenter(TenantMainActivity.this, new ListingDAOMemory(), new TenantDAOMemory(), user_id);
 
         // create the fragments
         TenantHomeFragment home = new TenantHomeFragment(presenter);

@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.readysethome.R;
 import com.example.readysethome.memorydao.ListingDAOMemory;
+import com.example.readysethome.memorydao.OwnerDAOMemory;
 import com.example.readysethome.view.Owner.OwnerHomeFragment;
 import com.example.readysethome.view.Owner.OwnerPendingFragment;
 import com.example.readysethome.view.Owner.OwnerProfileFragment;
@@ -29,7 +30,7 @@ public class OwnerMainActivity extends AppCompatActivity implements OwnerMainVie
         Intent intent = getIntent();
         String user_id = intent.getStringExtra("user_id");
 
-        final OwnerMainPresenter presenter = new OwnerMainPresenter(OwnerMainActivity.this, new ListingDAOMemory(), user_id);
+        final OwnerMainPresenter presenter = new OwnerMainPresenter(OwnerMainActivity.this, new ListingDAOMemory(), new OwnerDAOMemory(), user_id);
 
         // create the fragments
         OwnerHomeFragment home = new OwnerHomeFragment(presenter);

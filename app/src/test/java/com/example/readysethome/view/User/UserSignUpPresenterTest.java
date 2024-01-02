@@ -3,6 +3,8 @@ package com.example.readysethome.view.User;
 import com.example.readysethome.dao.Initializer;
 import com.example.readysethome.dao.UserDAO;
 import com.example.readysethome.memorydao.MemoryInitializer;
+import com.example.readysethome.memorydao.OwnerDAOMemory;
+import com.example.readysethome.memorydao.TenantDAOMemory;
 import com.example.readysethome.memorydao.UserDAOMemory;
 import com.example.readysethome.view.User.UserSignUp.UserSignUpPresenter;
 
@@ -24,7 +26,7 @@ public class UserSignUpPresenterTest {
 
     @Test
     public void addNew() {
-        presenter = new UserSignUpPresenter(view, dataHelper.getUserDAO());
+        presenter = new UserSignUpPresenter(view, dataHelper.getUserDAO(), new TenantDAOMemory(), new OwnerDAOMemory());
 
         view.setFirstName("");
         view.setLastName("Bob");

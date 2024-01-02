@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.example.readysethome.R;
 import com.example.readysethome.dao.ListingDAO;
+import com.example.readysethome.dao.OwnerDAO;
 import com.example.readysethome.dao.UserDAO;
 import com.example.readysethome.memorydao.UserDAOMemory;
 import com.example.readysethome.model.Listing;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class OwnerMainPresenter {
     private OwnerMainView view;
     private ListingDAO listings;
+    private OwnerDAO owners;
     private Owner attachedOwner;
     ArrayList<OwnerHomeListingModel> listingModels;
 
@@ -26,16 +28,16 @@ public class OwnerMainPresenter {
      * Αρχικοποιήση μεταβλητών και δημιουργία του listing model μας για το recycler του χρήστη
      * @param view Το view
      * @param listings ΄Ενα listing DAO
+     * @param owners ΄Ενα owner DAO
      * @param user_id Το id του χρήστη που έχει κάνει login
      */
-    public OwnerMainPresenter(OwnerMainView view, ListingDAO listings, String user_id) {
+    public OwnerMainPresenter(OwnerMainView view, ListingDAO listings, OwnerDAO owners, String user_id) {
         this.view = view;
         this.listings = listings;
+        this.owners = owners;
 
-        UserDAO users = new UserDAOMemory();
-        User user = users.findByID(user_id);
-        attachedOwner = new Owner(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getCreditCard(), user.getAcc_bday());
-        attachedOwner._setId(user.getId());
+        attachedOwner = owners.findByID(user_id);
+        //System.out.println("----------------"+attachedOwner+"----------------");
 
         listingModels = new ArrayList<OwnerHomeListingModel>();
     }
@@ -46,7 +48,7 @@ public class OwnerMainPresenter {
      * για το recycler
      */
     public ArrayList<OwnerHomeListingModel> setUpListingModels() {
-        ArrayList<Listing> owned = listings.findByOwner(attachedOwner.getId());
+        ArrayList<Listing> owned = listings.findByOwner(attachedOwner);
         for (Listing listing : owned) {
             int preview_photo;
             if (listing.getPhotos() != null)

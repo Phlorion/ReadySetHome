@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import com.example.readysethome.R;
+import com.example.readysethome.dao.ListingDAO;
+import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.view.Owner.OwnerAddListing.OwnerAddListingActivity;
 import com.example.readysethome.view.Owner.OwnerMain.OwnerMainPresenter;
@@ -31,6 +33,7 @@ public class OwnerHomeFragment extends Fragment {
     private SearchView searchView;
     private Button addButton;
     private RecyclerView recyclerView;
+    private ArrayList<OwnerHomeListingModel> defaultListingModels;
     private ArrayList<OwnerHomeListingModel> listingModels;
     private OwnerHome_RecyclerViewAdaptor adapter;
 
@@ -52,8 +55,10 @@ public class OwnerHomeFragment extends Fragment {
             @Override
             public void onActivityResult(ActivityResult o) {
                 if (o != null && o.getResultCode() == 0) {
-                    if (o.getData() != null && o.getData().getSerializableExtra("NEW_LISTING") != null) {
-                        listingModels = presenter.addListingModel((Listing) o.getData().getSerializableExtra("NEW_LISTING"));
+                    if (o.getData() != null) {
+                        ListingDAO listingDAO = new ListingDAOMemory();
+                        int listing_id = o.getData().getIntExtra("NEW_LISTING", 0);
+                        listingModels = presenter.addListingModel(listingDAO.findByID(listing_id));
                         adapter.setListingModels(listingModels);
                     }
                 }
@@ -82,7 +87,7 @@ public class OwnerHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), OwnerAddListingActivity.class);
-                intent.putExtra("OWNER", presenter.getAttachedOwner());
+                intent.putExtra("OWNER", presenter.getAttachedOwner().getId());
                 // θέλουμε να μας επιστραφεί αποτέλεσμα από το νέο activity
                 startForResult.launch(intent);
             }
@@ -94,6 +99,7 @@ public class OwnerHomeFragment extends Fragment {
         // prevent from adding copies of the existing rows
         if (!init_recycle_view) {
             listingModels = presenter.setUpListingModels();
+            defaultListingModels = listingModels;
             // make the adapter for the recycler
             adapter = new OwnerHome_RecyclerViewAdaptor(getContext(), listingModels, OwnerHomeFragment.this);
             init_recycle_view = true;
@@ -106,15 +112,20 @@ public class OwnerHomeFragment extends Fragment {
 
     private void filterListingModels(String text) {
         ArrayList<OwnerHomeListingModel> filtered = new ArrayList<>();
+        if (text.equals("")) {
+            listingModels = defaultListingModels;
+        }
         for (OwnerHomeListingModel listingModel : listingModels) {
             if (listingModel.getTitle().toLowerCase().contains(text.toLowerCase())) {
                 filtered.add(listingModel);
+                listingModels = filtered;
             }
         }
-        adapter.setListingModels(filtered);
+        adapter.setListingModels(listingModels);
     }
 
     protected void onItemClick(int pos) {
+        System.out.println("---------------------------"+pos+"---------------------------");
         Intent intent = new Intent(getContext(), OwnerViewListingActivity.class);
         intent.putExtra("TITLE", listingModels.get(pos).getTitle());
         intent.putExtra("DESCRIPTION", listingModels.get(pos).getDesc());

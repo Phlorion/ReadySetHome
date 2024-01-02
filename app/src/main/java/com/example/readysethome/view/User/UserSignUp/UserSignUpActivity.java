@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.readysethome.R;
+import com.example.readysethome.memorydao.OwnerDAOMemory;
+import com.example.readysethome.memorydao.TenantDAOMemory;
 import com.example.readysethome.memorydao.UserDAOMemory;
 
 public class UserSignUpActivity extends AppCompatActivity implements UserSignUpView {
@@ -110,7 +112,7 @@ public class UserSignUpActivity extends AppCompatActivity implements UserSignUpV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_signup);
 
-        final UserSignUpPresenter presenter = new UserSignUpPresenter(this, new UserDAOMemory());
+        final UserSignUpPresenter presenter = new UserSignUpPresenter(this, new UserDAOMemory(), new TenantDAOMemory(), new OwnerDAOMemory());
 
         Spinner spinner = (Spinner) findViewById(R.id.signup_accTypeSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout.

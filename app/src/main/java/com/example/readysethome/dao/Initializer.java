@@ -11,6 +11,7 @@ import com.example.readysethome.model.Kitchen;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Owner;
 import com.example.readysethome.model.Password;
+import com.example.readysethome.model.Tenant;
 import com.example.readysethome.model.User;
 
 import java.util.ArrayList;
@@ -29,6 +30,18 @@ public abstract class Initializer {
     public abstract UserDAO getUserDAO();
 
     /**
+     * Επιστρέφει το DAO των owners.
+     * @return Το DAO των owners
+     */
+    public abstract OwnerDAO getOwnerDAO();
+
+    /**
+     * Επιστρέφει το DAO των tenants.
+     * @return Το DAO των tenants
+     */
+    public abstract TenantDAO getTenantDAO();
+
+    /**
      * Επιστρέφει το DAO των listings.
      * @return Το DAO των listings
      */
@@ -43,6 +56,10 @@ public abstract class Initializer {
 
         // create some users
         UserDAO userDAO = getUserDAO();
+
+        OwnerDAO ownerDAO = getOwnerDAO();
+
+        TenantDAO tenantDAO = getTenantDAO();
 
         User user1 = new User("George", "Avrabos", new EmailAddress("p3210001@aueb.gr"), new Password("1234"), new CreditCard("1234123412341234"), new Date());
         user1.setId("Owner");
@@ -59,6 +76,15 @@ public abstract class Initializer {
 
         Owner owner1 = new Owner(user1.getFirstName(), user1.getLastName(), user1.getEmail(), user1.getPassword(), user1.getCreditCard(), user1.getAcc_bday());
         owner1._setId(user1.getId());
+        ownerDAO.save(owner1);
+
+        Tenant tenant1 = new Tenant(user2.getFirstName(), user2.getLastName(), user2.getEmail(), user2.getPassword(), user2.getCreditCard(), user2.getAcc_bday());
+        tenant1._setId(user2.getId());
+        tenantDAO.save(tenant1);
+
+        Owner owner2 = new Owner(user3.getFirstName(), user3.getLastName(), user3.getEmail(), user3.getPassword(), user3.getCreditCard(), user3.getAcc_bday());
+        owner2._setId(user3.getId());
+        ownerDAO.save(owner2);
 
         // ap1
         ArrayList<Bathroom> ap1_baths = new ArrayList<>();

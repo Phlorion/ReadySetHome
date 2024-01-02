@@ -13,7 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.readysethome.R;
+import com.example.readysethome.dao.OwnerDAO;
 import com.example.readysethome.memorydao.ListingDAOMemory;
+import com.example.readysethome.memorydao.OwnerDAOMemory;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Owner;
 
@@ -26,7 +28,10 @@ public class OwnerAddListingActivity extends AppCompatActivity implements OwnerA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_add_listing);
 
-        Owner owner = (Owner) getIntent().getSerializableExtra("OWNER");
+        OwnerDAO ownerDAO = new OwnerDAOMemory();
+        String owner_id = getIntent().getStringExtra("OWNER");
+        Owner owner = ownerDAO.findByID(owner_id);
+        //System.out.println("------------------------"+owner+"---------------------------");
         final OwnerAddListingPresenter presenter = new OwnerAddListingPresenter(OwnerAddListingActivity.this, new ListingDAOMemory(), owner);
 
         // get add-button and add event listener
@@ -44,7 +49,7 @@ public class OwnerAddListingActivity extends AppCompatActivity implements OwnerA
         Toast.makeText(OwnerAddListingActivity.this, message, Toast.LENGTH_SHORT).show();
         int resultCode = 0;
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("NEW_LISTING", listing);
+        resultIntent.putExtra("NEW_LISTING", listing.getListing_id());
         setResult(resultCode, resultIntent);
         finish();
     }

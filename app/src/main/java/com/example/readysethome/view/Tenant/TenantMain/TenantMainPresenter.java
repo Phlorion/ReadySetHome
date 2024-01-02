@@ -2,6 +2,7 @@ package com.example.readysethome.view.Tenant.TenantMain;
 
 import com.example.readysethome.R;
 import com.example.readysethome.dao.ListingDAO;
+import com.example.readysethome.dao.TenantDAO;
 import com.example.readysethome.dao.UserDAO;
 import com.example.readysethome.memorydao.UserDAOMemory;
 import com.example.readysethome.model.Listing;
@@ -16,6 +17,7 @@ public class TenantMainPresenter {
 
     private TenantMainView view;
     private ListingDAO listings;
+    private TenantDAO tenants;
     private Tenant attachedTenant;
     ArrayList<TenantHomeListingModel> homeListingModels;
 
@@ -23,16 +25,15 @@ public class TenantMainPresenter {
      * Αρχικοποιήση μεταβλητών και δημιουργία του listing model μας για το recycler του χρήστη
      * @param view Το view
      * @param listings ΄Ενα listing DAO
+     * @param tenants ΄Ενα tenant DAO
      * @param user_id Το id του χρήστη που έχει κάνει login
      */
-    TenantMainPresenter(TenantMainView view, ListingDAO listings, String user_id) {
+    TenantMainPresenter(TenantMainView view, ListingDAO listings, TenantDAO tenants, String user_id) {
         this.view = view;
         this.listings = listings;
+        this.tenants = tenants;
 
-        UserDAO users = new UserDAOMemory();
-        User user = users.findByID(user_id);
-        attachedTenant = new Tenant(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getCreditCard(), user.getAcc_bday());
-        attachedTenant._setId(user_id);
+        attachedTenant = tenants.findByID(user_id);
 
         homeListingModels = new ArrayList<TenantHomeListingModel>();
     }

@@ -1,0 +1,18 @@
+Index: app/src/main/java/com/example/readysethome/view/Tenant/TenantHomeFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.Tenant;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\n\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport com.example.readysethome.R;\r\nimport com.example.readysethome.view.BookingRequestGui.ListingDetailsActivity;\r\nimport com.example.readysethome.view.Owner.OwnerViewListing.OwnerViewListingActivity;\r\nimport com.example.readysethome.view.Tenant.TenantMain.TenantMainPresenter;\r\nimport com.example.readysethome.view.Tenant.TenantViewListing.TenantViewListingActivity;\r\nimport com.example.readysethome.view.Tenant.TenantViewListing.TenantViewListingView;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class TenantHomeFragment extends Fragment {\r\n\r\n    private TenantMainPresenter presenter;\r\n    private boolean init_recycle_view;\r\n    private RecyclerView recyclerView;\r\n    private ArrayList<TenantHomeListingModel> homeListingModels;\r\n    private TenantHome_RecyclerViewAdaptor adapter;\r\n\r\n\r\n    public TenantHomeFragment(TenantMainPresenter presenter) {\r\n        this.presenter = presenter;\r\n        init_recycle_view = false;\r\n    }\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        // Inflate the layout for this fragment\r\n        View view =  inflater.inflate(R.layout.fragment_tenant_home, container, false);\r\n\r\n        // get the recycler view of tenant home fragment\r\n        recyclerView = view.findViewById(R.id.tenant_home_recyclerView);\r\n\r\n        // prevent from adding copies of the existing rows\r\n        if (!init_recycle_view) {\r\n            homeListingModels = presenter.setUpHomeListingModels();\r\n            // make the adapter for the recycler\r\n            adapter = new TenantHome_RecyclerViewAdaptor(getContext(), homeListingModels, TenantHomeFragment.this);\r\n            init_recycle_view = true;\r\n        }\r\n        recyclerView.setAdapter(adapter);\r\n        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));\r\n\r\n        return view;\r\n    }\r\n\r\n\r\n    public void onItemClick(int pos) {\r\n        Intent intent = new Intent(getContext(), TenantViewListingActivity.class);\r\n        // pass listing id\r\n        intent.putExtra(\"LISTING_ID\", homeListingModels.get(pos).getId());\r\n\r\n        startActivity(intent);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/Tenant/TenantHomeFragment.java b/app/src/main/java/com/example/readysethome/view/Tenant/TenantHomeFragment.java
+--- a/app/src/main/java/com/example/readysethome/view/Tenant/TenantHomeFragment.java	(revision 46d29fdcf3020cf7a5051551e9cb39dfd837324f)
++++ b/app/src/main/java/com/example/readysethome/view/Tenant/TenantHomeFragment.java	(date 1704214982105)
+@@ -56,7 +56,6 @@
+         return view;
+     }
+ 
+-
+     public void onItemClick(int pos) {
+         Intent intent = new Intent(getContext(), TenantViewListingActivity.class);
+         // pass listing id

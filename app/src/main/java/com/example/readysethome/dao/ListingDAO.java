@@ -40,8 +40,8 @@ public interface ListingDAO {
 
     /**
      * Βρίσκει αγγελίς με βάση τον ιδιοκτήτη τους.
-     * @param owner_id Τον ιδιοκτήτη των αγγελιών
+     * @param owner Τον ιδιοκτήτη των αγγελιών
      * @return Τις αγγελίες
      */
-    ArrayList<Listing> findByOwner(String owner_id);
+    ArrayList<Listing> findByOwner(Owner owner);
 }

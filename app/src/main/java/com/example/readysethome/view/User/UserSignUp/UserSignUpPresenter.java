@@ -1,9 +1,13 @@
 package com.example.readysethome.view.User.UserSignUp;
 
+import com.example.readysethome.dao.OwnerDAO;
+import com.example.readysethome.dao.TenantDAO;
 import com.example.readysethome.dao.UserDAO;
 import com.example.readysethome.model.CreditCard;
 import com.example.readysethome.model.EmailAddress;
+import com.example.readysethome.model.Owner;
 import com.example.readysethome.model.Password;
+import com.example.readysethome.model.Tenant;
 import com.example.readysethome.model.User;
 
 import java.util.Date;
@@ -13,6 +17,8 @@ import java.util.regex.Pattern;
 public class UserSignUpPresenter {
     private UserSignUpView view;
     private UserDAO users;
+    private TenantDAO tenants;
+    private OwnerDAO owners;
 
     /**
      * Αρχικοποιεί τον Presenter έτσι ώστε
@@ -20,9 +26,11 @@ public class UserSignUpPresenter {
      * @param view Ένα instance του view
      * @param users Ένα instance του users
      */
-    public UserSignUpPresenter(UserSignUpView view, UserDAO users) {
+    public UserSignUpPresenter(UserSignUpView view, UserDAO users, TenantDAO tenants, OwnerDAO owners) {
         this.view = view;
         this.users = users;
+        this.tenants = tenants;
+        this.owners = owners;
     }
 
     /**
@@ -123,6 +131,15 @@ public class UserSignUpPresenter {
         User new_user = new User(firstName, lastName, new EmailAddress(email), new Password(password), new CreditCard(creditCard), new Date());
         new_user.setId(account_type);
         users.save(new_user);
+        if (account_type.equals("Tenant")) {
+            Tenant new_tenant = new Tenant(new_user.getFirstName(), new_user.getLastName(), new_user.getEmail(), new_user.getPassword(), new_user.getCreditCard(), new_user.getAcc_bday());
+            new_tenant._setId(new_user.getId());
+            tenants.save(new_tenant);
+        } else {
+            Owner new_owner = new Owner(new_user.getFirstName(), new_user.getLastName(), new_user.getEmail(), new_user.getPassword(), new_user.getCreditCard(), new_user.getAcc_bday());
+            new_owner._setId(new_user.getId());
+            owners.save(new_owner);
+        }
         view.successfullyFinishActivity("Επιτυχής εγγραφή του '"+lastName+" "+firstName+"'!");
     }
 

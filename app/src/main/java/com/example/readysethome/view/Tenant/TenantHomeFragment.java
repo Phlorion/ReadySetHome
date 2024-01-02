@@ -56,12 +56,10 @@ public class TenantHomeFragment extends Fragment {
         return view;
     }
 
-
     public void onItemClick(int pos) {
         Intent intent = new Intent(getContext(), TenantViewListingActivity.class);
         // pass listing id
         intent.putExtra("LISTING_ID", homeListingModels.get(pos).getId());
-
         startActivity(intent);
     }
 }
