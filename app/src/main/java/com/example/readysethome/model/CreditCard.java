@@ -1,6 +1,8 @@
 package com.example.readysethome.model;
 
-public class CreditCard {
+import java.io.Serializable;
+
+public class CreditCard implements Serializable {
 
     private String number;
     private double balance;

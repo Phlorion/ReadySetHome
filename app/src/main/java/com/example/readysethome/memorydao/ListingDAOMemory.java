@@ -47,13 +47,13 @@ public class ListingDAOMemory implements ListingDAO {
 
     /**
      * Βρίσκει αγγελίς με βάση τον ιδιοκτήτη τους.
-     * @param owner Τον ιδιοκτήτη των αγγελιών
+     * @param owner_id Τον ιδιοκτήτη των αγγελιών
      * @return Τις αγγελίες
      */
-    public ArrayList<Listing> findByOwner(Owner owner) {
+    public ArrayList<Listing> findByOwner(String owner_id) {
         ArrayList<Listing> temp = new ArrayList<>();
         for (Listing listing : listings) {
-            if (listing.getOwner().equals(owner)) temp.add(listing);
+            if (listing.getOwner().getId().equals(owner_id)) temp.add(listing);
         }
         return temp;
     }

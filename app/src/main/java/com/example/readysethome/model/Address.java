@@ -2,9 +2,10 @@ package com.example.readysethome.model;
 
 import androidx.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Address {
+public class Address implements Serializable {
 
     private String city;
     private String street;

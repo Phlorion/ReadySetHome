@@ -26,12 +26,11 @@ public class OwnerHome_RecyclerViewAdaptor extends RecyclerView.Adapter<OwnerHom
     }
 
     /**
-     * Όταν ο ιδιοκτήτης κάνει αναζήτηση μίας αγγελίας αλλάζουμε τα περιεχόμενα του recycler view.
-     * @param filteredListingModels Οι φιλτραρισμένη λίστα που περιέχει όλα τα μοντέλα των αγγελιών
-     * που πληρούσαν τις προυποθέσεις της αναζήτησης
+     * Όταν ο ιδιοκτήτης κάνει αναζήτηση/προσθήκη μίας αγγελίας αλλάζουμε τα περιεχόμενα του recycler view.
+     * @param listingmodels Οι καινούρια λίστα που περιέχει όλα τα μοντέλα των αγγελιών
      */
-    public void setFilteredList(ArrayList<OwnerHomeListingModel> filteredListingModels) {
-        this.listingModels = filteredListingModels;
+    public void setListingModels(ArrayList<OwnerHomeListingModel> listingmodels) {
+        this.listingModels = listingmodels;
         notifyDataSetChanged();
     }
 

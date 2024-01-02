@@ -5,16 +5,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.readysethome.R;
+import com.example.readysethome.dao.ListingDAO;
+import com.example.readysethome.memorydao.ListingDAOMemory;
+import com.example.readysethome.model.Listing;
 
-// TODO: Κάνε implement το ListingDetailsView
-public class ListingDetailsActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
+public class ListingDetailsActivity extends AppCompatActivity implements ListingDetailsView {
 
     private EditText checkInEditText;
     private EditText checkOutEditText;
+
+    private int listingid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,35 +38,57 @@ public class ListingDetailsActivity extends AppCompatActivity {
         checkInEditText = findViewById(R.id.check_in);
         checkOutEditText = findViewById(R.id.check_out);
 
+
+        final ListingDetailsPresenter presenter = new ListingDetailsPresenter(this, new ListingDAOMemory() {
+        });
+
         Button submitRequestButton = findViewById(R.id.submitRequest);
 
         submitRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Αυτό δεν είναι λάθος αλλά είναι καλό ότι λογική υπάρχει στο σύστημα να
-                // TODO: γίνεται στο presenter. Οπότε θα ήταν καλύτερο να φτιάξεις 2 extra μεθόδους get
-                // TODO: στο view interface για να παίρνεις τα checkin-check-out. Τέλος φτίαξε μία μέθοδο
-                // TODO: στο presenter, πχ onUserSubmit() και να καλείς εκεί μέσα τις μεθόδους του view
-                // Get the entered check-in and check-out times
-                String checkInTime = checkInEditText.getText().toString().trim();
-                String checkOutTime = checkOutEditText.getText().toString().trim();
-
-                // TODO: check if the listing is available for that time period
-
-
-                // TODO: Pass these values to BookingRequestActivity
-
-                // Navigate to BookingRequestActivity when the Submit Request button is clicked
-                Intent intent = new Intent(ListingDetailsActivity.this, BookingRequestActivity.class);
-
-
-                intent.putExtra("checkInTime", checkInTime);
-                intent.putExtra("checkOutTime", checkOutTime);
-
-                startActivity(intent);
+                handleSubmission(presenter);
             }
         });
     }
+
+    private void handleSubmission(ListingDetailsPresenter presenter) {
+        try{
+        // Get the entered check-in and check-out times
+        Date checkInTime = presenter.parseDate(checkInEditText.getText().toString().trim());
+        Date checkOutTime = presenter.parseDate(checkOutEditText.getText().toString().trim());
+
+        // Check listing availability
+        if (presenter.isListingAvailable(getListingId(),checkInTime, checkOutTime)) {
+            // Navigate to BookingRequestActivity when the Submit Request button is clicked
+            Intent intent = new Intent(ListingDetailsActivity.this, BookingRequestActivity.class);
+            intent.putExtra("checkInTime", checkInTime);
+            intent.putExtra("checkOutTime", checkOutTime);
+            startActivity(intent);
+        } else {
+            // Show availability error
+            //TODO: logika san to login tha einai
+        }
+        }catch(ParseException e){
+            e.printStackTrace();
+            }
+    }
+
+
+    @Override
+    public String getCheckIn() {
+        return checkInEditText.getText().toString().trim();
+    }
+
+    @Override
+    public String getCheckOut() {
+        return checkOutEditText.getText().toString().trim();
+    }
+
+    @Override
+    public int getListingId() {
+        return listingid;
+    }
+
+
 }
-
-

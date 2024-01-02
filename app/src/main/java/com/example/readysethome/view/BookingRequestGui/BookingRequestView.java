@@ -1,11 +1,10 @@
 package com.example.readysethome.view.BookingRequestGui;
-
+import java.util.Date;
 public interface BookingRequestView {
-    // TODO: Μπορείς να ονομάσεις αυτές τις μεθόδους confirm() και cancel(), επειδή δεν κάνουν κάτι display
-    // TODO: απλά εκτελούν κάποια λειτουργία και δημιουργούν κάποιο intent.
-    void displayBookingConfirmation();
 
-    void displayCancellationConfirmation();
+    void setPaymentAmount(String paymentAmount);
+    void setDepositAmount(String depositAmount);
+    void confirm(double payment);
+    void cancel();
 
-    void updatePaymentAndDepositAmounts(double paymentAmount);
 }

@@ -1,9 +1,10 @@
 package com.example.readysethome.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
 
     public static String last_tenant_ID = "t0";
     public static String last_owner_ID = "o0";

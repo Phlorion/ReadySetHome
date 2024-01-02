@@ -1,6 +1,8 @@
 package com.example.readysethome.model;
 
-public class Password {
+import java.io.Serializable;
+
+public class Password implements Serializable {
 
     private String password;
 

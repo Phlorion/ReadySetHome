@@ -1,9 +1,10 @@
 package com.example.readysethome.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Apartment {
+public class Apartment implements Serializable {
 
     private Address location;
     private int floor;

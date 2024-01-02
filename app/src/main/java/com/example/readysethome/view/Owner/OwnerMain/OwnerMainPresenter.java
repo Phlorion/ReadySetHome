@@ -1,10 +1,5 @@
 package com.example.readysethome.view.Owner.OwnerMain;
 
-import android.app.Fragment;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.example.readysethome.R;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.UserDAO;
@@ -47,7 +42,7 @@ public class OwnerMainPresenter {
      * για το recycler
      */
     public ArrayList<OwnerHomeListingModel> setUpListingModels() {
-        ArrayList<Listing> owned = listings.findByOwner(attachedOwner);
+        ArrayList<Listing> owned = listings.findByOwner(attachedOwner.getId());
         for (Listing listing : owned) {
             int preview_photo;
             if (listing.getPhotos() != null)
@@ -65,5 +60,18 @@ public class OwnerMainPresenter {
         ((TextView) view.findViewById(R.id.owner_profile_emailView)).setText(attachedOwner.getEmail().getAddress());
         ((ImageView)view.findViewById(R.id.owner_profile_profilePicture)).setImageResource(R.drawable.child_po);
     }
+    public ArrayList<OwnerHomeListingModel> addListingModel(Listing listing) {
+        int preview_photo;
+        if (listing.getPhotos() != null)
+            preview_photo = listing.getPhotos()[0];
+        else
+            preview_photo = R.drawable.child_po;
 
+        listingModels.add(new OwnerHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + "€", preview_photo));
+        return listingModels;
+    }
+
+    public Owner getAttachedOwner() {
+        return attachedOwner;
+    }
 }
