@@ -68,7 +68,7 @@
     <EditText
         android:id="@+id/check_in"
         android:layout_width="209dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="520dp"
         android:ems="10"
@@ -80,7 +80,7 @@
     <EditText
         android:id="@+id/check_out"
         android:layout_width="205dp"
-        android:layout_height="39dp"
+        android:layout_height="48dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="568dp"
         android:ems="10"

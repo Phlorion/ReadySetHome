@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/cancellationTextView"
+        android:id="@+id/cancellationButton"
         android:layout_width="118dp"
         android:layout_height="55dp"
         android:layout_marginStart="152dp"
