@@ -31,6 +31,7 @@ public class TenantViewListingPresenter {
         this.listingDAO = listingDAO;
 
         this.listing = listingDAO.findByID(listing_id);
+        setUpListingViewPage();
 
         // test
         java.util.Calendar c = java.util.Calendar.getInstance();
@@ -45,6 +46,14 @@ public class TenantViewListingPresenter {
         c.set(java.util.Calendar.DAY_OF_MONTH, 23);
         d2.setTime(c.getTimeInMillis());
         this.listing.getCalendar().setUnavailable(d1, d2);
+    }
+
+    protected void setUpListingViewPage() {
+        view.setListingTitle(listing.getTitle());
+        view.setListingDesc(listing.getDescription());
+        view.setListingPrice(Double.toString(listing.getPrice()) + "€");
+        view.setListingLocation(listing.getApartment().getLocation().toString());
+        view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");
     }
 
     protected boolean isListingAvailable(int listingId, Date checkInTime, Date checkOutTime) {

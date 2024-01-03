@@ -84,6 +84,31 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     }
 
     @Override
+    public void setListingTitle(String title) {
+        ((TextView)findViewById(R.id.listingtitle)).setText(title);
+    }
+
+    @Override
+    public void setListingDesc(String desc) {
+        ((TextView)findViewById(R.id.listingdesc)).setText(desc);
+    }
+
+    @Override
+    public void setListingPrice(String price) {
+        ((TextView)findViewById(R.id.listingprice)).setText(price);
+    }
+
+    @Override
+    public void setListingLocation(String location) {
+        ((TextView)findViewById(R.id.listingLocation)).setText(location);
+    }
+
+    @Override
+    public void setListingSize(String size) {
+        ((TextView)findViewById(R.id.listingsize)).setText(size);
+    }
+
+    @Override
     public String getCheckInTV() {
         return checkInDisplay.getText().toString();
     }
