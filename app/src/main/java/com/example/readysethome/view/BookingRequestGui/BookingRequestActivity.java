@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.readysethome.R;
+import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.view.HomePage.HomePageActivity;
 
 
@@ -29,14 +30,16 @@ public class BookingRequestActivity extends AppCompatActivity implements Booking
 
         Date checkIn = null;
         Date checkOut = null;
+        int listing_id = 0;
 
         Intent intent = getIntent();
         if (intent != null) {
             checkIn = (Date) intent.getSerializableExtra("checkInTime");
             checkOut = (Date) intent.getSerializableExtra("checkOutTime");
+            listing_id = intent.getIntExtra("listing_id", 0);
         }
 
-        final BookingRequestPresenter presenter = new BookingRequestPresenter(this, checkIn, checkOut);
+        final BookingRequestPresenter presenter = new BookingRequestPresenter(this, checkIn, checkOut, new ListingDAOMemory(), listing_id);
 
         // calculate amount of pay and deposit
         double payment = presenter.calculatePaymentAmount();

@@ -1,6 +1,7 @@
 // BookingRequestPresenter.java
 package com.example.readysethome.view.BookingRequestGui;
 
+import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.model.Listing;
 import java.util.Date;
 
@@ -8,16 +9,16 @@ public class BookingRequestPresenter {
     private BookingRequestView view;
     private Date checkIn;
     private Date checkOut;
+    ListingDAO listings;
     private Listing listing;
 
-    public BookingRequestPresenter(BookingRequestView view, Date checkIn, Date checkOut) {
+    public BookingRequestPresenter(BookingRequestView view, Date checkIn, Date checkOut, ListingDAO listings, int listing_id) {
         this.view = view;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-    }
+        this.listings = listings;
 
-    public void setListing(Listing listing) {
-        this.listing = listing;
+        listing = listings.findByID(listing_id);
     }
 
     public void onSubmitBookingRequest(double payment) {

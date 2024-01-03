@@ -150,7 +150,7 @@ public class TenantViewListingPresenter {
         // Check listing availability
         if (isListingAvailable(listing.getListing_id(), this.checkIn, this.checkOut)) {
             // Navigate to BookingRequestActivity when the Submit Request button is clicked
-            view.submit(this.checkIn, this.checkOut);
+            view.submit(this.checkIn, this.checkOut, listing.getListing_id());
         } else {
             // Show availability error
             view.showErrorMessage("Unavailable");
