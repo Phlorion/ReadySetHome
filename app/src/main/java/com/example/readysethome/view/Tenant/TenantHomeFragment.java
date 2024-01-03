@@ -12,11 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.readysethome.R;
-import com.example.readysethome.view.BookingRequestGui.ListingDetailsActivity;
-import com.example.readysethome.view.Owner.OwnerViewListing.OwnerViewListingActivity;
 import com.example.readysethome.view.Tenant.TenantMain.TenantMainPresenter;
 import com.example.readysethome.view.Tenant.TenantViewListing.TenantViewListingActivity;
-import com.example.readysethome.view.Tenant.TenantViewListing.TenantViewListingView;
 
 import java.util.ArrayList;
 

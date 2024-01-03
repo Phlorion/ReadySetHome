@@ -65,30 +65,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/check_in"
-        android:layout_width="209dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="520dp"
-        android:ems="10"
-        android:hint="check in"
-        android:inputType="date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/check_out"
-        android:layout_width="205dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="568dp"
-        android:ems="10"
-        android:hint="check out"
-        android:inputType="date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="178dp"
@@ -97,14 +73,15 @@
         android:layout_marginTop="76dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/o1_l1_0"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <Button
         android:id="@+id/submitRequest"
-        android:layout_width="218dp"
-        android:layout_height="93dp"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
         android:layout_marginStart="96dp"
-        android:layout_marginTop="620dp"
+        android:layout_marginTop="616dp"
         android:text="Submit a booking request!"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -118,4 +95,47 @@
         android:text="title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/checkInDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Check In"
+        app:layout_constraintEnd_toEndOf="@+id/checkInBtn"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="@+id/checkInBtn"
+        app:layout_constraintTop_toBottomOf="@+id/checkInBtn" />
+
+    <Button
+        android:id="@+id/checkInBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="64dp"
+        android:text="Check In"
+        app:layout_constraintBottom_toTopOf="@+id/submitRequest"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/checkOutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="64dp"
+        android:text="Check Out"
+        app:layout_constraintBottom_toTopOf="@+id/submitRequest"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/checkOutDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Check Out"
+        app:layout_constraintEnd_toEndOf="@+id/checkOutBtn"
+        app:layout_constraintHorizontal_bias="0.392"
+        app:layout_constraintStart_toStartOf="@+id/checkOutBtn"
+        app:layout_constraintTop_toBottomOf="@+id/checkOutBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

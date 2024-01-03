@@ -33,6 +33,9 @@
             android:name=".view.Tenant.TenantViewListing.TenantViewListingActivity"
             android:exported="false"/>
         <activity
+            android:name=".view.BookingRequestGui.BookingRequestActivity"
+            android:exported="false"/>
+        <activity
             android:name=".view.HomePage.HomePageActivity"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden">
