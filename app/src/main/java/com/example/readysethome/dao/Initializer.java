@@ -5,6 +5,7 @@ import com.example.readysethome.model.Address;
 import com.example.readysethome.model.Apartment;
 import com.example.readysethome.model.Bathroom;
 import com.example.readysethome.model.Bedroom;
+import com.example.readysethome.model.BookingRequest;
 import com.example.readysethome.model.CreditCard;
 import com.example.readysethome.model.EmailAddress;
 import com.example.readysethome.model.Kitchen;
@@ -97,6 +98,73 @@ public abstract class Initializer {
         Listing l1 = owner1.addListing(ap1, "Cool apartment", "Small apartment in Athens.", 56.00, false, new int[]{R.drawable.o1_l1_0, R.drawable.o1_l1_1}, null);
         l1.setListing_id(1);
         listingDAO.save(l1);
+
+        java.util.Calendar c1 = java.util.Calendar.getInstance();
+        Date d1 = new Date();
+        c1.set(java.util.Calendar.YEAR, 2023);
+        c1.set(java.util.Calendar.MONTH, 5);
+        c1.set(java.util.Calendar.DAY_OF_MONTH, 13);
+        d1.setTime(c1.getTimeInMillis());
+
+        java.util.Calendar c2 = java.util.Calendar.getInstance();
+        Date d2 = new Date();
+        c2.set(java.util.Calendar.YEAR, 2023);
+        c2.set(java.util.Calendar.MONTH, 5);
+        c2.set(java.util.Calendar.DAY_OF_MONTH, 14);
+        d2.setTime(c2.getTimeInMillis());
+
+        java.util.Calendar c3 = java.util.Calendar.getInstance();
+        Date d3 = new Date();
+        c3.set(java.util.Calendar.YEAR, 2023);
+        c3.set(java.util.Calendar.MONTH, 5);
+        c3.set(java.util.Calendar.DAY_OF_MONTH, 27);
+        d3.setTime(c3.getTimeInMillis());
+
+        Tenant t1 = new Tenant("John", "Papadopoulos", new EmailAddress("johnpapadop@gmail.com"),
+                new Password("j0001"), new CreditCard("1600150014001300", 19999999), new Date());
+
+        BookingRequest bookingRequest1 = t1.makeBookingRequest(l1, d2, d3);
+        owner1.confirmBookingRequest(bookingRequest1);
+
+        java.util.Calendar c4 = java.util.Calendar.getInstance();
+        Date d4 = new Date();
+        c4.set(java.util.Calendar.YEAR, 2023);
+        c4.set(java.util.Calendar.MONTH, 5);
+        c4.set(java.util.Calendar.DAY_OF_MONTH, 2);
+        d4.setTime(c4.getTimeInMillis());
+
+        java.util.Calendar c5 = java.util.Calendar.getInstance();
+        Date d5 = new Date();
+        c5.set(java.util.Calendar.YEAR, 2023);
+        c5.set(java.util.Calendar.MONTH, 5);
+        c5.set(java.util.Calendar.DAY_OF_MONTH, 3);
+        d5.setTime(c5.getTimeInMillis());
+
+        java.util.Calendar c6 = java.util.Calendar.getInstance();
+        Date d6 = new Date();
+        c6.set(java.util.Calendar.YEAR, 2023);
+        c6.set(java.util.Calendar.MONTH, 5);
+        c6.set(java.util.Calendar.DAY_OF_MONTH, 7);
+        d6.setTime(c6.getTimeInMillis());
+
+
+
+        BookingRequest bookingRequest2 = t1.makeBookingRequest(l1, d5, d6);
+        owner1.confirmBookingRequest(bookingRequest2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // ap2
         ArrayList<Bathroom> ap2_baths = new ArrayList<>();
