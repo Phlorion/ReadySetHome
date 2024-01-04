@@ -6,116 +6,124 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/listingfloor2"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="248dp"
-        android:layout_marginBottom="364dp"
-        android:text="floor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/wifi"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="248dp"
-        android:layout_marginBottom="336dp"
-        android:text="wifi"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/balcony"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="248dp"
-        android:layout_marginBottom="308dp"
-        android:text="balcony"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/location2"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="364dp"
+        android:id="@+id/listingLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="location"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/listingdesc"
+        app:layout_constraintTop_toBottomOf="@+id/listingdesc" />
 
     <TextView
         android:id="@+id/listingsize"
-        android:layout_width="139dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="332dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="size"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/listingLocation"
+        app:layout_constraintTop_toBottomOf="@+id/listingLocation" />
 
     <TextView
         android:id="@+id/listingprice"
-        android:layout_width="159dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginBottom="416dp"
-        android:text="price"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/check_in"
-        android:layout_width="209dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="520dp"
-        android:ems="10"
-        android:hint="check in"
-        android:inputType="date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/check_out"
-        android:layout_width="205dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="568dp"
-        android:ems="10"
-        android:hint="check out"
-        android:inputType="date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:text="28.0€"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/listingdesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/listingdesc"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="178dp"
         android:layout_height="182dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listingtitle"
+        app:srcCompat="@drawable/o1_l1_0"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <Button
         android:id="@+id/submitRequest"
-        android:layout_width="218dp"
-        android:layout_height="93dp"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
         android:layout_marginStart="96dp"
-        android:layout_marginTop="620dp"
+        android:layout_marginTop="616dp"
         android:text="Submit a booking request!"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/listingtitle"
-        android:layout_width="147dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="132dp"
-        android:layout_marginBottom="684dp"
-        android:text="title"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="36dp"
+        android:text="Title"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/checkInDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Check In"
+        app:layout_constraintEnd_toEndOf="@+id/checkInBtn"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="@+id/checkInBtn"
+        app:layout_constraintTop_toBottomOf="@+id/checkInBtn" />
+
+    <Button
+        android:id="@+id/checkInBtn"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginBottom="64dp"
+        android:text="Check In"
+        app:layout_constraintBottom_toTopOf="@+id/submitRequest"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/checkOutBtn"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="64dp"
+        android:text="Check Out"
+        app:layout_constraintBottom_toTopOf="@+id/submitRequest"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/checkOutDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Check Out"
+        app:layout_constraintEnd_toEndOf="@+id/checkOutBtn"
+        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintStart_toStartOf="@+id/checkOutBtn"
+        app:layout_constraintTop_toBottomOf="@+id/checkOutBtn" />
+
+    <TextView
+        android:id="@+id/listingdesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/listingprice"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/listingtitle"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

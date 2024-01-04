@@ -1,5 +1,6 @@
 package com.example.readysethome.model;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.Serializable;
@@ -39,6 +40,11 @@ public class Address implements Serializable {
 
     public void setAddress_num(String address_num) {
         this.address_num = address_num;
+    }
+
+    @NonNull
+    public String toString() {
+        return city + " " + street + " " + address_num;
     }
 
     @Override
