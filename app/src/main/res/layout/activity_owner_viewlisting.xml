@@ -8,20 +8,14 @@
     tools:layout_editor_absoluteY="24dp">
 
     <TextView
-        android:id="@+id/owner_viewListing_occupancy"
+        android:id="@+id/owner_viewListing_ratingValue"
         android:layout_width="160dp"
-        android:layout_height="24dp"
-        android:text="Occupancy"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_incomePerMonth"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_incomePerMonth" />
-
-    <TextView
-        android:id="@+id/owner_viewListing_occupancyValue"
-        android:layout_width="160dp"
-        android:layout_height="24dp"
-        android:text="occupancyValue"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_incomePerMonthValue"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_incomePerMonthValue" />
+        android:layout_height="23dp"
+        android:text="ratingValue"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_cancelationsPerMonthValue"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_cancelationsPerMonthValue"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_cancelationsPerMonthValue" />
 
     <TextView
         android:id="@+id/owner_viewListing_title"
@@ -95,19 +89,18 @@
         android:layout_width="160dp"
         android:layout_height="24dp"
         android:text="Bookings per month"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_occupancy"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_occupancy"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_occupancy" />
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_incomePerMonth"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_incomePerMonth"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_incomePerMonth" />
 
     <TextView
         android:id="@+id/owner_viewListing_bookingsPerMonthValue"
         android:layout_width="160dp"
         android:layout_height="24dp"
         android:text="bookingsPerMonthValue"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_occupancyValue"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_occupancyValue"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_occupancyValue" />
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_incomePerMonthValue"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_incomePerMonthValue"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_incomePerMonthValue" />
 
     <TextView
         android:id="@+id/owner_viewListing_cancelationsPerMonth"
@@ -126,5 +119,14 @@
         app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_bookingsPerMonthValue"
         app:layout_constraintStart_toStartOf="@+id/owner_viewListing_bookingsPerMonthValue"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_bookingsPerMonthValue" />
+
+    <TextView
+        android:id="@+id/owner_viewListing_rating"
+        android:layout_width="160dp"
+        android:layout_height="23dp"
+        android:text="Rating"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_cancelationsPerMonth"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_cancelationsPerMonth"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_cancelationsPerMonth" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
