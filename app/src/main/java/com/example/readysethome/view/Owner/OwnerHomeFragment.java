@@ -131,6 +131,7 @@ public class OwnerHomeFragment extends Fragment {
         intent.putExtra("DESCRIPTION", listingModels.get(pos).getDesc());
         intent.putExtra("PRICE", listingModels.get(pos).getPrice());
         intent.putExtra("IMAGE", listingModels.get(pos).getImage());
+        intent.putExtra("LISTING_ID", listingModels.get(pos).getListing());
 
         startActivity(intent);
     }
