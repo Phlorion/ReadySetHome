@@ -61,12 +61,6 @@ public class OwnerMainPresenter {
         return listingModels;
     }
 
-    public void setUpProfileInfo(View view) {
-        ((TextView) view.findViewById(R.id.owner_profile_nameView)).setText(attachedOwner.getFirstName());
-        ((TextView) view.findViewById(R.id.owner_profile_surnameView)).setText(attachedOwner.getLastName());
-        ((TextView) view.findViewById(R.id.owner_profile_emailView)).setText(attachedOwner.getEmail().getAddress());
-        ((ImageView)view.findViewById(R.id.owner_profile_profilePicture)).setImageResource(R.drawable.child_po);
-    }
     public ArrayList<OwnerHomeListingModel> addListingModel(Listing listing) {
         int preview_photo;
         if (listing.getPhotos() != null)

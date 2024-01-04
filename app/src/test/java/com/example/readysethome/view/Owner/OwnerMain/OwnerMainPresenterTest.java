@@ -81,7 +81,7 @@ public class OwnerMainPresenterTest {
         new_listing.setPrice(150);
         new_listing.setPhotos(null);
 
-        OwnerHomeListingModel new_model = new OwnerHomeListingModel(new_listing.getTitle(), new_listing.getDescription(), Double.toString(new_listing.getPrice()) + "€", R.drawable.child_po);
+        OwnerHomeListingModel new_model = new OwnerHomeListingModel(new_listing.getTitle(), new_listing.getDescription(), Double.toString(new_listing.getPrice()) + "€", R.drawable.child_po, 4);
         listingModels.add(new_model);
         presenterListingModels = presenter.addListingModel(new_listing);
 
@@ -91,7 +91,7 @@ public class OwnerMainPresenterTest {
         // with photo
         new_listing.setPhotos(new int[]{10});
 
-        OwnerHomeListingModel new_model2 = new OwnerHomeListingModel(new_listing.getTitle(), new_listing.getDescription(), Double.toString(new_listing.getPrice()) + "€", 10);
+        OwnerHomeListingModel new_model2 = new OwnerHomeListingModel(new_listing.getTitle(), new_listing.getDescription(), Double.toString(new_listing.getPrice()) + "€", 10, 5);
         listingModels.add(new_model2);
         presenterListingModels = presenter.addListingModel(new_listing);
 

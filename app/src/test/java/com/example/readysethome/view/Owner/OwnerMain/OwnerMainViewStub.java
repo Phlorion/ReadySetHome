@@ -11,9 +11,9 @@ public class OwnerMainViewStub implements OwnerMainView {
     OwnerHomeListingModel model3;
 
     public OwnerMainViewStub() {
-        model1 = new OwnerHomeListingModel("Cool apartment", "Small apartment in Athens.", "56.0€", 1);
-        model2 = new OwnerHomeListingModel("Nice apartment", "Nice little apartment in Athens.", "64.0€", 2);
-        model3 = new OwnerHomeListingModel("Big apartment", "Big and awesome apartment in Athens.", "112.0€", 3);
+        model1 = new OwnerHomeListingModel("Cool apartment", "Small apartment in Athens.", "56.0€", 1, 1);
+        model2 = new OwnerHomeListingModel("Nice apartment", "Nice little apartment in Athens.", "64.0€", 2, 2);
+        model3 = new OwnerHomeListingModel("Big apartment", "Big and awesome apartment in Athens.", "112.0€", 3, 3);
     }
 
     public OwnerHomeListingModel getModel1() {

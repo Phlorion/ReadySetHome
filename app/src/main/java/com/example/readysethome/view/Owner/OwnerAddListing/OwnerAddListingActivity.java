@@ -28,18 +28,21 @@ public class OwnerAddListingActivity extends AppCompatActivity implements OwnerA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_add_listing);
 
-        OwnerDAO ownerDAO = new OwnerDAOMemory();
         String owner_id = getIntent().getStringExtra("OWNER");
-        Owner owner = ownerDAO.findByID(owner_id);
         //System.out.println("------------------------"+owner+"---------------------------");
-        final OwnerAddListingPresenter presenter = new OwnerAddListingPresenter(OwnerAddListingActivity.this, new ListingDAOMemory(), owner);
+        final OwnerAddListingPresenter presenter = new OwnerAddListingPresenter(OwnerAddListingActivity.this, new ListingDAOMemory(), new OwnerDAOMemory(), owner_id);
 
         // get add-button and add event listener
         findViewById(R.id.owner_add_listing_addBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listing = presenter.addListing();
-                successfullyFinishActivity("Επιτυχής προσθήκη της αγγελίας.");
+
+                int resultCode = 0;
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("NEW_LISTING", listing.getListing_id());
+                setResult(resultCode, resultIntent);
+                finish();
             }
         });
     }
@@ -47,11 +50,6 @@ public class OwnerAddListingActivity extends AppCompatActivity implements OwnerA
     @Override
     public void successfullyFinishActivity(String message) {
         Toast.makeText(OwnerAddListingActivity.this, message, Toast.LENGTH_SHORT).show();
-        int resultCode = 0;
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("NEW_LISTING", listing.getListing_id());
-        setResult(resultCode, resultIntent);
-        finish();
     }
 
     @Override

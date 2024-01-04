@@ -1,6 +1,7 @@
 package com.example.readysethome.view.Owner.OwnerAddListing;
 
 import com.example.readysethome.dao.ListingDAO;
+import com.example.readysethome.dao.OwnerDAO;
 import com.example.readysethome.model.Address;
 import com.example.readysethome.model.Apartment;
 import com.example.readysethome.model.Bathroom;
@@ -14,12 +15,14 @@ import java.util.ArrayList;
 public class OwnerAddListingPresenter {
     OwnerAddListingView view;
     ListingDAO listings;
+    OwnerDAO owners;
     Owner owner;
 
-    OwnerAddListingPresenter(OwnerAddListingView view, ListingDAO listings, Owner owner) {
+    OwnerAddListingPresenter(OwnerAddListingView view, ListingDAO listings, OwnerDAO owners, String owner_id) {
         this.view = view;
         this.listings = listings;
-        this.owner = owner;
+        this.owners = owners;
+        this.owner = owners.findByID(owner_id);
     }
 
     /**
@@ -84,6 +87,8 @@ public class OwnerAddListingPresenter {
         // create and save listing
         Listing listing = owner.addListing(apartment, title, desc, Double.parseDouble(price), false, null, null);
         listings.save(listing);
+
+        view.successfullyFinishActivity("Επιτυχής προσθήκη της αγγελίας.");
 
         return listing;
     }
