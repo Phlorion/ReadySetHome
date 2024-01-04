@@ -47,15 +47,21 @@ public class OwnerViewListingPresenter {
     }
 
     public void setUpInfo() {
-        Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm");
-        String yearmonth = dateFormat.format(date);
+        java.util.Calendar c1 = java.util.Calendar.getInstance();
+        Date d1 = new Date();
+        c1.set(java.util.Calendar.YEAR, 2023);
+        c1.set(java.util.Calendar.MONTH, 5);
+        c1.set(java.util.Calendar.DAY_OF_MONTH, 28);
+        d1.setTime(c1.getTimeInMillis());
 
-        listing.calculateMonthlyIncome(date);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm");
+        String yearmonth = dateFormat.format(d1);
+
+        listing.calculateMonthlyIncome(d1);
         monthlyIncome = listing.getMonthlyIncome().get(yearmonth);
 //        ((TextView) view.findViewById(R.id.owner_viewListing_incomePerMonthValue)).setText(String.valueOf(monthlyIncome));
 
-        listing.calculateCancellationsPerMonth(date);
+        listing.calculateCancellationsPerMonth(d1);
         monthlyCancelations = listing.getMonthlyCancellations().get(yearmonth);
 //        ((TextView) view.findViewById(R.id.owner_viewListing_cancelationsPerMonthValue)).setText(String.valueOf(monthlyCancelations));
 
