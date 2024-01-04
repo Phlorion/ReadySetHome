@@ -22,7 +22,8 @@ public class UserLogInPresenterTest {
 
     @Test
     public void connect() {
-        presenter = new UserLogInPresenter(view, dataHelper.getUserDAO());
+        view.setPresenter(new UserLogInPresenter(view, dataHelper.getUserDAO()));
+        presenter = view.getPresenter();
 
         view.setEmail("");
         view.setPass("");

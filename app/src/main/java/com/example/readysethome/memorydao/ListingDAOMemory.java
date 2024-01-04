@@ -30,7 +30,7 @@ public class ListingDAOMemory implements ListingDAO {
      * @return Τις αγγελίες
      */
     public List<Listing> findAll() {
-        return listings;
+        return new ArrayList<Listing>(listings);
     }
 
     /**
@@ -46,7 +46,7 @@ public class ListingDAOMemory implements ListingDAO {
     }
 
     /**
-     * Βρίσκει αγγελίς με βάση τον ιδιοκτήτη τους.
+     * Βρίσκει αγγελίες με βάση τον ιδιοκτήτη τους.
      * @param owner Τον ιδιοκτήτη των αγγελιών
      * @return Τις αγγελίες
      */

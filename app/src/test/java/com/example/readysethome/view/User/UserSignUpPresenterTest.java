@@ -26,7 +26,8 @@ public class UserSignUpPresenterTest {
 
     @Test
     public void addNew() {
-        presenter = new UserSignUpPresenter(view, dataHelper.getUserDAO(), new TenantDAOMemory(), new OwnerDAOMemory());
+        view.setPresenter(new UserSignUpPresenter(view, dataHelper.getUserDAO(), dataHelper.getTenantDAO(), dataHelper.getOwnerDAO()));
+        presenter = view.getPresenter();
 
         view.setFirstName("");
         view.setLastName("Bob");
@@ -56,11 +57,20 @@ public class UserSignUpPresenterTest {
 
         view.setFirstName("John");
         view.setLastName("Bob");
-        view.setEmail("george@gmail.com");
+        view.setEmail("bob@gmail.com");
         view.setPassword("1234");
         view.setCredit_card("8989787867675656");
         view.setAccount_type(2);
         presenter.onSaveUser();
         Assert.assertEquals("Επιτυχής εγγραφή του 'Bob John'!", view.getSuccess_message());
+
+        view.setFirstName("George");
+        view.setLastName("Smith");
+        view.setEmail("georgesmith@gmail.com");
+        view.setPassword("0987");
+        view.setCredit_card("1596159615961596");
+        view.setAccount_type(1);
+        presenter.onSaveUser();
+        Assert.assertEquals("Επιτυχής εγγραφή του 'Smith George'!", view.getSuccess_message());
     }
 }

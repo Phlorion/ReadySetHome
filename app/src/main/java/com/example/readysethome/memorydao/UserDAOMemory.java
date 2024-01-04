@@ -30,7 +30,7 @@ public class UserDAOMemory implements UserDAO {
      * @return Τους χρήστες
      */
     public List<User> findAll() {
-        return users;
+        return new ArrayList<User>(users);
     }
 
     /**
