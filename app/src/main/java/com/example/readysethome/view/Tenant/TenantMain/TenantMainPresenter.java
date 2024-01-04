@@ -44,6 +44,7 @@ public class TenantMainPresenter {
      * για το recycler
      */
     public ArrayList<TenantHomeListingModel> setUpHomeListingModels() {
+        homeListingModels = new ArrayList<>();
         for (Listing listing : listings.findAll()) {
             int preview_photo;
             if (listing.getPhotos() != null)
@@ -53,6 +54,10 @@ public class TenantMainPresenter {
             homeListingModels.add(new TenantHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + "€", listing.getListing_id(), preview_photo));
         }
         return homeListingModels;
+    }
+
+    public Tenant getAttachedTenant() {
+        return attachedTenant;
     }
 
 }

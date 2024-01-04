@@ -34,6 +34,7 @@ public class TenantViewListingPresenter {
         setUpListingViewPage();
 
         // test
+        /*
         java.util.Calendar c = java.util.Calendar.getInstance();
         Date d1 = new Date();
         c.set(java.util.Calendar.YEAR, 2024);
@@ -46,6 +47,7 @@ public class TenantViewListingPresenter {
         c.set(java.util.Calendar.DAY_OF_MONTH, 23);
         d2.setTime(c.getTimeInMillis());
         this.listing.getCalendar().setUnavailable(d1, d2);
+         */
     }
 
     protected void setUpListingViewPage() {
@@ -56,8 +58,7 @@ public class TenantViewListingPresenter {
         view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");
     }
 
-    protected boolean isListingAvailable(int listingId, Date checkInTime, Date checkOutTime) {
-        Listing listing = listingDAO.findByID(listingId);
+    protected boolean isListingAvailable(Date checkInTime, Date checkOutTime) {
         return listing.getCalendar().isAvailable(checkInTime, checkOutTime);
     }
 
@@ -148,7 +149,7 @@ public class TenantViewListingPresenter {
         }
 
         // Check listing availability
-        if (isListingAvailable(listing.getListing_id(), this.checkIn, this.checkOut)) {
+        if (isListingAvailable(this.checkIn, this.checkOut)) {
             // Navigate to BookingRequestActivity when the Submit Request button is clicked
             view.submit(this.checkIn, this.checkOut, listing.getListing_id());
         } else {

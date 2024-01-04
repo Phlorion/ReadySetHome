@@ -64,7 +64,6 @@ public class OwnerMainPresenterTest {
         temp = presenter.setUpListingModels();
 
         Assert.assertEquals(R.drawable.child_po, temp.get(3).getImage());
-
     }
 
     /**
