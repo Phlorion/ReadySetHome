@@ -5,12 +5,14 @@ public class OwnerHomeListingModel {
     String desc;
     String price;
     int image;
+    int id;
 
-    public OwnerHomeListingModel(String title, String desc, String price, int image) {
+    public OwnerHomeListingModel(String title, String desc, String price, int image, int id) {
         this.title = title;
         this.desc = desc;
         this.price = price;
         this.image = image;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -27,5 +29,9 @@ public class OwnerHomeListingModel {
 
     public int getImage() {
         return image;
+    }
+
+    public int getListing() {
+        return id;
     }
 }

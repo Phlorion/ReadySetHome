@@ -56,7 +56,7 @@ public class OwnerMainPresenter {
                 preview_photo = listing.getPhotos()[0];
             else
                 preview_photo = R.drawable.child_po;
-            listingModels.add(new OwnerHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + "€", preview_photo));
+            listingModels.add(new OwnerHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + "€", preview_photo, listing.getListing_id()));
         }
         return listingModels;
     }
@@ -74,7 +74,7 @@ public class OwnerMainPresenter {
         else
             preview_photo = R.drawable.child_po;
 
-        listingModels.add(new OwnerHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + "€", preview_photo));
+        listingModels.add(new OwnerHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + "€", preview_photo, listing.getListing_id()));
         return listingModels;
     }
 
