@@ -48,6 +48,7 @@ public class OwnerMainPresenter {
      * για το recycler
      */
     public ArrayList<OwnerHomeListingModel> setUpListingModels() {
+        listingModels = new ArrayList<>();
         ArrayList<Listing> owned = listings.findByOwner(attachedOwner);
         for (Listing listing : owned) {
             int preview_photo;

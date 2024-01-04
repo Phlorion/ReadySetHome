@@ -1,5 +1,6 @@
 package com.example.readysethome.view.User;
 
+import com.example.readysethome.model.User;
 import com.example.readysethome.view.User.UserLogIn.UserLogInPresenter;
 import com.example.readysethome.view.User.UserLogIn.UserLogInView;
 
@@ -54,7 +55,7 @@ public class UserLogInViewStub implements UserLogInView {
         return success_message;
     }
 
-    public void successfullyFinishActivity(String message) {
+    public void successfullyFinishActivity(String message, User user) {
         success_message = message;
     }
 }

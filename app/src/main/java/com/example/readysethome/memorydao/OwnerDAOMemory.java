@@ -22,7 +22,7 @@ public class OwnerDAOMemory implements OwnerDAO {
 
     @Override
     public List<Owner> findAll() {
-        return owners;
+        return new ArrayList<Owner>(owners);
     }
 
     @Override

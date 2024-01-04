@@ -62,13 +62,13 @@ public abstract class Initializer {
         TenantDAO tenantDAO = getTenantDAO();
 
         User user1 = new User("George", "Avrabos", new EmailAddress("p3210001@aueb.gr"), new Password("1234"), new CreditCard("1234123412341234"), new Date());
-        user1.setId("Owner");
+        user1._setId("o1");
         userDAO.save(user1);
         User user2 = new User("Anestis", "Thanasi", new EmailAddress("p3210273@aueb.gr"), new Password("9090"), new CreditCard("0987098709870987"), new Date());
-        user2.setId("Tenant");
+        user2._setId("t1");
         userDAO.save(user2);
         User user3 = new User("Triantafyllos", "Kiosse", new EmailAddress("p3210079@aueb.gr"), new Password("4545"), new CreditCard("467467467467"), new Date());
-        user3.setId("Owner");
+        user3._setId("o2");
         userDAO.save(user3);
 
         // create some listings and assign them to some users
@@ -94,7 +94,9 @@ public abstract class Initializer {
         ArrayList<Kitchen> ap1_kits = new ArrayList<>();
         ap1_kits.add(new Kitchen(8, true, false, true, true, false, false));
         Apartment ap1 = new Apartment(new Address("Athens", "Str123", "18"), 2, 28, true, true, true, ap1_baths, ap1_beds, ap1_kits);
-        listingDAO.save(owner1.addListing(ap1, "Cool apartment", "Small apartment in Athens.", 56.00, false, new int[]{R.drawable.o1_l1_0, R.drawable.o1_l1_1}, null));
+        Listing l1 = owner1.addListing(ap1, "Cool apartment", "Small apartment in Athens.", 56.00, false, new int[]{R.drawable.o1_l1_0, R.drawable.o1_l1_1}, null);
+        l1.setListing_id(1);
+        listingDAO.save(l1);
 
         // ap2
         ArrayList<Bathroom> ap2_baths = new ArrayList<>();
@@ -104,7 +106,9 @@ public abstract class Initializer {
         ArrayList<Kitchen> ap2_kits = new ArrayList<>();
         ap2_kits.add(new Kitchen(14, true, true, true, true, true, false));
         Apartment ap2 = new Apartment(new Address("Athens", "Str889", "16A"), 3, 36, true, true, true, ap2_baths, ap2_beds, ap2_kits);
-        listingDAO.save(owner1.addListing(ap2, "Nice apartment", "Nice little apartment in Athens.", 64.00, false, new int[]{R.drawable.o1_l2_0}, null));
+        Listing l2 = owner1.addListing(ap2, "Nice apartment", "Nice little apartment in Athens.", 64.00, false, new int[]{R.drawable.o1_l2_0}, null);
+        l2.setListing_id(2);
+        listingDAO.save(l2);
 
         // ap2
         ArrayList<Bathroom> ap3_baths = new ArrayList<>();
@@ -115,7 +119,9 @@ public abstract class Initializer {
         ArrayList<Kitchen> ap3_kits = new ArrayList<>();
         ap3_kits.add(new Kitchen(20, true, true, true, true, true, true));
         Apartment ap3 = new Apartment(new Address("Athens", "BigStreet1100", "9"), 1, 60, true, true, true, ap3_baths, ap3_beds, ap3_kits);
-        listingDAO.save(owner1.addListing(ap3, "Big apartment", "Big and awesome apartment in Athens.", 112.00, false, new int[]{R.drawable.o1_l3_0}, null));
+        Listing l3 = owner1.addListing(ap3, "Big apartment", "Big and awesome apartment in Athens.", 112.00, false, new int[]{R.drawable.o1_l3_0}, null);
+        l3.setListing_id(3);
+        listingDAO.save(l3);
 
     }
 }

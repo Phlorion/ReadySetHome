@@ -23,7 +23,7 @@ public class TenantDAOMemory implements TenantDAO {
 
     @Override
     public List<Tenant> findAll() {
-        return tenants;
+        return new ArrayList<Tenant>(tenants);
     }
 
     @Override
