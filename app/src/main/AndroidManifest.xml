@@ -39,6 +39,9 @@
             android:name=".view.BookingRequestGui.BookingConfirmationActivity"
             android:exported="false"/>
         <activity
+            android:name=".view.Owner.OwnerAddListing.AddChargingPolicies.AddChargingPolicyActivity"
+            android:exported="false"/>
+        <activity
             android:name=".view.HomePage.HomePageActivity"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden">

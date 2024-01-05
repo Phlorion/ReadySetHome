@@ -1,8 +1,9 @@
 package com.example.readysethome.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ChargingPolicy {
+public class ChargingPolicy implements Serializable {
     private Date start_index;
     private Date end_index;
     private String description;

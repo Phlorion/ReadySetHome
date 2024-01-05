@@ -6,8 +6,10 @@ import com.example.readysethome.model.Address;
 import com.example.readysethome.model.Apartment;
 import com.example.readysethome.model.Bathroom;
 import com.example.readysethome.model.Bedroom;
+import com.example.readysethome.model.ChargingPolicy;
 import com.example.readysethome.model.Kitchen;
 import com.example.readysethome.model.Listing;
+import com.example.readysethome.model.ListingsServices;
 import com.example.readysethome.model.Owner;
 
 import java.util.ArrayList;
@@ -18,11 +20,18 @@ public class OwnerAddListingPresenter {
     OwnerDAO owners;
     Owner owner;
 
+    ArrayList<ListingsServices> listingsServices;
+    ArrayList<ChargingPolicy> chargingPolicies;
+
     OwnerAddListingPresenter(OwnerAddListingView view, ListingDAO listings, OwnerDAO owners, String owner_id) {
         this.view = view;
         this.listings = listings;
         this.owners = owners;
         this.owner = owners.findByID(owner_id);
+    }
+
+    public ArrayList<ChargingPolicy> getChargingPolicies() {
+        return chargingPolicies;
     }
 
     /**
@@ -32,6 +41,25 @@ public class OwnerAddListingPresenter {
      */
     private boolean isNull(String str) {
         return str.equals("");
+    }
+
+    /**
+     * Προσθήκη listing services
+     * @param listingsServices Μία λίστα με όλα τα listing services που
+     * επέλεξε ο ιδιοκτήτης
+     */
+    public void addListingServices(ArrayList<ListingsServices> listingsServices) {
+        this.listingsServices = listingsServices;
+    }
+
+    /**
+     * Προσθήκη charging policies
+     * @param chargingPolicies Μία λίστα με όλα τα charging policies που
+     * επέλεξε ο ιδιοκτήτης
+     */
+    public void addChargingPolicy(ArrayList<ChargingPolicy> chargingPolicies) {
+        this.chargingPolicies = chargingPolicies;
+        view.setListingChargingPoliciesTV(this.chargingPolicies.size() + " charging policies");
     }
 
     /**
@@ -83,6 +111,14 @@ public class OwnerAddListingPresenter {
         ArrayList<Bedroom> bedrooms = new ArrayList<>();
         bedrooms.add(bedroom);
         Apartment apartment = new Apartment(address, Integer.parseInt(ap_floor), Double.parseDouble(ap_size), wifi, balcony, livingRoom, bathrooms, bedrooms, kitchens);
+
+        // check if the apartment is already listed
+        for (Listing l : listings.findAll()) {
+            if (l.getApartment().equals(apartment)) {
+                view.showErrorMessage("Σφάλμα!", "Το διαμέρισμα είναι ήδη καταχωρημένο.");
+                return null;
+            }
+        }
 
         // create and save listing
         Listing listing = owner.addListing(apartment, title, desc, Double.parseDouble(price), false, null, null);
