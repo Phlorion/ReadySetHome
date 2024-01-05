@@ -1,6 +1,7 @@
 package com.example.readysethome.view.Owner.OwnerViewListing;
 
 
+import android.annotation.SuppressLint;
 import android.widget.TextView;
 import android.view.View;
 
@@ -10,63 +11,53 @@ import com.example.readysethome.model.Listing;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
 public class OwnerViewListingPresenter {
+    private OwnerViewListingView view;
+    private ListingDAO listings;
     private Listing listing;
-    private double monthlyIncome;
-    private int monthlyCancelations;
-    private double monthlyBookings;
 
-    public OwnerViewListingPresenter(ListingDAO listing, int id) {
-        this.listing = listing.findByID(id);
-    }
-
-    public OwnerViewListingPresenter(OwnerViewListingPresenter presenter) {
-        this.listing = presenter.listing;
-        this.monthlyIncome = presenter.monthlyIncome;
-        this.monthlyCancelations = presenter.monthlyCancelations;
-        this.monthlyBookings = presenter.monthlyBookings;
+    public OwnerViewListingPresenter(OwnerViewListingView view, ListingDAO listings, int id) {
+        this.view = view;
+        this.listings = listings;
+        listing = listings.findByID(id);
     }
 
     public Listing getListing() {
         return listing;
     }
 
-    public double getMonthlyIncome() {
-        return monthlyIncome;
-    }
-
-    public int getMonthlyCancelations() {
-        return monthlyCancelations;
-    }
-
-    public double getMonthlyBookings() {
-        return monthlyBookings;
-    }
-
     public void setUpInfo() {
-        java.util.Calendar c1 = java.util.Calendar.getInstance();
-        Date d1 = new Date();
-        c1.set(java.util.Calendar.YEAR, 2023);
-        c1.set(java.util.Calendar.MONTH, 5);
-        c1.set(java.util.Calendar.DAY_OF_MONTH, 28);
-        d1.setTime(c1.getTimeInMillis());
+        view.setTitle(listing.getTitle());
+        view.setDesc(listing.getDescription());
+        view.setPrice(Double.toString(listing.getPrice()));
+        if (listing.getPhotos() != null)
+            view.setImage(listing.getPhotos()[0]);
+        else
+            view.setImage(R.drawable.child_po);
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm");
+        Calendar c1 = Calendar.getInstance();
+        Date d1;
+        c1.set(Calendar.YEAR, 2023);
+        c1.set(Calendar.MONTH, 5);
+        c1.set(Calendar.DAY_OF_MONTH, 28);
+        c1.set(Calendar.HOUR_OF_DAY, 0);
+        c1.set(Calendar.MINUTE, 0);
+        c1.set(Calendar.SECOND, 0);
+        d1 = c1.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
         String yearmonth = dateFormat.format(d1);
 
-        listing.calculateMonthlyIncome(d1);
-        monthlyIncome = listing.getMonthlyIncome().get(yearmonth);
-//        ((TextView) view.findViewById(R.id.owner_viewListing_incomePerMonthValue)).setText(String.valueOf(monthlyIncome));
+        if (listing.getMonthlyIncome().get(yearmonth) != null) {
+            double monthlyIncome = listing.getMonthlyIncome().get(yearmonth);
+            view.setIncomePerMonth(Double.toString(monthlyIncome));
+        }
 
-        listing.calculateCancellationsPerMonth(d1);
-        monthlyCancelations = listing.getMonthlyCancellations().get(yearmonth);
-//        ((TextView) view.findViewById(R.id.owner_viewListing_cancelationsPerMonthValue)).setText(String.valueOf(monthlyCancelations));
-
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        monthlyBookings = listing.calculateOccupancy(cal);
-//        ((TextView) view.findViewById(R.id.owner_viewListing_bookingsPerMonthValue)).setText(String.valueOf(monthlyBookings));
+        view.setCancellationsPerMonth("0");
+        view.setBookingsPerMonth("0");
+        view.setRating("0");
     }
 }

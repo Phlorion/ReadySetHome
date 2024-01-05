@@ -127,10 +127,6 @@ public class OwnerHomeFragment extends Fragment {
     protected void onItemClick(int pos) {
         System.out.println("---------------------------"+pos+"---------------------------");
         Intent intent = new Intent(getContext(), OwnerViewListingActivity.class);
-        intent.putExtra("TITLE", listingModels.get(pos).getTitle());
-        intent.putExtra("DESCRIPTION", listingModels.get(pos).getDesc());
-        intent.putExtra("PRICE", listingModels.get(pos).getPrice());
-        intent.putExtra("IMAGE", listingModels.get(pos).getImage());
         intent.putExtra("LISTING_ID", listingModels.get(pos).getListing());
 
         startActivity(intent);

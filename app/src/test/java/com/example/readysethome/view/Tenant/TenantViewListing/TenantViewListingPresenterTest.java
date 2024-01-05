@@ -169,20 +169,73 @@ public class TenantViewListingPresenterTest {
 
         // get the dpd dates
         List<Calendar> dis = Arrays.asList(dpd.getDisabledDays());
+        Collections.sort(dis);
+
         Date dpd_d1 = new Date(); Date dpd_d2 = new Date();
-        dpd_d1.setTime(Collections.min(dis).getTimeInMillis());
-        dpd_d2.setTime(Collections.max(dis).getTimeInMillis());
+        dpd_d1.setTime(dis.get(19).getTimeInMillis());
+        System.out.println(dpd_d1.getTime());
+        dpd_d2.setTime(dis.get(29).getTimeInMillis());
+        System.out.println(dpd_d2.getTime());
 
         Assert.assertEquals(d1.getTime() / 1000, dpd_d1.getTime() / 1000);
         Assert.assertEquals(d2.getTime() / 1000, dpd_d2.getTime() / 1000);
         Assert.assertEquals(listing.getCalendar().isAvailable(d1, d2), listing.getCalendar().isAvailable(dpd_d1, dpd_d2));
 
-        // check in not null
+        // press check out while check in not null
         presenter.setCheckIn("JAN 13, 2024");
+        presenter.setAvailableInCalendar(dpd, false);
+
+        Assert.assertEquals(listing.getCalendar().isAvailable(d1, d2), listing.getCalendar().isAvailable(dpd_d1, dpd_d2));
+
+        // press check in while check out not null
+        presenter.setCheckOut("JAN 23, 2024");
         presenter.setAvailableInCalendar(dpd, true);
 
         Assert.assertEquals(listing.getCalendar().isAvailable(d1, d2), listing.getCalendar().isAvailable(dpd_d1, dpd_d2));
 
+    }
+
+    /**
+     * Submit the booking request
+     */
+    @Test
+    public void submitBookingRequestTest() throws ParseException {
+        // make the dates
+        java.util.Calendar c = java.util.Calendar.getInstance();
+        Date d1 = new Date();
+        c.set(java.util.Calendar.YEAR, 2024);
+        c.set(java.util.Calendar.MONTH, 0);
+        c.set(java.util.Calendar.DAY_OF_MONTH, 13);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        d1.setTime(c.getTimeInMillis());
+        Date d2 = new Date();
+        c.set(java.util.Calendar.YEAR, 2024);
+        c.set(java.util.Calendar.MONTH, 0);
+        c.set(java.util.Calendar.DAY_OF_MONTH, 23);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        d2.setTime(c.getTimeInMillis());
+
+        listing.getCalendar().setUnavailable(d1, d2);
+
+        // check in, check out == null
+        presenter.handleSubmission();
+        Assert.assertEquals("Please fill the necessary info", view.getError_msg());
+
+        // apartment unavailable for the given dates
+        presenter.setCheckIn("JAN 13, 2024");
+        presenter.setCheckOut("JAN 23, 2024");
+        presenter.handleSubmission();
+        Assert.assertEquals("Unavailable", view.getError_msg());
+
+        // submit successfully
+        presenter.setCheckIn("JAN 24, 2024");
+        presenter.setCheckIn("JAN 27, 2024");
+        presenter.handleSubmission();
+        Assert.assertEquals("Successful request.", view.getSuccessful_msg());
     }
 
 }

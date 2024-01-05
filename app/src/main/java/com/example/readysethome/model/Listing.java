@@ -1,5 +1,6 @@
 package com.example.readysethome.model;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -290,23 +291,18 @@ public class Listing implements Serializable {
         return bookedDays;
     }
 
-
-
-    public void calculateMonthlyIncome(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm");
+    public void calculateMonthlyIncome(Date date, double toAdd) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
         String yearmonth = dateFormat.format(date);
         if (!monthlyIncome.containsKey(yearmonth)) {
-            monthlyIncome.put(yearmonth, getPrice());
+            monthlyIncome.put(yearmonth, 0.);
         }
-        else {
-            double previousPrice = monthlyIncome.get(yearmonth);
-            monthlyIncome.replace(yearmonth, previousPrice + getPrice());
-        }
+        double previousPrice = monthlyIncome.get(yearmonth);
+        monthlyIncome.replace(yearmonth, previousPrice + toAdd);
     }
 
-
     public void calculateCancellationsPerMonth(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
         String yearmonth = dateFormat.format(date);
         if (!monthlyCancellations.containsKey(yearmonth)) {
             monthlyCancellations.put(yearmonth, 1);

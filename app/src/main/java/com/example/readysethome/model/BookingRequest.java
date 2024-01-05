@@ -75,7 +75,7 @@ public class BookingRequest {
         this.tenant.addBooking(new_booking);
         this.tenant.getBookingRequests().remove(this);
         // Used for the statistics
-        listing.calculateMonthlyIncome(check_in);
+        listing.calculateMonthlyIncome(check_in, days_of_stay * listing.getPrice());
         return true;
     }
 
