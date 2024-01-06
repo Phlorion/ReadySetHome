@@ -5,102 +5,169 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Date;
 
 public class TenantViewListingViewStub implements TenantViewListingView, DatePickerDialog.OnDateSetListener {
-    String title, desc, price, location, size, checkIn, checkOut;
+    String title, desc, price, location, size, checkIn, checkOut,owner,bathrooms,bedrooms,kitchens,floor;
+    boolean wifi,balcony;
     String error_msg, successful_msg, onDateSet;
 
-    public TenantViewListingViewStub() {
-        title = desc = price = location = size = checkIn = checkOut = error_msg = successful_msg = onDateSet = "";
-    }
+        public TenantViewListingViewStub() {
+            title = desc = price = location = size = checkIn = checkOut = error_msg = successful_msg = onDateSet = owner = bathrooms  = bedrooms = kitchens = floor ="";
+            wifi =balcony=true;
+        }
+
+        @Override
+        public void setListingTitle(String title) {
+            this.title = title;
+        }
+
+        @Override
+        public void setListingDesc(String desc) {
+            this.desc = desc;
+        }
+
+        @Override
+        public void setListingPrice(String price) {
+            this.price = price;
+        }
+
+        @Override
+        public void setListingLocation(String location) {
+            this.location = location;
+        }
+
+        @Override
+        public void setListingSize(String size) {
+            this.size = size;
+        }
+
+        @Override
+        public void setOwnerName(String ownerName) {
+            this.owner = ownerName;
+        }
+
+        @Override
+        public void setBathrooms(String bathrooms) {
+            this.bathrooms = bathrooms;
+        }
+
+        @Override
+        public void setWifi(Boolean wifi) {
+            this.wifi=wifi;
+        }
+
+        @Override
+        public void setBalcony(Boolean balcony) {
+                this.balcony=balcony;
+
+        }
+
 
     @Override
-    public void setListingTitle(String title) {
-        this.title = title;
-    }
+        public void setBedrooms(String bedrooms) {
+            this.bedrooms = bedrooms;
+        }
 
-    @Override
-    public void setListingDesc(String desc) {
-        this.desc = desc;
-    }
+        @Override
+        public void setKitchens(String kitchens) {
+            this.kitchens = kitchens;
+        }
 
-    @Override
-    public void setListingPrice(String price) {
-        this.price = price;
-    }
+        @Override
+        public void setFloor(String floor) {
+            this.floor = floor;
+        }
 
-    @Override
-    public void setListingLocation(String location) {
-        this.location = location;
-    }
+        @Override
+        public String getCheckInTV() {
+            return checkIn;
+        }
 
-    @Override
-    public void setListingSize(String size) {
-        this.size = size;
-    }
+        @Override
+        public String getCheckOutTV() {
+            return checkOut;
+        }
 
-    @Override
-    public String getCheckInTV() {
-        return checkIn;
-    }
+        @Override
+        public void setCheckInTV(String checkIn) {
+            this.checkIn = checkIn;
+        }
 
-    @Override
-    public String getCheckOutTV() {
-        return checkOut;
-    }
+        @Override
+        public void setCheckOutTV(String checkOut) {
+            this.checkOut = checkOut;
+        }
 
-    @Override
-    public void setCheckInTV(String checkIn) {
-        this.checkIn = checkIn;
-    }
+        @Override
+        public void submit(Date checkInTime, Date checkOutTime, int listing_id, String tenant_id) {
+            successful_msg = "Successful request.";
+        }
 
-    @Override
-    public void setCheckOutTV(String checkOut) {
-        this.checkOut = checkOut;
-    }
+        @Override
+        public void showErrorMessage(String error) {
+            this.error_msg = error;
+        }
 
-    @Override
-    public void submit(Date checkInTime, Date checkOutTime, int listing_id,String tenant_id) {
-        successful_msg = "Successful request.";
-    }
+        public String getTitle() {
+            return title;
+        }
 
-    @Override
-    public void showErrorMessage(String error) {
-        this.error_msg = error;
-    }
+        public String getDesc() {
+            return desc;
+        }
 
-    public String getTitle() {
-        return title;
-    }
+        public String getPrice() {
+            return price;
+        }
 
-    public String getDesc() {
-        return desc;
-    }
+        public String getLocation() {
+            return location;
+        }
 
-    public String getPrice() {
-        return price;
-    }
+        public String getSize() {
+            return size;
+        }
 
-    public String getLocation() {
-        return location;
-    }
+        public String getOwner() {
+            return owner;
+        }
 
-    public String getSize() {
-        return size;
-    }
+        public String getBathrooms() {
+            return bathrooms;
+        }
 
-    public String getError_msg() {
-        return error_msg;
-    }
+        public boolean getWifi() {
+            return wifi;
+        }
 
-    public String getSuccessful_msg() {
-        return successful_msg;
-    }
+        public boolean getBalcony() {
+            return balcony;
+        }
 
-    public String getOnDateSet() {
-        return onDateSet;
-    }
+        public String getBedrooms() {
+            return bedrooms;
+        }
 
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        public String getKitchens() {
+            return kitchens;
+        }
 
-    }
-}
+        public String getFloor() {
+            return floor;
+        }
+
+        public String getError_msg() {
+            return error_msg;
+        }
+
+        public String getSuccessful_msg() {
+            return successful_msg;
+        }
+
+        public String getOnDateSet() {
+            return onDateSet;
+        }
+        @Override
+        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+            }
+        }
+

@@ -46,6 +46,7 @@ public class TenantBookingsFragment extends Fragment {
         if(!init_recycle_view){
             // Get all bookings and requests for the tenant using the presenter method
             ArrayList<TenantBookingModel> bookingsAndRequests = presenter.setBookingModels();
+
             adapter = new TenantBookingsAdapter(getContext(), bookingsAndRequests,this);
             init_recycle_view=true;
         }

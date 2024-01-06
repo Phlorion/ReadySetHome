@@ -28,6 +28,7 @@ public class TenantBookingsAdapter extends RecyclerView.Adapter<TenantBookingsAd
 
     public void setBookingModels(ArrayList<TenantBookingModel> bookingModels) {
         this.bookingModels = bookingModels;
+        notifyDataSetChanged();
     }
 
     @NonNull

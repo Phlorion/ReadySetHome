@@ -43,9 +43,9 @@ public class BookingConfirmationPresenter {
         view.displayConfirmationMessage(confirmationMessage);
         //submit the booking request
         booking_requests=new BookingRequestDAOMemory();
-        BookingRequest bookingreq=tenant.makeBookingRequest(listing,checkIn,checkOut);
+        bookingrequest=tenant.makeBookingRequest(listing,checkIn,checkOut);
 
-        booking_requests.save(bookingreq);
+        booking_requests.save(bookingrequest);
     }
 
 
