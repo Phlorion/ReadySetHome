@@ -301,15 +301,18 @@ public class Listing implements Serializable {
         monthlyIncome.replace(yearmonth, previousPrice + toAdd);
     }
 
-    public void calculateCancellationsPerMonth(Date date) {
+
+        public void calculateCancellationsPerMonth(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
         String yearmonth = dateFormat.format(date);
         if (!monthlyCancellations.containsKey(yearmonth)) {
             monthlyCancellations.put(yearmonth, 1);
         }
-        else {
+        /*else {
             int previousCancellations = monthlyCancellations.get(yearmonth);
             monthlyCancellations.replace(yearmonth, previousCancellations + 1);
-        }
+        }*/
+        int previousCancellations = monthlyCancellations.get(yearmonth);
+        monthlyCancellations.replace(yearmonth, previousCancellations + 1);
     }
 }
