@@ -35,7 +35,7 @@ public class BookingRequest {
         Owner owner = listing.getOwner();
         notifyUser(owner, "Booking Request", "Booking request from " + this.tenant + " for " + this.listing+ " for " + this.check_in + "-" + this.check_out);
         owner.addToPending(this);
-        tenant.getBookingRequests().add(this);
+        //tenant.getBookingRequests().add(this);
         return true;
     }
 

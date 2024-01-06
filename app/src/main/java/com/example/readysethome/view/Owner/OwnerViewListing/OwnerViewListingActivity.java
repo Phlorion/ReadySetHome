@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -28,9 +30,19 @@ public class OwnerViewListingActivity extends AppCompatActivity implements Owner
 
         final OwnerViewListingPresenter presenter = new OwnerViewListingPresenter(OwnerViewListingActivity.this, new ListingDAOMemory(), new TenantDAOMemory(),listing_id);
 
-        /*if (!presenter.isButtonPressed()) {
-            presenter.setUpInfo();
-        }*/
+
+        Spinner spinner = (Spinner) findViewById(R.id.owner_viewListing_selectMonthValue);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.months,
+                android.R.layout.simple_spinner_item
+        );
+        // Specify the layout to use when the list of choices appears.
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner.
+        spinner.setAdapter(adapter);
+
+
         presenter.setUpBasicInfo();
         findViewById(R.id.owner_viewListing_submitYearMonth).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +101,7 @@ public class OwnerViewListingActivity extends AppCompatActivity implements Owner
         return ((EditText)findViewById(R.id.owner_viewListing_selectYearValue)).getText().toString().trim();
     }
 
-    public String getMonth() {
-        return ((EditText)findViewById(R.id.owner_viewListing_selectMonthValue)).getText().toString().trim();
+    public int getMonth() {
+        return ((Spinner)findViewById(R.id.owner_viewListing_selectMonthValue)).getSelectedItemPosition()+1;
     }
 }

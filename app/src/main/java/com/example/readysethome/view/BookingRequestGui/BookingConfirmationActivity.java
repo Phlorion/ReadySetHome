@@ -5,17 +5,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.readysethome.R;
 import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.TenantDAOMemory;
+import com.example.readysethome.view.Tenant.TenantBookingsFragment;
 import com.example.readysethome.view.Tenant.TenantHomeFragment;
 import com.example.readysethome.view.Tenant.TenantMain.TenantMainActivity;
 
 import java.util.Date;
 
 public class BookingConfirmationActivity extends AppCompatActivity implements BookingConfirmationView {
+
+    BookingConfirmationPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +30,14 @@ public class BookingConfirmationActivity extends AppCompatActivity implements Bo
         int listing_id = 0;
         String tenant_id=null;
         Intent intent = getIntent();
-       if (intent != null) {
+        if (intent != null) {
             checkIn = (Date) intent.getSerializableExtra("checkIn");
             checkOut = (Date) intent.getSerializableExtra("checkOut");
             listing_id = intent.getIntExtra("listing_id", 0);
             tenant_id = intent.getStringExtra("tenant_id");
         }
 
-        final BookingConfirmationPresenter presenter = new BookingConfirmationPresenter(this,new ListingDAOMemory(),checkIn,checkOut,listing_id,tenant_id,new TenantDAOMemory());
+        presenter = new BookingConfirmationPresenter(this,new ListingDAOMemory(),checkIn,checkOut,listing_id,tenant_id,new TenantDAOMemory());
 
         Button homeButton = findViewById(R.id.ReturnToMainMenu);
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -54,9 +58,7 @@ public class BookingConfirmationActivity extends AppCompatActivity implements Bo
 
     @Override
     public void navigateToHomePage(String tenant_id) {
-        Intent intent = new Intent(BookingConfirmationActivity.this, TenantMainActivity.class);
-        intent.putExtra("user_id",tenant_id);
-        startActivity(intent);
-
+        Toast.makeText(BookingConfirmationActivity.this, "Succesful booking request", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
