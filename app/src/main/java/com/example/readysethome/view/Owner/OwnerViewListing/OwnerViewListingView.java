@@ -14,5 +14,5 @@ public interface OwnerViewListingView {
 
     String getYear();
 
-    String getMonth();
+    int getMonth();
 }
