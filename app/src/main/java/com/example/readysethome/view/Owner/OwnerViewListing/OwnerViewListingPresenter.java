@@ -1,5 +1,9 @@
 package com.example.readysethome.view.Owner.OwnerViewListing;
 
+import android.content.Context;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
 import com.example.readysethome.R;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.TenantDAO;
@@ -20,6 +24,8 @@ public class OwnerViewListingPresenter {
     private TenantDAO tenants;
     private Listing listing;
     private List<Tenant> tenantList;
+
+
 
     public OwnerViewListingPresenter(OwnerViewListingView view, ListingDAO listings, TenantDAO tenants, int id) {
         this.view = view;
@@ -96,7 +102,7 @@ public class OwnerViewListingPresenter {
     public void submitPressed() {
 
         String year = view.getYear();
-        String month = view.getMonth();
+        String month = String.valueOf(view.getMonth());
         if (month.length() == 1) {
             month = "0" + month;
         }

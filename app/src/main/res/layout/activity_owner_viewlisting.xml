@@ -7,29 +7,19 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="24dp">
 
-    <EditText
-        android:id="@+id/owner_viewListing_selectMonthValue"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_selectYearValue"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectYearValue"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_selectYearValue" />
-
     <TextView
         android:id="@+id/owner_viewListing_selectMonth"
         android:layout_width="50dp"
         android:layout_height="21dp"
+        android:layout_marginBottom="104dp"
         android:text="Month"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/owner_viewListing_selectMonthValue"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_selectYear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/owner_viewListing_selectMonthValue"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectYear"
-        app:layout_constraintTop_toTopOf="@+id/owner_viewListing_selectMonthValue" />
+        app:layout_constraintTop_toTopOf="@+id/owner_viewListing_selectMonthValue"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/owner_viewListing_ratingValue"
@@ -207,12 +197,22 @@
         android:id="@+id/owner_viewListing_submitYearMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="16dp"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_selectMonthValue"
-        app:layout_constraintHorizontal_bias="0.426"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectMonth"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_selectMonthValue"
-        app:layout_constraintVertical_bias="0.312" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectMonth" />
+
+    <Spinner
+        android:id="@+id/owner_viewListing_selectMonthValue"
+        android:layout_width="184dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_selectYearValue"
+        app:layout_constraintHorizontal_bias="0.595"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectYearValue"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_selectYearValue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
