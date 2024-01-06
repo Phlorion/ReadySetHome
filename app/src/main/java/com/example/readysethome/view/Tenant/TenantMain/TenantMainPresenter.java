@@ -26,7 +26,6 @@ public class TenantMainPresenter {
     private TenantDAO tenants;
     private Tenant attachedTenant;
     ArrayList<TenantHomeListingModel> homeListingModels;
-
     ArrayList<TenantBookingModel> bookingModels;
 
 
@@ -46,7 +45,7 @@ public class TenantMainPresenter {
         attachedTenant = tenants.findByID(user_id);
 
         homeListingModels = new ArrayList<TenantHomeListingModel>();
-        bookingModels=new ArrayList<TenantBookingModel>();
+        bookingModels = new ArrayList<TenantBookingModel>();
     }
 
     /**
@@ -66,14 +65,15 @@ public class TenantMainPresenter {
         }
         return homeListingModels;
     }
+
     /**
      * Δημιουργεί μια λίστα με τα αντικείμενα TenantBookingModel για το recycler view
      * με τις κρατήσεις/Αιτήματα κράτησης του ενοικιαστή.
      *
      * @return Η λίστα με τα αντικείμενα TenantBookingModel
      */
-    public ArrayList<TenantBookingModel> setBookingModels() {
-        ArrayList<TenantBookingModel> bookingModels = new ArrayList<>();
+    public ArrayList<TenantBookingModel> setUpBookingModels() {
+        bookingModels = new ArrayList<>();
 
         // Add bookings
         ArrayList<Booking> bookings = attachedTenant.getBookings();
@@ -101,39 +101,54 @@ public class TenantMainPresenter {
         for (BookingRequest bookingRequest : bookingRequests) {
             Listing listing = bookingRequest.getListing();
 
-            // Check if there is a booking with the same listing and date
-            boolean hasCorrespondingBooking = bookings.stream()
-                    .anyMatch(booking -> booking.getListing().equals(listing)
-                            && booking.getCheckIn().equals(bookingRequest.getCheck_in()));
-
-            if (!hasCorrespondingBooking) {
-                int preview_photo;
-                if (listing.getPhotos() != null) {
-                    preview_photo = listing.getPhotos()[0];
-                } else {
-                    preview_photo = R.drawable.child_po;
-                }
-
-                bookingModels.add(new TenantBookingModel(
-                        listing.getTitle(),
-                        bookingRequest.getCheck_in().toString(),
-                        bookingRequest.getBooking_status().toString(),
-                        bookingRequest.getBooking_id(),
-                        preview_photo
-                ));
+            int preview_photo;
+            if (listing.getPhotos() != null) {
+                preview_photo = listing.getPhotos()[0];
+            } else {
+                preview_photo = R.drawable.child_po;
             }
+
+            bookingModels.add(new TenantBookingModel(
+                    listing.getTitle(),
+                    bookingRequest.getCheck_in().toString(),
+                    bookingRequest.getBooking_status().toString(),
+                    bookingRequest.getBooking_id(),
+                    preview_photo
+            ));
         }
 
         return bookingModels;
-
     }
+
+    public ArrayList<TenantBookingModel> addBookingModel(BookingRequest bookingRequest) {
+        Listing listing = bookingRequest.getListing();
+        int preview_photo;
+        if (listing.getPhotos() != null) {
+            preview_photo = listing.getPhotos()[0];
+        } else {
+            preview_photo = R.drawable.child_po;
+        }
+
+        bookingModels.add(new TenantBookingModel(
+                listing.getTitle(),
+                bookingRequest.getCheck_in().toString(),
+                bookingRequest.getBooking_status().toString(),
+                bookingRequest.getBooking_id(),
+                preview_photo
+        ));
+
+        return bookingModels;
+    }
+
     /**
      * Επιστρέφει τον συνδεδεμένο ενοικιαστή.
-     *
      * @return Ο ενοικιαστής που είναι συνδεδεμένος
      */
     public Tenant getAttachedTenant() {
         return attachedTenant;
     }
 
+    public ArrayList<TenantBookingModel> getBookingModels() {
+        return bookingModels;
+    }
 }

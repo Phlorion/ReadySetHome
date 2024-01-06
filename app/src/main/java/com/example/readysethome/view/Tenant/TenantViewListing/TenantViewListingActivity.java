@@ -8,6 +8,10 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -32,12 +36,11 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     boolean checkInPressed;
     TenantViewListingPresenter presenter = null;
 
-     String tenant_id;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_details);
+
 
         Intent intent = getIntent();
         int listing_id = intent.getIntExtra("LISTING_ID", 0);
@@ -141,7 +144,7 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
         intent.putExtra("listing_id", listing_id);
         intent.putExtra("tenant_id",tenant_id);
         startActivity(intent);
-      //  finish();
+        finish();
     }
 
     @Override

@@ -8,15 +8,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.readysethome.R;
 import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.TenantDAOMemory;
-import com.example.readysethome.view.HomePage.HomePageActivity;
-import com.example.readysethome.view.Tenant.TenantHomeFragment;
-import com.example.readysethome.view.Tenant.TenantMain.TenantMainActivity;
+import com.example.readysethome.model.BookingRequest;
+import com.example.readysethome.view.Tenant.TenantBookingModel;
 
-
+import java.util.ArrayList;
 import java.util.Date;
 
 public class BookingRequestActivity extends AppCompatActivity implements BookingRequestView {
@@ -85,29 +88,19 @@ public class BookingRequestActivity extends AppCompatActivity implements Booking
         intent.putExtra("listing_id",listingid);
         intent.putExtra("tenant_id",tenant_id);
         startActivity(intent);
-        //finish();
+        finish();
     }
 
     @Override
     public void cancel(String tenant_id) {
         Toast.makeText(BookingRequestActivity.this, "Canceled booking request.", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(BookingRequestActivity.this, TenantMainActivity.class);
-
-        intent.putExtra("user_id",tenant_id);
-        startActivity(intent);
-
-        //finish();
+        finish();
 
     }
 
     @Override
     public void insufficientFunds(String tenant_id) {
         Toast.makeText(BookingRequestActivity.this, "Insufficient Funds", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(BookingRequestActivity.this, TenantMainActivity.class);
-        intent.putExtra("user_id",tenant_id);
-        startActivity(intent);
-
-       // finish();
-
+        finish();
     }
 }

@@ -14,7 +14,7 @@ public class TenantBookingModel {
 
     public TenantBookingModel(String title, String date, String status, int id,int image) {
         this.title = title;
-        this.date = formatDate(date);
+        this.date = date;
         this.status = status;
         this.id = id;
         this.image=image;
@@ -25,7 +25,7 @@ public class TenantBookingModel {
     }
 
     public String getDate() {
-        return formatDate(date);
+        return date;
     }
 
     public String getStatus() {
@@ -39,6 +39,7 @@ public class TenantBookingModel {
     public int getImage() {
         return image;
     }
+    /*
     private String formatDate(String dateString) {
         try {
             SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -51,4 +52,5 @@ public class TenantBookingModel {
             return dateString; // Return the original string if parsing fails
         }
     }
+     */
 }

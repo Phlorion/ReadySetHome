@@ -20,7 +20,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class TenantMainActivity extends AppCompatActivity implements TenantMainView {
 
+    TenantMainPresenter presenter;
     BottomNavigationView navbar;
+    TenantHomeFragment home;
+    TenantBookingsFragment bookings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,12 +33,12 @@ public class TenantMainActivity extends AppCompatActivity implements TenantMainV
         Intent intent = getIntent();
         String user_id = intent.getStringExtra("user_id");
 
-        final TenantMainPresenter presenter = new TenantMainPresenter(TenantMainActivity.this, new ListingDAOMemory(), new TenantDAOMemory(), user_id);
+        presenter = new TenantMainPresenter(TenantMainActivity.this, new ListingDAOMemory(), new TenantDAOMemory(), user_id);
 
         // create the fragments
-        TenantHomeFragment home = new TenantHomeFragment(presenter);
+        home = new TenantHomeFragment(presenter);
         // create the fragments
-        TenantBookingsFragment bookings = new TenantBookingsFragment(presenter);
+        bookings = new TenantBookingsFragment(presenter);
         // when the owner main appears set the frame layout to the home fragment
         replaceFragment(home);
 
@@ -59,5 +62,13 @@ public class TenantMainActivity extends AppCompatActivity implements TenantMainV
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.tenant_main_framelayout, fragment);
         fragmentTransaction.commit();
+    }
+
+    public TenantHomeFragment getHomeFrag() {
+        return home;
+    }
+
+    public TenantBookingsFragment getBookingsFrag() {
+        return bookings;
     }
 }

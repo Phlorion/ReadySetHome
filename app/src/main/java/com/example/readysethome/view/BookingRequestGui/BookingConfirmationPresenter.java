@@ -38,19 +38,20 @@ public class BookingConfirmationPresenter {
     }
 
     public void onViewCreated() {
-
         String confirmationMessage = "Booking Request confirmed!";
         view.displayConfirmationMessage(confirmationMessage);
         //submit the booking request
-        booking_requests=new BookingRequestDAOMemory();
-        BookingRequest bookingreq=tenant.makeBookingRequest(listing,checkIn,checkOut);
+        booking_requests = new BookingRequestDAOMemory();
+        bookingrequest = tenant.makeBookingRequest(listing,checkIn,checkOut);
 
-        booking_requests.save(bookingreq);
+        booking_requests.save(bookingrequest);
     }
-
-
 
     public void onHomePageClicked() {
         view.navigateToHomePage(tenant.getId());
+    }
+
+    public BookingRequest getBookingrequest() {
+        return bookingrequest;
     }
 }

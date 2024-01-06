@@ -3,6 +3,10 @@ package com.example.readysethome.view.Tenant;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.readysethome.R;
+import com.example.readysethome.model.BookingRequest;
+import com.example.readysethome.view.Tenant.TenantMain.TenantMainActivity;
 import com.example.readysethome.view.Tenant.TenantMain.TenantMainPresenter;
+import com.example.readysethome.view.Tenant.TenantMain.TenantMainView;
 import com.example.readysethome.view.Tenant.TenantViewListing.TenantViewListingActivity;
 
 import java.util.ArrayList;
@@ -24,7 +31,6 @@ public class TenantHomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<TenantHomeListingModel> homeListingModels;
     private TenantHome_RecyclerViewAdaptor adapter;
-
 
     public TenantHomeFragment(TenantMainPresenter presenter) {
         this.presenter = presenter;
@@ -42,7 +48,8 @@ public class TenantHomeFragment extends Fragment {
 
         // prevent from adding copies of the existing rows
         if (!init_recycle_view) {
-            homeListingModels = presenter.setUpHomeListingModels();
+            homeListingModels = presenter.setUpHomeListingModels(); // set all the listings of the listingDAO
+
             // make the adapter for the recycler
             adapter = new TenantHome_RecyclerViewAdaptor(getContext(), homeListingModels, TenantHomeFragment.this);
             init_recycle_view = true;
