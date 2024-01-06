@@ -5,7 +5,7 @@ import com.example.readysethome.MainActivity;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-class Booking {
+public class Booking {
     private boolean isCancelled = false;
     private BookingRequest bookingRequest;
     int apartmentRating=-1;

@@ -34,14 +34,15 @@ public class TenantMainActivity extends AppCompatActivity implements TenantMainV
 
         // create the fragments
         TenantHomeFragment home = new TenantHomeFragment(presenter);
-
+        // create the fragments
+        TenantBookingsFragment bookings = new TenantBookingsFragment(presenter);
         // when the owner main appears set the frame layout to the home fragment
         replaceFragment(home);
 
         navbar = findViewById(R.id.tenant_main_bottomNavigationView);
         navbar.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.tenant_nav_home) replaceFragment(home);
-            else if (item.getItemId() == R.id.tenant_nav_bookings) replaceFragment(new TenantBookingsFragment());
+            else if (item.getItemId() == R.id.tenant_nav_bookings) replaceFragment(bookings);
             else if (item.getItemId() == R.id.tenant_nav_notifications) replaceFragment(new TenantNotificationsFragment());
             else replaceFragment(new TenantProfileFragment());
             return true;

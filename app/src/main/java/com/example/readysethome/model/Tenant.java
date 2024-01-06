@@ -81,5 +81,11 @@ public class Tenant extends User {
         }
         return null;
     }
+    public boolean hasSufficientFunds(double amount) {
 
+        if (getCreditCard() != null) {
+            return getCreditCard().getBalance() >= amount;
+        }
+        return false;
+    }
 }

@@ -5,8 +5,10 @@ import android.widget.Toast;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.readysethome.dao.ListingDAO;
+import com.example.readysethome.dao.TenantDAO;
 import com.example.readysethome.model.Calendar;
 import com.example.readysethome.model.Listing;
+import com.example.readysethome.model.Tenant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.ParseException;
@@ -26,11 +28,16 @@ public class TenantViewListingPresenter {
     private Date checkIn;
     private Date checkOut;
 
-    public TenantViewListingPresenter(TenantViewListingView view, ListingDAO listingDAO, int listing_id) {
+    Tenant tenant;
+    TenantDAO tenants;
+    public TenantViewListingPresenter(TenantViewListingView view, ListingDAO listingDAO, int listing_id,String tenant_id,TenantDAO tenants) {
         this.view = view;
         this.listingDAO = listingDAO;
 
         this.listing = listingDAO.findByID(listing_id);
+        this.tenants=tenants;
+        this.tenant=tenants.findByID(tenant_id);
+
         setUpListingViewPage();
 
         // test
@@ -51,11 +58,12 @@ public class TenantViewListingPresenter {
     }
 
     protected void setUpListingViewPage() {
+        if(listing!=null){
         view.setListingTitle(listing.getTitle());
         view.setListingDesc(listing.getDescription());
         view.setListingPrice(Double.toString(listing.getPrice()) + "€");
         view.setListingLocation(listing.getApartment().getLocation().toString());
-        view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");
+        view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");}
     }
 
     protected boolean isListingAvailable(Date checkInTime, Date checkOutTime) {
@@ -97,6 +105,7 @@ public class TenantViewListingPresenter {
      * @param checkIn Check if the user pressed check in (so we can set unavailable all the dates before the check in)
      */
     public void setAvailableInCalendar(DatePickerDialog dpd, boolean checkIn) {
+
         // disable past dates
         dpd.setMinDate(java.util.Calendar.getInstance());
 
@@ -151,7 +160,7 @@ public class TenantViewListingPresenter {
         // Check listing availability
         if (isListingAvailable(this.checkIn, this.checkOut)) {
             // Navigate to BookingRequestActivity when the Submit Request button is clicked
-            view.submit(this.checkIn, this.checkOut, listing.getListing_id());
+            view.submit(this.checkIn, this.checkOut, listing.getListing_id(),tenant.getId());
         } else {
             // Show availability error
             view.showErrorMessage("Unavailable");

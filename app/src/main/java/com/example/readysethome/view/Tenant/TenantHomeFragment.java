@@ -57,6 +57,7 @@ public class TenantHomeFragment extends Fragment {
         Intent intent = new Intent(getContext(), TenantViewListingActivity.class);
         // pass listing id
         intent.putExtra("LISTING_ID", homeListingModels.get(pos).getId());
+        intent.putExtra("tenant_id",presenter.getAttachedTenant().getId());
         startActivity(intent);
     }
 }

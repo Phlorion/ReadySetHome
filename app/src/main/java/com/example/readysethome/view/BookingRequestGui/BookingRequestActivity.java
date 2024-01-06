@@ -11,7 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.readysethome.R;
 import com.example.readysethome.memorydao.ListingDAOMemory;
+import com.example.readysethome.memorydao.TenantDAOMemory;
 import com.example.readysethome.view.HomePage.HomePageActivity;
+import com.example.readysethome.view.Tenant.TenantHomeFragment;
+import com.example.readysethome.view.Tenant.TenantMain.TenantMainActivity;
 
 
 import java.util.Date;
@@ -27,19 +30,21 @@ public class BookingRequestActivity extends AppCompatActivity implements Booking
 
         paymentAmountTextView = findViewById(R.id.paymentAmountTextView);
         depositAmountTextView = findViewById(R.id.depositAmountTextView);
-
+        String tenant_id=null;
         Date checkIn = null;
         Date checkOut = null;
         int listing_id = 0;
+
 
         Intent intent = getIntent();
         if (intent != null) {
             checkIn = (Date) intent.getSerializableExtra("checkInTime");
             checkOut = (Date) intent.getSerializableExtra("checkOutTime");
             listing_id = intent.getIntExtra("listing_id", 0);
+            tenant_id=intent.getStringExtra("tenant_id");
         }
 
-        final BookingRequestPresenter presenter = new BookingRequestPresenter(this, checkIn, checkOut, new ListingDAOMemory(), listing_id);
+        final BookingRequestPresenter presenter = new BookingRequestPresenter(this, checkIn, checkOut, new ListingDAOMemory(), listing_id,tenant_id,new TenantDAOMemory());
 
         // calculate amount of pay and deposit
         double payment = presenter.calculatePaymentAmount();
@@ -48,7 +53,8 @@ public class BookingRequestActivity extends AppCompatActivity implements Booking
         confirmSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onSubmitBookingRequest(payment);
+                presenter.onSubmitBookingRequest();
+
             }
         });
 
@@ -72,16 +78,36 @@ public class BookingRequestActivity extends AppCompatActivity implements Booking
     }
 
     @Override
-    public void confirm(double payment) {
+    public void confirm(Date checkin,Date checkout,int listingid,String tenant_id) {
         Intent intent = new Intent(BookingRequestActivity.this, BookingConfirmationActivity.class);
-        intent.putExtra("PAY", payment);
-        intent.putExtra("UPFRONT", 0.2 * payment);
+        intent.putExtra("checkIn", checkin);
+        intent.putExtra("checkOut", checkout);
+        intent.putExtra("listing_id",listingid);
+        intent.putExtra("tenant_id",tenant_id);
         startActivity(intent);
+        //finish();
     }
 
     @Override
-    public void cancel() {
+    public void cancel(String tenant_id) {
         Toast.makeText(BookingRequestActivity.this, "Canceled booking request.", Toast.LENGTH_SHORT).show();
-        finish();
+        Intent intent = new Intent(BookingRequestActivity.this, TenantMainActivity.class);
+
+        intent.putExtra("user_id",tenant_id);
+        startActivity(intent);
+
+        //finish();
+
+    }
+
+    @Override
+    public void insufficientFunds(String tenant_id) {
+        Toast.makeText(BookingRequestActivity.this, "Insufficient Funds", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(BookingRequestActivity.this, TenantMainActivity.class);
+        intent.putExtra("user_id",tenant_id);
+        startActivity(intent);
+
+       // finish();
+
     }
 }

@@ -58,7 +58,7 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
     }
 
     @Override
-    public void submit(Date checkInTime, Date checkOutTime, int listing_id) {
+    public void submit(Date checkInTime, Date checkOutTime, int listing_id,String tenant_id) {
         successful_msg = "Successful request.";
     }
 

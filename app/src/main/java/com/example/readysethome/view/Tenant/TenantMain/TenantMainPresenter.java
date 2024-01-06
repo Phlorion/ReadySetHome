@@ -1,14 +1,20 @@
 package com.example.readysethome.view.Tenant.TenantMain;
 
 import com.example.readysethome.R;
+import com.example.readysethome.dao.BookingRequestDAO;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.TenantDAO;
 import com.example.readysethome.dao.UserDAO;
+import com.example.readysethome.memorydao.TenantDAOMemory;
 import com.example.readysethome.memorydao.UserDAOMemory;
+import com.example.readysethome.model.Booking;
+import com.example.readysethome.model.BookingRequest;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Tenant;
 import com.example.readysethome.model.User;
 import com.example.readysethome.view.Owner.OwnerHomeListingModel;
+import com.example.readysethome.view.Tenant.TenantBookingModel;
+import com.example.readysethome.view.Tenant.TenantBookingsAdapter;
 import com.example.readysethome.view.Tenant.TenantHomeListingModel;
 
 import java.util.ArrayList;
@@ -20,6 +26,10 @@ public class TenantMainPresenter {
     private TenantDAO tenants;
     private Tenant attachedTenant;
     ArrayList<TenantHomeListingModel> homeListingModels;
+
+    ArrayList<TenantBookingModel> bookingModels;
+
+
 
     /**
      * Αρχικοποιήση μεταβλητών και δημιουργία του listing model μας για το recycler του χρήστη
@@ -36,6 +46,7 @@ public class TenantMainPresenter {
         attachedTenant = tenants.findByID(user_id);
 
         homeListingModels = new ArrayList<TenantHomeListingModel>();
+        bookingModels=new ArrayList<TenantBookingModel>();
     }
 
     /**
@@ -55,7 +66,72 @@ public class TenantMainPresenter {
         }
         return homeListingModels;
     }
+    /**
+     * Δημιουργεί μια λίστα με τα αντικείμενα TenantBookingModel για το recycler view
+     * με τις κρατήσεις/Αιτήματα κράτησης του ενοικιαστή.
+     *
+     * @return Η λίστα με τα αντικείμενα TenantBookingModel
+     */
+    public ArrayList<TenantBookingModel> setBookingModels() {
+        ArrayList<TenantBookingModel> bookingModels = new ArrayList<>();
 
+        // Add bookings
+        ArrayList<Booking> bookings = attachedTenant.getBookings();
+        for (Booking booking : bookings) {
+            Listing listing = booking.getListing();
+
+            int preview_photo;
+            if (listing.getPhotos() != null) {
+                preview_photo = listing.getPhotos()[0];
+            } else {
+                preview_photo = R.drawable.child_po;
+            }
+
+            bookingModels.add(new TenantBookingModel(
+                    listing.getTitle(),
+                    booking.getCheckIn().toString(),
+                    booking.getBooking_status().toString(),
+                    booking.getId(),
+                    preview_photo
+            ));
+        }
+
+        // Add booking requests
+        ArrayList<BookingRequest> bookingRequests = attachedTenant.getBookingRequests();
+        for (BookingRequest bookingRequest : bookingRequests) {
+            Listing listing = bookingRequest.getListing();
+
+            // Check if there is a booking with the same listing and date
+            boolean hasCorrespondingBooking = bookings.stream()
+                    .anyMatch(booking -> booking.getListing().equals(listing)
+                            && booking.getCheckIn().equals(bookingRequest.getCheck_in()));
+
+            if (!hasCorrespondingBooking) {
+                int preview_photo;
+                if (listing.getPhotos() != null) {
+                    preview_photo = listing.getPhotos()[0];
+                } else {
+                    preview_photo = R.drawable.child_po;
+                }
+
+                bookingModels.add(new TenantBookingModel(
+                        listing.getTitle(),
+                        bookingRequest.getCheck_in().toString(),
+                        bookingRequest.getBooking_status().toString(),
+                        bookingRequest.getBooking_id(),
+                        preview_photo
+                ));
+            }
+        }
+
+        return bookingModels;
+
+    }
+    /**
+     * Επιστρέφει τον συνδεδεμένο ενοικιαστή.
+     *
+     * @return Ο ενοικιαστής που είναι συνδεδεμένος
+     */
     public Tenant getAttachedTenant() {
         return attachedTenant;
     }

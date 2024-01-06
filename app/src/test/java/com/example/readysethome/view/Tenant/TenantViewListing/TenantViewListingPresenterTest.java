@@ -4,8 +4,10 @@ import static org.junit.Assert.assertThrows;
 
 import com.example.readysethome.dao.Initializer;
 import com.example.readysethome.dao.ListingDAO;
+import com.example.readysethome.dao.TenantDAO;
 import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.MemoryInitializer;
+import com.example.readysethome.memorydao.TenantDAOMemory;
 import com.example.readysethome.model.Listing;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -27,6 +29,8 @@ public class TenantViewListingPresenterTest {
     TenantViewListingPresenter presenter;
     Initializer dataHelper;
     ListingDAO listingDAO;
+
+    TenantDAO tenantDAO;
     Listing listing;
 
     @Before
@@ -35,8 +39,9 @@ public class TenantViewListingPresenterTest {
         listingDAO = new ListingDAOMemory();
         dataHelper = new MemoryInitializer();
         dataHelper.prepareData();
+        tenantDAO=new TenantDAOMemory();
 
-        presenter = new TenantViewListingPresenter(view, listingDAO, 1);
+        presenter = new TenantViewListingPresenter(view, listingDAO, 1,"t1",tenantDAO);
         listing = listingDAO.findByID(1);
     }
 

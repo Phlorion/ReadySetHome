@@ -13,6 +13,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.readysethome.R;
 import com.example.readysethome.memorydao.ListingDAOMemory;
+import com.example.readysethome.memorydao.TenantDAOMemory;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.view.BookingRequestGui.BookingRequestActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -31,6 +32,8 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     boolean checkInPressed;
     TenantViewListingPresenter presenter = null;
 
+     String tenant_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +41,9 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
 
         Intent intent = getIntent();
         int listing_id = intent.getIntExtra("LISTING_ID", 0);
+        String tenant_id=intent.getStringExtra("tenant_id");
 
-        presenter = new TenantViewListingPresenter(TenantViewListingActivity.this, new ListingDAOMemory(), listing_id);
+        presenter = new TenantViewListingPresenter(TenantViewListingActivity.this, new ListingDAOMemory(), listing_id,tenant_id,new TenantDAOMemory());
 
         checkInBtn = findViewById(R.id.checkInBtn);
         checkInDisplay = findViewById(R.id.checkInDisplay);
@@ -130,12 +134,14 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     }
 
     @Override
-    public void submit(Date checkInTime, Date checkOutTime, int listing_id) {
+    public void submit(Date checkInTime, Date checkOutTime, int listing_id,String tenant_id) {
         Intent intent = new Intent(TenantViewListingActivity.this, BookingRequestActivity.class);
         intent.putExtra("checkInTime", checkInTime);
         intent.putExtra("checkOutTime", checkOutTime);
         intent.putExtra("listing_id", listing_id);
+        intent.putExtra("tenant_id",tenant_id);
         startActivity(intent);
+      //  finish();
     }
 
     @Override

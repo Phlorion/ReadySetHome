@@ -1,5 +1,6 @@
 package com.example.readysethome.memorydao;
 
+import com.example.readysethome.dao.BookingRequestDAO;
 import com.example.readysethome.dao.Initializer;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.OwnerDAO;
@@ -43,8 +44,15 @@ public class MemoryInitializer extends Initializer {
         return new TenantDAOMemory();
     }
 
+    //@Override
+    public BookingRequestDAO getBookingRequestDAO() {
+        return new BookingRequestDAOMemory();
+    }
+
     @Override
     public ListingDAO getListingDAO() {
         return new ListingDAOMemory();
     }
+
+
 }
