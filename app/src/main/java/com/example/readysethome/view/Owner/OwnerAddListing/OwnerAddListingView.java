@@ -28,6 +28,8 @@ public interface OwnerAddListingView {
     String getListingTitle();
     String getListingDescription();
     String getListingPrice();
+    void setListingChargingPoliciesTV(String text);
+    void setListingServicesTV(String text);
 
     /**
      * Το μήνυμα που εμφανίζεται όταν τελειώνει
