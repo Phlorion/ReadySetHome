@@ -7,20 +7,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.readysethome.R;
+import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.OwnerDAO;
 import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.OwnerDAOMemory;
+import com.example.readysethome.model.ChargingPolicy;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Owner;
+import com.example.readysethome.view.Owner.OwnerAddListing.AddChargingPolicies.AddChargingPolicyActivity;
+
+import java.util.ArrayList;
 
 public class OwnerAddListingActivity extends AppCompatActivity implements OwnerAddListingView {
 
+    OwnerAddListingPresenter presenter;
     Listing listing;
 
     @Override
@@ -28,9 +39,37 @@ public class OwnerAddListingActivity extends AppCompatActivity implements OwnerA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_add_listing);
 
+        /**
+         * Παίρνουμε το αποτέλεσμα ενός activity
+         */
+        ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult o) {
+                if (o != null && o.getResultCode() == 1) {
+                    if (o.getData() != null) {
+                        presenter.addChargingPolicy((ArrayList<ChargingPolicy>) o.getData().getSerializableExtra("CHARGING_POLICIES"));
+                    }
+                }
+            }
+        });
+
         String owner_id = getIntent().getStringExtra("OWNER");
         //System.out.println("------------------------"+owner+"---------------------------");
-        final OwnerAddListingPresenter presenter = new OwnerAddListingPresenter(OwnerAddListingActivity.this, new ListingDAOMemory(), new OwnerDAOMemory(), owner_id);
+        presenter = new OwnerAddListingPresenter(OwnerAddListingActivity.this, new ListingDAOMemory(), new OwnerDAOMemory(), owner_id);
+
+        // add charging policy
+        findViewById(R.id.owner_add_charging_policy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OwnerAddListingActivity.this, AddChargingPolicyActivity.class);
+                // if charging policies not null put Extra
+                if (presenter.getChargingPolicies() != null && presenter.getChargingPolicies().size() > 0) {
+                    intent.putExtra("EXISTING_CHARGING_POLICIES", presenter.getChargingPolicies());
+                }
+                startForResult.launch(intent);
+            }
+        });
+
 
         // get add-button and add event listener
         findViewById(R.id.owner_add_listing_addBtn).setOnClickListener(new View.OnClickListener() {
@@ -197,5 +236,15 @@ public class OwnerAddListingActivity extends AppCompatActivity implements OwnerA
     @Override
     public String getListingPrice() {
         return ((EditText)findViewById(R.id.owner_add_listing_price)).getText().toString().trim();
+    }
+
+    @Override
+    public void setListingChargingPoliciesTV(String text) {
+        ((TextView)findViewById(R.id.added_charging_policies)).setText(text);
+    }
+
+    @Override
+    public void setListingServicesTV(String text) {
+        ((TextView)findViewById(R.id.added_listing_services)).setText(text);
     }
 }

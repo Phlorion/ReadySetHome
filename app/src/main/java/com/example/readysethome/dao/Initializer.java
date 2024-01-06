@@ -16,6 +16,7 @@ import com.example.readysethome.model.Tenant;
 import com.example.readysethome.model.User;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public abstract class Initializer {
@@ -81,6 +82,7 @@ public abstract class Initializer {
 
         Tenant tenant1 = new Tenant(user2.getFirstName(), user2.getLastName(), user2.getEmail(), user2.getPassword(), user2.getCreditCard(), user2.getAcc_bday());
         tenant1._setId(user2.getId());
+        tenant1.getCreditCard().setBalance(10000);
         tenantDAO.save(tenant1);
 
         Owner owner2 = new Owner(user3.getFirstName(), user3.getLastName(), user3.getEmail(), user3.getPassword(), user3.getCreditCard(), user3.getAcc_bday());
@@ -99,31 +101,35 @@ public abstract class Initializer {
         l1.setListing_id(1);
         listingDAO.save(l1);
 
-        java.util.Calendar c1 = java.util.Calendar.getInstance();
+        java.util.Calendar c = java.util.Calendar.getInstance();
         Date d1 = new Date();
-        c1.set(java.util.Calendar.YEAR, 2023);
-        c1.set(java.util.Calendar.MONTH, 5);
-        c1.set(java.util.Calendar.DAY_OF_MONTH, 13);
-        d1.setTime(c1.getTimeInMillis());
+        c.set(java.util.Calendar.YEAR, 2023);
+        c.set(java.util.Calendar.MONTH, 5);
+        c.set(java.util.Calendar.DAY_OF_MONTH, 13);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        d1.setTime(c.getTimeInMillis());
 
-        java.util.Calendar c2 = java.util.Calendar.getInstance();
         Date d2 = new Date();
-        c2.set(java.util.Calendar.YEAR, 2023);
-        c2.set(java.util.Calendar.MONTH, 5);
-        c2.set(java.util.Calendar.DAY_OF_MONTH, 14);
-        d2.setTime(c2.getTimeInMillis());
+        c.set(java.util.Calendar.YEAR, 2023);
+        c.set(java.util.Calendar.MONTH, 5);
+        c.set(java.util.Calendar.DAY_OF_MONTH, 14);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        d2.setTime(c.getTimeInMillis());
 
-        java.util.Calendar c3 = java.util.Calendar.getInstance();
         Date d3 = new Date();
-        c3.set(java.util.Calendar.YEAR, 2023);
-        c3.set(java.util.Calendar.MONTH, 5);
-        c3.set(java.util.Calendar.DAY_OF_MONTH, 27);
-        d3.setTime(c3.getTimeInMillis());
+        c.set(java.util.Calendar.YEAR, 2023);
+        c.set(java.util.Calendar.MONTH, 5);
+        c.set(java.util.Calendar.DAY_OF_MONTH, 27);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        d3.setTime(c.getTimeInMillis());
 
-        Tenant t1 = new Tenant("John", "Papadopoulos", new EmailAddress("johnpapadop@gmail.com"),
-                new Password("j0001"), new CreditCard("1600150014001300", 19999999), new Date());
-
-        BookingRequest bookingRequest1 = t1.makeBookingRequest(l1, d2, d3);
+        BookingRequest bookingRequest1 = tenant1.makeBookingRequest(l1, d2, d3);
         owner1.confirmBookingRequest(bookingRequest1);
 
         java.util.Calendar c4 = java.util.Calendar.getInstance();
@@ -147,9 +153,7 @@ public abstract class Initializer {
         c6.set(java.util.Calendar.DAY_OF_MONTH, 7);
         d6.setTime(c6.getTimeInMillis());
 
-
-
-        BookingRequest bookingRequest2 = t1.makeBookingRequest(l1, d5, d6);
+        BookingRequest bookingRequest2 = tenant1.makeBookingRequest(l1, d5, d6);
         owner1.confirmBookingRequest(bookingRequest2);
 
 

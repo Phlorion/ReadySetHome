@@ -64,7 +64,7 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
 
     @Override
     public void showErrorMessage(String error) {
-        this.error_msg = error_msg;
+        this.error_msg = error;
     }
 
     public String getTitle() {

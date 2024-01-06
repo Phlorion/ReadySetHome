@@ -321,14 +321,15 @@
                 android:id="@+id/owner_add_listing_addBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="192dp"
                 android:layout_marginBottom="12dp"
                 android:text="Add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.472"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_price" />
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_price"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -375,6 +376,49 @@
                 android:inputType="text"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_desc" />
+
+            <Button
+                android:id="@+id/owner_add_charging_policy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="72dp"
+                android:text="Add Charging Policies"
+                app:layout_constraintBottom_toTopOf="@+id/owner_add_listing_addBtn"
+                app:layout_constraintEnd_toEndOf="@+id/owner_add_listing_addBtn"
+                app:layout_constraintStart_toStartOf="@+id/owner_add_listing_addBtn"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_price"
+                app:layout_constraintVertical_bias="0.541" />
+
+            <Button
+                android:id="@+id/owner_add_listing_service"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="24dp"
+                android:text="Add Listing Services"
+                app:layout_constraintEnd_toEndOf="@+id/owner_add_charging_policy"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/owner_add_charging_policy"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_charging_policy" />
+
+            <TextView
+                android:id="@+id/added_charging_policies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:layout_constraintEnd_toEndOf="@+id/owner_add_charging_policy"
+                app:layout_constraintStart_toStartOf="@+id/owner_add_charging_policy"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_charging_policy"
+                tools:text="TextView" />
+
+            <TextView
+                android:id="@+id/added_listing_services"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:layout_constraintEnd_toEndOf="@+id/owner_add_listing_service"
+                app:layout_constraintStart_toStartOf="@+id/owner_add_listing_service"
+                app:layout_constraintTop_toBottomOf="@+id/owner_add_listing_service"
+                tools:text="TextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
