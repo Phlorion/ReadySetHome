@@ -9,4 +9,10 @@ public interface OwnerViewListingView {
     void setCancellationsPerMonth(String cancellations);
     void setBookingsPerMonth(String bookings);
     void setRating(String rating);
+
+    void setOccupancy(String bookedDays);
+
+    String getYear();
+
+    String getMonth();
 }

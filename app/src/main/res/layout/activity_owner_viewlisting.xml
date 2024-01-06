@@ -7,15 +7,49 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="24dp">
 
+    <EditText
+        android:id="@+id/owner_viewListing_selectMonthValue"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_selectYearValue"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectYearValue"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_selectYearValue" />
+
+    <TextView
+        android:id="@+id/owner_viewListing_selectMonth"
+        android:layout_width="50dp"
+        android:layout_height="21dp"
+        android:text="Month"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/owner_viewListing_selectMonthValue"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_selectYear"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectYear"
+        app:layout_constraintTop_toTopOf="@+id/owner_viewListing_selectMonthValue" />
+
     <TextView
         android:id="@+id/owner_viewListing_ratingValue"
         android:layout_width="160dp"
         android:layout_height="23dp"
-        android:text="ratingValue"
+        android:text="0"
         app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_cancelationsPerMonthValue"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/owner_viewListing_cancelationsPerMonthValue"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_cancelationsPerMonthValue" />
+
+    <TextView
+        android:id="@+id/owner_viewListing_occupancyValue"
+        android:layout_width="160dp"
+        android:layout_height="23dp"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_ratingValue"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_ratingValue"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_ratingValue" />
 
     <TextView
         android:id="@+id/owner_viewListing_title"
@@ -33,7 +67,9 @@
         android:id="@+id/owner_viewListing_image"
         android:layout_width="338dp"
         android:layout_height="124dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_price"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="@+id/owner_viewListing_title"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_title"
         app:srcCompat="@drawable/child_po"
@@ -43,24 +79,26 @@
         android:id="@+id/owner_viewListing_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_image"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_title"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_image"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_image" />
 
     <TextView
         android:id="@+id/owner_viewListing_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="30€"
+        android:layout_marginEnd="24dp"
+        android:text="0€"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/owner_viewListing_title"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_image"
-        app:layout_constraintTop_toTopOf="@+id/owner_viewListing_title" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/owner_viewListing_title"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/owner_viewListing_incomePerMonth"
@@ -80,7 +118,7 @@
         android:layout_height="24dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="30dp"
-        android:text="incomePerMonthValue"
+        android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_desc" />
 
@@ -97,7 +135,7 @@
         android:id="@+id/owner_viewListing_bookingsPerMonthValue"
         android:layout_width="160dp"
         android:layout_height="24dp"
-        android:text="bookingsPerMonthValue"
+        android:text="0"
         app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_incomePerMonthValue"
         app:layout_constraintStart_toStartOf="@+id/owner_viewListing_incomePerMonthValue"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_incomePerMonthValue" />
@@ -115,7 +153,7 @@
         android:id="@+id/owner_viewListing_cancelationsPerMonthValue"
         android:layout_width="160dp"
         android:layout_height="24dp"
-        android:text="cancelationsPerMonthValue"
+        android:text="0"
         app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_bookingsPerMonthValue"
         app:layout_constraintStart_toStartOf="@+id/owner_viewListing_bookingsPerMonthValue"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_bookingsPerMonthValue" />
@@ -128,5 +166,53 @@
         app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_cancelationsPerMonth"
         app:layout_constraintStart_toStartOf="@+id/owner_viewListing_cancelationsPerMonth"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_cancelationsPerMonth" />
+
+    <TextView
+        android:id="@+id/owner_viewListing_occupancy"
+        android:layout_width="160dp"
+        android:layout_height="23dp"
+        android:text="Occupancy"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_rating"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_rating"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_rating" />
+
+    <EditText
+        android:id="@+id/owner_viewListing_selectYearValue"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_occupancyValue" />
+
+    <TextView
+        android:id="@+id/owner_viewListing_selectYear"
+        android:layout_width="50dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:text="Year"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/owner_viewListing_selectYearValue"
+        app:layout_constraintHorizontal_bias="0.173"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_occupancy"
+        app:layout_constraintVertical_bias="0.045" />
+
+    <Button
+        android:id="@+id/owner_viewListing_submitYearMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_selectMonthValue"
+        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectMonth"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_selectMonthValue"
+        app:layout_constraintVertical_bias="0.312" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

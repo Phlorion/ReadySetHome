@@ -3,6 +3,8 @@ package com.example.readysethome.view.Owner.OwnerViewListing;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.readysethome.R;
 import com.example.readysethome.memorydao.ListingDAOMemory;
+import com.example.readysethome.memorydao.TenantDAOMemory;
 
 public class OwnerViewListingActivity extends AppCompatActivity implements OwnerViewListingView {
 
@@ -23,8 +26,18 @@ public class OwnerViewListingActivity extends AppCompatActivity implements Owner
         Intent intent = getIntent();
         int listing_id = intent.getIntExtra("LISTING_ID", 0);
 
-        final OwnerViewListingPresenter presenter = new OwnerViewListingPresenter(OwnerViewListingActivity.this, new ListingDAOMemory(), listing_id);
-        presenter.setUpInfo();
+        final OwnerViewListingPresenter presenter = new OwnerViewListingPresenter(OwnerViewListingActivity.this, new ListingDAOMemory(), new TenantDAOMemory(),listing_id);
+
+        /*if (!presenter.isButtonPressed()) {
+            presenter.setUpInfo();
+        }*/
+        presenter.setUpBasicInfo();
+        findViewById(R.id.owner_viewListing_submitYearMonth).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.submitPressed();
+            }
+        });
     }
 
     @Override
@@ -65,5 +78,18 @@ public class OwnerViewListingActivity extends AppCompatActivity implements Owner
     @Override
     public void setRating(String rating) {
         ((TextView)findViewById(R.id.owner_viewListing_ratingValue)).setText(rating);
+    }
+
+    @Override
+    public void setOccupancy(String bookedDays) {
+        ((TextView)findViewById(R.id.owner_viewListing_occupancyValue)).setText(bookedDays);
+    }
+
+    public String getYear() {
+        return ((EditText)findViewById(R.id.owner_viewListing_selectYearValue)).getText().toString().trim();
+    }
+
+    public String getMonth() {
+        return ((EditText)findViewById(R.id.owner_viewListing_selectMonthValue)).getText().toString().trim();
     }
 }
