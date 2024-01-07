@@ -34,14 +34,7 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     TextView checkInDisplay;
     TextView checkOutDisplay;
     boolean checkInPressed;
-    TextView ownerNameTextView;
-    TextView bathroomsTextView;
-    TextView wifiTextView;
-    TextView balconyTextView;
-    TextView bedroomsTextView;
-    TextView kitchensTextView;
-    TextView floorTextView;
-    TenantViewListingPresenter presenter = null;
+    TenantViewListingPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +49,10 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
         presenter = new TenantViewListingPresenter(TenantViewListingActivity.this, new ListingDAOMemory(), listing_id,tenant_id,new TenantDAOMemory());
 
         checkInBtn = findViewById(R.id.checkInBtn);
-
         checkOutBtn = findViewById(R.id.checkOutBtn);
+        checkInDisplay = findViewById(R.id.textView21);
+        checkOutDisplay = findViewById(R.id.textView22);
 
-
-        //ownerNameTextView = findViewById(R.id.ownerName);
-        //bathroomsTextView = findViewById(R.id.bathroomsTextView);
-       // wifiTextView = findViewById(R.id.wifiTextView);
-        //balconyTextView = findViewById(R.id.BalconyTextView);
-       // bedroomsTextView = findViewById(R.id.listingBedrooms);
-      //  kitchensTextView = findViewById(R.id.kitchensTextView);
-       // floorTextView = findViewById(R.id.floorTextView);
 
         // check in pressed
         checkInBtn.setOnClickListener(new View.OnClickListener() {
@@ -148,50 +134,6 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     @Override
     public void setCheckOutTV(String checkOut) {
         checkOutDisplay.setText(checkOut);
-    }
-
-    @Override
-    public void setOwnerName(String ownerName) {
-        ownerNameTextView.setText(ownerName);
-    }
-
-    @Override
-    public void setBathrooms(String bathrooms) {
-        bathroomsTextView.setText(bathrooms);
-    }
-
-    @Override
-    public void setWifi(Boolean wifi) {
-        String wifiAns = wifi ? "Yes" : "No";
-        if (wifiTextView != null) {
-            wifiTextView.setText(wifiAns);
-        } else {
-            System.out.println("wifiTextView is null");
-        }
-    }
-
-    @Override
-    public void setBalcony(Boolean balcony) {
-        String balconyAns="No";
-        if(balcony){
-            balconyAns="Yes";
-        }
-        balconyTextView.setText(balconyAns);
-    }
-
-    @Override
-    public void setBedrooms(String bedrooms) {
-        bedroomsTextView.setText(bedrooms);
-    }
-
-    @Override
-    public void setKitchens(String kitchens) {
-        kitchensTextView.setText(kitchens);
-    }
-
-    @Override
-    public void setFloor(String floor) {
-        floorTextView.setText(floor);
     }
 
     @Override

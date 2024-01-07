@@ -55,9 +55,8 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
         }
 
         @Override
-        public void setBalcony(Boolean balcony) {
+        public void setBalcony(boolean balcony) {
                 this.balcony=balcony;
-
         }
 
 

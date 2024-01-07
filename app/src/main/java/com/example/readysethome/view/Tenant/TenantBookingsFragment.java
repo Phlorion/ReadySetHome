@@ -87,7 +87,6 @@ public class TenantBookingsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // User clicked Yes
-
                 cancelBooking(bookings.findByID(clickedBooking.getId()));
             }
         });

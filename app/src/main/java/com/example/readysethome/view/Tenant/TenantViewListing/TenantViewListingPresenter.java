@@ -59,19 +59,11 @@ public class TenantViewListingPresenter {
 
     protected void setUpListingViewPage() {
         if(listing!=null){
-        view.setListingTitle(listing.getTitle());
-        view.setListingDesc(listing.getDescription());
-        view.setListingPrice(Double.toString(listing.getPrice()) + "€");
-        view.setListingLocation(listing.getApartment().getLocation().toString());
-        view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");
-        System.out.println(listing.getApartment().isWifi());
-        view.setWifi(listing.getApartment().isWifi());
-        view.setBalcony(listing.getApartment().isBalcony());
-        view.setBathrooms(Integer.toString(listing.getApartment().getBathrooms().size()));
-        view.setBedrooms(Integer.toString(listing.getApartment().getBedrooms().size()));
-        view.setKitchens(Integer.toString(listing.getApartment().getKitchens().size()));
-        view.setFloor(Integer.toString(listing.getApartment().getFloor()));
-
+            view.setListingTitle(listing.getTitle());
+            view.setListingDesc(listing.getDescription());
+            view.setListingPrice(Double.toString(listing.getPrice()) + "€");
+            view.setListingLocation(listing.getApartment().getLocation().toString());
+            view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");
         }
     }
 
