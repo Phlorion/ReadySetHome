@@ -17,7 +17,10 @@ import com.example.readysethome.view.Tenant.TenantBookingModel;
 import com.example.readysethome.view.Tenant.TenantBookingsAdapter;
 import com.example.readysethome.view.Tenant.TenantHomeListingModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class TenantMainPresenter {
 
@@ -66,6 +69,10 @@ public class TenantMainPresenter {
         return homeListingModels;
     }
 
+    private String formatDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        return sdf.format(date);
+    }
     /**
      * Δημιουργεί μια λίστα με τα αντικείμενα TenantBookingModel για το recycler view
      * με τις κρατήσεις/Αιτήματα κράτησης του ενοικιαστή.
@@ -89,7 +96,7 @@ public class TenantMainPresenter {
 
             bookingModels.add(new TenantBookingModel(
                     listing.getTitle(),
-                    booking.getCheckIn().toString(),
+                    formatDate(booking.getCheckIn()),
                     booking.getBooking_status().toString(),
                     booking.getId(),
                     preview_photo

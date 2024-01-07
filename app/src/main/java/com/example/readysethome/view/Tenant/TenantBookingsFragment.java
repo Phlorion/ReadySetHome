@@ -64,9 +64,11 @@ public class TenantBookingsFragment extends Fragment {
             bookingsAndRequests = presenter.setUpBookingModels();
             adapter = new TenantBookingsAdapter(getContext(), bookingsAndRequests,this);
             init_recycle_view=true;
+            adapter.setBookingModels(bookingsAndRequests);
         } else {
             // set up each time the booking request and bookings models (in case there is a new one)
             adapter.setBookingModels(presenter.setUpBookingModels());
+            bookingsAndRequests = presenter.setUpBookingModels();
         }
 
         recyclerView.setAdapter(adapter);
@@ -78,9 +80,15 @@ public class TenantBookingsFragment extends Fragment {
 
     public void onItemClick(int position) {
         // Handle item click here
+
+        System.out.println( bookingsAndRequests.size());
+
+        adapter.setBookingModels(bookingsAndRequests);
+        System.out.println(bookingsAndRequests.size());
         TenantBookingModel clickedBooking = bookingsAndRequests.get(position);
         System.out.println(position);
         System.out.println(bookingsAndRequests.get(position)==null);
+
 
         // Show a confirmation dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -113,19 +121,22 @@ public class TenantBookingsFragment extends Fragment {
         // Create and show the dialog
         AlertDialog dialog = builder.create();
         dialog.show();
+        adapter.setBookingModels(bookingsAndRequests);
     }
     protected void cancelBooking(Booking booking){
         presenter.cancelBooking(booking);
         cancelProcedure();
+
     }
-    protected void cancelBookingRequest(BookingRequest bookingRequest){
+    protected void cancelBookingRequest(BookingRequest bookingRequest) {
         presenter.cancelBookingRequest(bookingRequest);
         cancelProcedure();
     }
 
     private void cancelProcedure() {
 
-
+        // Update the bookingsAndRequests list with the latest data
+        bookingsAndRequests = presenter.setUpBookingModels();
         // Show a confirmation dialog for cancellation completion
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Cancellation Complete");

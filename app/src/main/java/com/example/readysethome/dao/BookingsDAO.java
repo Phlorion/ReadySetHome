@@ -10,9 +10,11 @@ import java.util.List;
 public interface BookingsDAO {
     /**
      * Διαγράφει μια κράτηση.
+     *
      * @param booking Η κράτηση
+     * @return
      */
-    void delete(Booking booking);
+    boolean delete(Booking booking);
 
     /**
      * Αποθηκεύει μια κράτηση.

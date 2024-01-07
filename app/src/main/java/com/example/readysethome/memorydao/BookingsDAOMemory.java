@@ -18,8 +18,8 @@ public class BookingsDAOMemory implements BookingsDAO {
     }
 
     @Override
-    public void delete(Booking booking) {
-        bookings.remove(booking);
+    public boolean delete(Booking booking) {
+       return bookings.remove(booking);
     }
 
     @Override
