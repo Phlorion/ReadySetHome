@@ -47,6 +47,60 @@
             app:layout_constraintTop_toBottomOf="@+id/listingLocation" />
 
         <TextView
+            android:id="@+id/bathroomsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="236dp"
+            android:text="Bathrooms: "
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/listingdesc"
+            app:layout_constraintTop_toBottomOf="@+id/listingdesc" />
+
+        <TextView
+            android:id="@+id/wifiTextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="52dp"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/listingprice"
+            app:layout_constraintTop_toBottomOf="@+id/listingprice" />
+
+        <TextView
+            android:id="@+id/BalconyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="124dp"
+            android:layout_marginEnd="20dp"
+            android:text="Balcony: "
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/listingprice"
+            app:layout_constraintTop_toBottomOf="@+id/listingprice" />
+
+        <TextView
+            android:id="@+id/listingBedrooms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="88dp"
+            android:text="Bedrooms: "
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/listingdesc"
+            app:layout_constraintTop_toBottomOf="@+id/listingsize" />
+
+        <TextView
+            android:id="@+id/kitchensTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="200dp"
+            android:text="Kitchens: "
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/listingdesc"
+            app:layout_constraintTop_toBottomOf="@+id/listingdesc" />
+
+        <TextView
             android:id="@+id/listingprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

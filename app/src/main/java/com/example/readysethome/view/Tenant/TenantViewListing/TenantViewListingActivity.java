@@ -56,17 +56,17 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
         presenter = new TenantViewListingPresenter(TenantViewListingActivity.this, new ListingDAOMemory(), listing_id,tenant_id,new TenantDAOMemory());
 
         checkInBtn = findViewById(R.id.checkInBtn);
-        checkInDisplay = findViewById(R.id.checkInDisplay);
+
         checkOutBtn = findViewById(R.id.checkOutBtn);
-        checkOutDisplay = findViewById(R.id.checkOutDisplay);
-        checkInPressed = false;
-        ownerNameTextView = findViewById(R.id.ownerName);
-        bathroomsTextView = findViewById(R.id.bathroomsTextView);
-        wifiTextView = findViewById(R.id.wifiTextView);
-        balconyTextView = findViewById(R.id.BalconyTextView);
-        bedroomsTextView = findViewById(R.id.listingBedrooms);
-        kitchensTextView = findViewById(R.id.kitchensTextView);
-        floorTextView = findViewById(R.id.floorTextView);
+
+
+        //ownerNameTextView = findViewById(R.id.ownerName);
+        //bathroomsTextView = findViewById(R.id.bathroomsTextView);
+       // wifiTextView = findViewById(R.id.wifiTextView);
+        //balconyTextView = findViewById(R.id.BalconyTextView);
+       // bedroomsTextView = findViewById(R.id.listingBedrooms);
+      //  kitchensTextView = findViewById(R.id.kitchensTextView);
+       // floorTextView = findViewById(R.id.floorTextView);
 
         // check in pressed
         checkInBtn.setOnClickListener(new View.OnClickListener() {
