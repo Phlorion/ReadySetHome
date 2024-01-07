@@ -36,7 +36,7 @@ public class Calendar implements Serializable {
         while(e.hasMoreElements()) {
             Date key = e.nextElement();
             if (start.equals(key) || start.equals(availability.get(key)) || end.equals(key) || end.equals(availability.get(key))
-            || (start.after(key) && end.before(key) || (start.before(key) && end.after(key)) || (end.after(availability.get(key)) && start.before(availability.get(key))))) {
+            || (start.before(key) && end.after(key)) || (start.after(key) && start.before(availability.get(key)))) {
                 return false;
             }
         }

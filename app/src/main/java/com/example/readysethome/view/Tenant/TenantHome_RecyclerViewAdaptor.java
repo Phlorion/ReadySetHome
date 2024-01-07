@@ -24,6 +24,11 @@ public class TenantHome_RecyclerViewAdaptor extends RecyclerView.Adapter<TenantH
         this.fragment = fragment;
     }
 
+    public void setHomeListingModels(ArrayList<TenantHomeListingModel> homeListingModels) {
+        this.homeListingModels = homeListingModels;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public TenantHome_RecyclerViewAdaptor.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
