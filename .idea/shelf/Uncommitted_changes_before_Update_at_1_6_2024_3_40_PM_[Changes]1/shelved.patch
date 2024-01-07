@@ -1,0 +1,1372 @@
+Index: app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.Tenant.TenantViewListing;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.DatePicker;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.fragment.app.DialogFragment;\r\n\r\nimport com.example.readysethome.R;\r\nimport com.example.readysethome.memorydao.ListingDAOMemory;\r\nimport com.example.readysethome.model.Listing;\r\nimport com.example.readysethome.view.BookingRequestGui.BookingRequestActivity;\r\nimport com.wdullaer.materialdatetimepicker.date.DatePickerDialog;\r\n\r\nimport java.text.DateFormat;\r\nimport java.text.ParseException;\r\nimport java.util.Calendar;\r\nimport java.util.Date;\r\n\r\npublic class TenantViewListingActivity extends AppCompatActivity implements TenantViewListingView, DatePickerDialog.OnDateSetListener {\r\n\r\n    Button checkInBtn;\r\n    Button checkOutBtn;\r\n    TextView checkInDisplay;\r\n    TextView checkOutDisplay;\r\n    boolean checkInPressed;\r\n    TenantViewListingPresenter presenter = null;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_listing_details);\r\n\r\n        Intent intent = getIntent();\r\n        int listing_id = intent.getIntExtra(\"LISTING_ID\", 0);\r\n\r\n        presenter = new TenantViewListingPresenter(TenantViewListingActivity.this, new ListingDAOMemory(), listing_id);\r\n\r\n        checkInBtn = findViewById(R.id.checkInBtn);\r\n        checkInDisplay = findViewById(R.id.checkInDisplay);\r\n        checkOutBtn = findViewById(R.id.checkOutBtn);\r\n        checkOutDisplay = findViewById(R.id.checkOutDisplay);\r\n        checkInPressed = false;\r\n\r\n        // check in pressed\r\n        checkInBtn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                checkInPressed = true;\r\n                // create dpd\r\n                com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd = presenter.createDPD();\r\n                // disable unavailable days\r\n                presenter.setAvailableInCalendar(dpd, checkInPressed);\r\n\r\n                dpd.show(getSupportFragmentManager(), \"CheckIn\");\r\n            }\r\n        });\r\n\r\n        // check out pressed\r\n        checkOutBtn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                // create dpd\r\n                com.wdullaer.materialdatetimepicker.date.DatePickerDialog dpd = presenter.createDPD();\r\n                // disable unavailable days\r\n                presenter.setAvailableInCalendar(dpd, checkInPressed);\r\n\r\n                dpd.show(getSupportFragmentManager(), \"CheckIn\");\r\n            }\r\n        });\r\n\r\n        Button submitRequestButton = findViewById(R.id.submitRequest);\r\n\r\n        submitRequestButton.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                presenter.handleSubmission();\r\n            }\r\n        });\r\n    }\r\n\r\n    @Override\r\n    public void setListingTitle(String title) {\r\n        ((TextView)findViewById(R.id.listingtitle)).setText(title);\r\n    }\r\n\r\n    @Override\r\n    public void setListingDesc(String desc) {\r\n        ((TextView)findViewById(R.id.listingdesc)).setText(desc);\r\n    }\r\n\r\n    @Override\r\n    public void setListingPrice(String price) {\r\n        ((TextView)findViewById(R.id.listingprice)).setText(price);\r\n    }\r\n\r\n    @Override\r\n    public void setListingLocation(String location) {\r\n        ((TextView)findViewById(R.id.listingLocation)).setText(location);\r\n    }\r\n\r\n    @Override\r\n    public void setListingSize(String size) {\r\n        ((TextView)findViewById(R.id.listingsize)).setText(size);\r\n    }\r\n\r\n    @Override\r\n    public String getCheckInTV() {\r\n        return checkInDisplay.getText().toString();\r\n    }\r\n\r\n    @Override\r\n    public String getCheckOutTV() {\r\n        return checkOutDisplay.getText().toString();\r\n    }\r\n\r\n    @Override\r\n    public void setCheckInTV(String checkIn) {\r\n        checkInDisplay.setText(checkIn);\r\n    }\r\n\r\n    @Override\r\n    public void setCheckOutTV(String checkOut) {\r\n        checkOutDisplay.setText(checkOut);\r\n    }\r\n\r\n    @Override\r\n    public void submit(Date checkInTime, Date checkOutTime, int listing_id) {\r\n        Intent intent = new Intent(TenantViewListingActivity.this, BookingRequestActivity.class);\r\n        intent.putExtra(\"checkInTime\", checkInTime);\r\n        intent.putExtra(\"checkOutTime\", checkOutTime);\r\n        intent.putExtra(\"listing_id\", listing_id);\r\n        startActivity(intent);\r\n    }\r\n\r\n    @Override\r\n    public void showErrorMessage(String error) {\r\n        Toast.makeText(TenantViewListingActivity.this, error, Toast.LENGTH_SHORT).show();\r\n    }\r\n\r\n    @Override\r\n    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {\r\n        Calendar c = Calendar.getInstance();\r\n        c.set(Calendar.YEAR, year);\r\n        c.set(Calendar.MONTH, monthOfYear);\r\n        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);\r\n        String date = DateFormat.getDateInstance().format(c.getTime());\r\n        if (checkInPressed) {\r\n            try {\r\n                presenter.setCheckIn(date);\r\n            } catch (ParseException e) {\r\n                throw new RuntimeException(e);\r\n            }\r\n            checkInPressed = false;\r\n        } else {\r\n            try {\r\n                presenter.setCheckOut(date);\r\n            } catch (ParseException e) {\r\n                throw new RuntimeException(e);\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingActivity.java b/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingActivity.java
+--- a/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingActivity.java	
++++ b/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingActivity.java	
+@@ -13,6 +13,7 @@
+ 
+ import com.example.readysethome.R;
+ import com.example.readysethome.memorydao.ListingDAOMemory;
++import com.example.readysethome.memorydao.TenantDAOMemory;
+ import com.example.readysethome.model.Listing;
+ import com.example.readysethome.view.BookingRequestGui.BookingRequestActivity;
+ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+@@ -31,6 +32,8 @@
+     boolean checkInPressed;
+     TenantViewListingPresenter presenter = null;
+ 
++     String tenant_id;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+@@ -38,8 +41,9 @@
+ 
+         Intent intent = getIntent();
+         int listing_id = intent.getIntExtra("LISTING_ID", 0);
++        String tenant_id=intent.getStringExtra("tenant_id");
+ 
+-        presenter = new TenantViewListingPresenter(TenantViewListingActivity.this, new ListingDAOMemory(), listing_id);
++        presenter = new TenantViewListingPresenter(TenantViewListingActivity.this, new ListingDAOMemory(), listing_id,tenant_id,new TenantDAOMemory());
+ 
+         checkInBtn = findViewById(R.id.checkInBtn);
+         checkInDisplay = findViewById(R.id.checkInDisplay);
+@@ -130,12 +134,14 @@
+     }
+ 
+     @Override
+-    public void submit(Date checkInTime, Date checkOutTime, int listing_id) {
++    public void submit(Date checkInTime, Date checkOutTime, int listing_id,String tenant_id) {
+         Intent intent = new Intent(TenantViewListingActivity.this, BookingRequestActivity.class);
+         intent.putExtra("checkInTime", checkInTime);
+         intent.putExtra("checkOutTime", checkOutTime);
+         intent.putExtra("listing_id", listing_id);
++        intent.putExtra("tenant_id",tenant_id);
+         startActivity(intent);
++        finish();
+     }
+ 
+     @Override
+Index: app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestPresenter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// BookingRequestPresenter.java\r\npackage com.example.readysethome.view.BookingRequestGui;\r\n\r\nimport com.example.readysethome.dao.ListingDAO;\r\nimport com.example.readysethome.model.Listing;\r\nimport java.util.Date;\r\n\r\npublic class BookingRequestPresenter {\r\n    private BookingRequestView view;\r\n    private Date checkIn;\r\n    private Date checkOut;\r\n    ListingDAO listings;\r\n    private Listing listing;\r\n\r\n    public BookingRequestPresenter(BookingRequestView view, Date checkIn, Date checkOut, ListingDAO listings, int listing_id) {\r\n        this.view = view;\r\n        this.checkIn = checkIn;\r\n        this.checkOut = checkOut;\r\n        this.listings = listings;\r\n\r\n        listing = listings.findByID(listing_id);\r\n    }\r\n\r\n    public void onSubmitBookingRequest(double payment) {\r\n        view.confirm(payment);\r\n    }\r\n\r\n    public void onCancelBookingRequest() {\r\n        view.cancel();\r\n    }\r\n\r\n    public double calculatePaymentAmount() {\r\n        double payment = 0;\r\n        if (listing != null) {\r\n            payment = listing.getPrice() * listing.daysBetween(checkIn, checkOut);\r\n            view.setPaymentAmount(Double.toString(payment) + \"€\");\r\n            view.setDepositAmount(Double.toString(0.2 * payment) + \"€\");\r\n        }\r\n        return payment;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestPresenter.java b/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestPresenter.java
+--- a/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestPresenter.java	
++++ b/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestPresenter.java	
+@@ -1,8 +1,13 @@
+ // BookingRequestPresenter.java
+ package com.example.readysethome.view.BookingRequestGui;
+ 
++import android.util.Log;
++
+ import com.example.readysethome.dao.ListingDAO;
++import com.example.readysethome.dao.TenantDAO;
+ import com.example.readysethome.model.Listing;
++import com.example.readysethome.model.Tenant;
++
+ import java.util.Date;
+ 
+ public class BookingRequestPresenter {
+@@ -12,29 +17,74 @@
+     ListingDAO listings;
+     private Listing listing;
+ 
+-    public BookingRequestPresenter(BookingRequestView view, Date checkIn, Date checkOut, ListingDAO listings, int listing_id) {
++    TenantDAO tenants;
++    Tenant tenant;
++
++    public BookingRequestPresenter(BookingRequestView view, Date checkIn, Date checkOut, ListingDAO listings, int listing_id, String tenant_id, TenantDAO tenants) {
+         this.view = view;
+         this.checkIn = checkIn;
+         this.checkOut = checkOut;
+         this.listings = listings;
+ 
+         listing = listings.findByID(listing_id);
++        this.tenants = tenants;
++        this.tenant = tenants.findByID(tenant_id);
++
++        if (tenant == null) {
++            Log.e("BookingRequestPresenter", "Unable to find tenant with ID: " + tenant_id);
++        }
++    }
++
++    /**
++     * Υποβολή αιτήματος κράτησης.
++     */
++    public void onSubmitBookingRequest() {
++
++        if (tenantHasSufficientFunds()) {
++            view.confirm(checkIn, checkOut, listing.getListing_id(), tenant.getId());
++        } else {
++            view.insufficientFunds(tenant.getId());
++
++        }
+     }
+ 
+-    public void onSubmitBookingRequest(double payment) {
+-        view.confirm(payment);
++    /**
++     * Έλεγχος αν ο ενοικιαστής έχει επαρκή funds για την προκαταβολή.
++     *
++     * @return true αν ο ενοικιαστής έχει επαρκή funds, διαφορετικά false
++     */
++    private boolean tenantHasSufficientFunds() {
++        if (tenant != null) {
++            double paymentAmount = calculatePaymentAmount();
++            return tenant.hasSufficientFunds(paymentAmount * 0.2);
++        } else {
++            Log.e("BookingRequestPresenter", "Tenant is null");
++            return false; // Handle the case when tenant is null
++        }
+     }
+ 
++
++
++    /**
++     * Ακύρωση του αιτήματος κράτησης.
++     */
+     public void onCancelBookingRequest() {
+-        view.cancel();
++        view.cancel( tenant.getId());
+     }
+ 
++    /**
++     * Υπολογισμός του ποσού πληρωμής και ενημέρωση της προθεσμίας πληρωμής.
++     *
++     * @return Το ποσό πληρωμής
++     */
+     public double calculatePaymentAmount() {
+         double payment = 0;
+         if (listing != null) {
+             payment = listing.getPrice() * listing.daysBetween(checkIn, checkOut);
+             view.setPaymentAmount(Double.toString(payment) + "€");
+-            view.setDepositAmount(Double.toString(0.2 * payment) + "€");
++            double depositAmount = 0.2 * payment;
++            String formattedDeposit = String.format("%.2f€", depositAmount);
++            view.setDepositAmount(formattedDeposit);
+         }
+         return payment;
+     }
+Index: app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// BookingRequestActivity.java\r\npackage com.example.readysethome.view.BookingRequestGui;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport com.example.readysethome.R;\r\nimport com.example.readysethome.memorydao.ListingDAOMemory;\r\nimport com.example.readysethome.view.HomePage.HomePageActivity;\r\n\r\n\r\nimport java.util.Date;\r\n\r\npublic class BookingRequestActivity extends AppCompatActivity implements BookingRequestView {\r\n\r\n    private TextView paymentAmountTextView;\r\n    private TextView depositAmountTextView;\r\n\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_booking_request_confrimation);\r\n\r\n        paymentAmountTextView = findViewById(R.id.paymentAmountTextView);\r\n        depositAmountTextView = findViewById(R.id.depositAmountTextView);\r\n\r\n        Date checkIn = null;\r\n        Date checkOut = null;\r\n        int listing_id = 0;\r\n\r\n        Intent intent = getIntent();\r\n        if (intent != null) {\r\n            checkIn = (Date) intent.getSerializableExtra(\"checkInTime\");\r\n            checkOut = (Date) intent.getSerializableExtra(\"checkOutTime\");\r\n            listing_id = intent.getIntExtra(\"listing_id\", 0);\r\n        }\r\n\r\n        final BookingRequestPresenter presenter = new BookingRequestPresenter(this, checkIn, checkOut, new ListingDAOMemory(), listing_id);\r\n\r\n        // calculate amount of pay and deposit\r\n        double payment = presenter.calculatePaymentAmount();\r\n\r\n        Button confirmSubmitButton = findViewById(R.id.confirmandsubmitBookingButton);\r\n        confirmSubmitButton.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                presenter.onSubmitBookingRequest(payment);\r\n            }\r\n        });\r\n\r\n        Button cancellationBtn = findViewById(R.id.cancellationButton);\r\n        cancellationBtn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                presenter.onCancelBookingRequest();\r\n            }\r\n        });\r\n    }\r\n\r\n    @Override\r\n    public void setPaymentAmount(String paymentAmount) {\r\n        paymentAmountTextView.setText(paymentAmount);\r\n    }\r\n\r\n    @Override\r\n    public void setDepositAmount(String depositAmount) {\r\n        depositAmountTextView.setText(depositAmount);\r\n    }\r\n\r\n    @Override\r\n    public void confirm(double payment) {\r\n        Intent intent = new Intent(BookingRequestActivity.this, BookingConfirmationActivity.class);\r\n        intent.putExtra(\"PAY\", payment);\r\n        intent.putExtra(\"UPFRONT\", 0.2 * payment);\r\n        startActivity(intent);\r\n    }\r\n\r\n    @Override\r\n    public void cancel() {\r\n        Toast.makeText(BookingRequestActivity.this, \"Canceled booking request.\", Toast.LENGTH_SHORT).show();\r\n        finish();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestActivity.java b/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestActivity.java
+--- a/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestActivity.java	
++++ b/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestActivity.java	
+@@ -11,7 +11,10 @@
+ import androidx.appcompat.app.AppCompatActivity;
+ import com.example.readysethome.R;
+ import com.example.readysethome.memorydao.ListingDAOMemory;
++import com.example.readysethome.memorydao.TenantDAOMemory;
+ import com.example.readysethome.view.HomePage.HomePageActivity;
++import com.example.readysethome.view.Tenant.TenantHomeFragment;
++import com.example.readysethome.view.Tenant.TenantMain.TenantMainActivity;
+ 
+ 
+ import java.util.Date;
+@@ -27,19 +30,21 @@
+ 
+         paymentAmountTextView = findViewById(R.id.paymentAmountTextView);
+         depositAmountTextView = findViewById(R.id.depositAmountTextView);
+-
++        String tenant_id=null;
+         Date checkIn = null;
+         Date checkOut = null;
+         int listing_id = 0;
+ 
++
+         Intent intent = getIntent();
+         if (intent != null) {
+             checkIn = (Date) intent.getSerializableExtra("checkInTime");
+             checkOut = (Date) intent.getSerializableExtra("checkOutTime");
+             listing_id = intent.getIntExtra("listing_id", 0);
++            tenant_id=intent.getStringExtra("tenant_id");
+         }
+ 
+-        final BookingRequestPresenter presenter = new BookingRequestPresenter(this, checkIn, checkOut, new ListingDAOMemory(), listing_id);
++        final BookingRequestPresenter presenter = new BookingRequestPresenter(this, checkIn, checkOut, new ListingDAOMemory(), listing_id,tenant_id,new TenantDAOMemory());
+ 
+         // calculate amount of pay and deposit
+         double payment = presenter.calculatePaymentAmount();
+@@ -48,7 +53,8 @@
+         confirmSubmitButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+-                presenter.onSubmitBookingRequest(payment);
++                presenter.onSubmitBookingRequest();
++
+             }
+         });
+ 
+@@ -72,16 +78,36 @@
+     }
+ 
+     @Override
+-    public void confirm(double payment) {
++    public void confirm(Date checkin,Date checkout,int listingid,String tenant_id) {
+         Intent intent = new Intent(BookingRequestActivity.this, BookingConfirmationActivity.class);
+-        intent.putExtra("PAY", payment);
+-        intent.putExtra("UPFRONT", 0.2 * payment);
++        intent.putExtra("checkIn", checkin);
++        intent.putExtra("checkOut", checkout);
++        intent.putExtra("listing_id",listingid);
++        intent.putExtra("tenant_id",tenant_id);
+         startActivity(intent);
++        finish();
+     }
+ 
+     @Override
+-    public void cancel() {
++    public void cancel(String tenant_id) {
+         Toast.makeText(BookingRequestActivity.this, "Canceled booking request.", Toast.LENGTH_SHORT).show();
++        Intent intent = new Intent(BookingRequestActivity.this, TenantMainActivity.class);
++
++        intent.putExtra("user_id",tenant_id);
++        startActivity(intent);
++
++        finish();
++
++    }
++
++    @Override
++    public void insufficientFunds(String tenant_id) {
++        Toast.makeText(BookingRequestActivity.this, "Insufficient Funds", Toast.LENGTH_SHORT).show();
++        Intent intent = new Intent(BookingRequestActivity.this, TenantMainActivity.class);
++        intent.putExtra("tenant_id",tenant_id);
++        startActivity(intent);
++
+         finish();
++
+     }
+ }
+Index: app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingConfirmationActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.BookingRequestGui;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport com.example.readysethome.R;\r\nimport com.example.readysethome.view.Tenant.TenantHomeFragment;\r\nimport com.example.readysethome.view.Tenant.TenantMain.TenantMainActivity;\r\n\r\npublic class BookingConfirmationActivity extends AppCompatActivity implements BookingConfirmationView {\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_booking_request_confirmation_pressed);\r\n\r\n        final BookingConfirmationPresenter presenter = new BookingConfirmationPresenter(this);\r\n\r\n        Button homeButton = findViewById(R.id.ReturnToMainMenu);\r\n        homeButton.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                presenter.onHomePageClicked();\r\n            }\r\n        });\r\n\r\n        // Initialize the presenter\r\n        presenter.onViewCreated();\r\n    }\r\n\r\n    @Override\r\n    public void displayConfirmationMessage(String message) {\r\n        ((TextView)findViewById(R.id.textView3)).setText(message);\r\n    }\r\n\r\n    @Override\r\n    public void navigateToHomePage() {\r\n        Intent intent = new Intent(BookingConfirmationActivity.this, TenantMainActivity.class);\r\n        startActivity(intent);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingConfirmationActivity.java b/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingConfirmationActivity.java
+--- a/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingConfirmationActivity.java	
++++ b/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingConfirmationActivity.java	
+@@ -8,17 +8,31 @@
+ 
+ import androidx.appcompat.app.AppCompatActivity;
+ import com.example.readysethome.R;
++import com.example.readysethome.memorydao.ListingDAOMemory;
+ import com.example.readysethome.view.Tenant.TenantHomeFragment;
+ import com.example.readysethome.view.Tenant.TenantMain.TenantMainActivity;
+ 
++import java.util.Date;
++
+ public class BookingConfirmationActivity extends AppCompatActivity implements BookingConfirmationView {
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_booking_request_confirmation_pressed);
++        Date checkIn = null;
++        Date checkOut = null;
++        int listing_id = 0;
++        String tenant_id=null;
++        Intent intent = getIntent();
++       if (intent != null) {
++            checkIn = (Date) intent.getSerializableExtra("checkIn");
++            checkOut = (Date) intent.getSerializableExtra("checkOut");
++            listing_id = intent.getIntExtra("listing_id", 0);
++            tenant_id = intent.getStringExtra("tenant_id");
++        }
+ 
+-        final BookingConfirmationPresenter presenter = new BookingConfirmationPresenter(this);
++        final BookingConfirmationPresenter presenter = new BookingConfirmationPresenter(this,new ListingDAOMemory(),checkIn,checkOut,listing_id,tenant_id);
+ 
+         Button homeButton = findViewById(R.id.ReturnToMainMenu);
+         homeButton.setOnClickListener(new View.OnClickListener() {
+Index: app/src/main/java/com/example/readysethome/model/Booking.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.model;\r\n\r\nimport com.example.readysethome.MainActivity;\r\n\r\nimport java.util.Date;\r\nimport java.util.concurrent.TimeUnit;\r\n\r\nclass Booking {\r\n    private boolean isCancelled = false;\r\n    private BookingRequest bookingRequest;\r\n    int apartmentRating=-1;\r\n    public Booking(BookingRequest bookingRequest) {\r\n        this.bookingRequest=bookingRequest;\r\n    }\r\n    //methodos elegxou na yparxei energh krathsh gia mia xronikh periodo\r\n\r\n    public boolean isActive() {\r\n        Date currentDate = new Date(); //today's date\r\n        return currentDate.after(bookingRequest.getCheck_in()) && currentDate.before(bookingRequest.getCheck_out());\r\n    }\r\n\r\n    public void rateApartment(int rating) {\r\n        if (isStayCompleted()) {\r\n            apartmentRating = rating;\r\n            System.out.println(\"Apartment rated with \" + rating + \" stars.\");\r\n        } else {\r\n            System.out.println(\"Cannot rate the apartment before the stay is completed.\");\r\n        }\r\n    }\r\n\r\n    // Method to check if stay is completed\r\n    private boolean isStayCompleted() {\r\n        Date currentDate = new Date();\r\n        return currentDate.after(bookingRequest.getCheck_out());\r\n    }\r\n\r\n    public int getApartmentRating() {\r\n        return apartmentRating;\r\n    }\r\n\r\n    public boolean isCancelled() {\r\n        return isCancelled;\r\n    }\r\n    public void cancel() {\r\n        if (!isCancelled) {\r\n            isCancelled = true;\r\n            bookingRequest.setBooking_status( ReservationStatus.CANCELLED_BY_TENANT);\r\n            double refundAmount = calculateRefundAmount();\r\n            bookingRequest.getTenant().getCreditCard().refund(refundAmount);\r\n            notifyUser(bookingRequest.getTenant(), \"Booking Canceled\", \"Your booking has been canceled successfully. A refund of $\" + refundAmount + \" has been processed.\");\r\n            bookingRequest.getListing().getCalendar().setAvailable(bookingRequest.getCheck_in(), bookingRequest.getCheck_out());\r\n\r\n            getListing().calculateCancellationsPerMonth(getCheckIn());\r\n\r\n            getTenant().getBookings().remove(this);\r\n        }\r\n    }\r\n\r\n    // Calculates the refund amount\r\n    private double calculateRefundAmount() {\r\n        long days_of_stay = daysBetween(bookingRequest.getCheck_in(), bookingRequest.getCheck_out());\r\n        double totalCost =(days_of_stay * bookingRequest.getListing().getPrice());\r\n        double refundPercentage = (daysUntilCheckIn(new Date()) <= 30) ? 0.95 : 1.0;\r\n        return totalCost * refundPercentage;\r\n    }\r\n\r\n    public ReservationStatus getBooking_status() {\r\n        return bookingRequest.getBooking_status();\r\n    }\r\n    // Methodos gia thn enhmerwsh\r\n    private void notifyUser(User user, String Title, String Desc) {\r\n        MainActivity.SYSTEM.getEmail().send(user.getEmail(), Title, Desc);\r\n    }\r\n\r\n    // count the days between two given dates\r\n    private long daysBetween(Date start, Date end) {\r\n        long diff = end.getTime() - start.getTime();\r\n        diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);\r\n        return diff;\r\n    }\r\n\r\n    public long daysUntilCheckIn(Date currentDate) {\r\n        long daysDifference = daysBetween(currentDate, bookingRequest.getCheck_in());\r\n        return daysDifference;\r\n    }\r\n\r\n\r\n    public int getId() {\r\n        return bookingRequest.getBooking_id();\r\n    }\r\n\r\n    public Date getCheckIn() {\r\n        return bookingRequest.getCheck_in();\r\n    }\r\n\r\n    public Date getCheckOut() {\r\n        return bookingRequest.getCheck_out();\r\n    }\r\n\r\n    public Tenant getTenant() {\r\n        return bookingRequest.getTenant();\r\n    }\r\n\r\n    public Listing getListing() {\r\n        return bookingRequest.getListing();\r\n    }\r\n\r\n    public void setId(int id) {\r\n        bookingRequest.setBooking_id(id);\r\n    }\r\n\r\n    public void setCheckIn(Date checkIn) {\r\n        bookingRequest.setCheck_in(checkIn);\r\n    }\r\n\r\n    public void setCheckOut(Date checkOut) {\r\n        bookingRequest.setCheck_out(checkOut);\r\n    }\r\n\r\n    public void setTenant(Tenant tenant) {\r\n        bookingRequest.setTenant(tenant);\r\n    }\r\n\r\n    public void setListing(Listing listing) {\r\n        bookingRequest.setListing(listing);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/model/Booking.java b/app/src/main/java/com/example/readysethome/model/Booking.java
+--- a/app/src/main/java/com/example/readysethome/model/Booking.java	
++++ b/app/src/main/java/com/example/readysethome/model/Booking.java	
+@@ -5,7 +5,7 @@
+ import java.util.Date;
+ import java.util.concurrent.TimeUnit;
+ 
+-class Booking {
++public class Booking {
+     private boolean isCancelled = false;
+     private BookingRequest bookingRequest;
+     int apartmentRating=-1;
+Index: app/src/main/java/com/example/readysethome/model/Tenant.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.model;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\nimport java.util.Iterator;\r\n\r\npublic class Tenant extends User {\r\n    private ArrayList<BookingRequest> bookingRequests;\r\n    private ArrayList<Booking> bookings;\r\n\r\n    public Tenant (String firstName, String lastName, EmailAddress email, Password password, CreditCard creditCard, Date acc_bday) {\r\n        super(firstName, lastName, email, password, creditCard, acc_bday);\r\n        this.bookings=new ArrayList<>();\r\n        this.bookingRequests=new ArrayList<>();\r\n    }\r\n\r\n    public Tenant (String f_n, String l_n) {\r\n        super(f_n, l_n);\r\n    }\r\n\r\n    public BookingRequest makeBookingRequest(Listing listing, Date checkIn, Date checkOut) {\r\n        Date submit_date = new Date();\r\n        BookingRequest booking_request = new BookingRequest(listing, submit_date, checkIn, checkOut, this);\r\n        // if something went wrong during submit\r\n        if (!booking_request.submit()) {\r\n            cancelBookingRequest(booking_request);\r\n            return null;\r\n        }\r\n\r\n        bookingRequests.add(booking_request);\r\n\r\n        return booking_request;\r\n    }\r\n\r\n    public void cancelBookingRequest(BookingRequest booking_request) {\r\n        booking_request.cancelRequest();\r\n    }\r\n\r\n\r\n    public void cancelBooking(Booking booking) {\r\n        if (!booking.isActive()) {\r\n            booking.cancel();\r\n            deleteBookingById(booking.getId());\r\n            System.out.println(\"Booking canceled successfully.\");\r\n        }\r\n    }\r\n\r\n    public boolean deleteBookingById(int bookingId) {\r\n        boolean state = false;\r\n        for (Iterator<Booking> iterator = bookings.iterator(); iterator.hasNext();) {\r\n            Booking booking = iterator.next();\r\n            if (booking.getId() == bookingId) {\r\n                iterator.remove();\r\n                state = true;\r\n            }\r\n        }\r\n        return state;\r\n    }\r\n\r\n    public void addBooking(Booking booking) {\r\n        this.bookings.add(booking);\r\n    }\r\n\r\n    public ArrayList<Booking> getBookings() {\r\n        return this.bookings;\r\n    }\r\n\r\n    public void addBookingRequest(BookingRequest bookingRequest) {\r\n        this.bookingRequests.add(bookingRequest);\r\n    }\r\n\r\n    public ArrayList<BookingRequest> getBookingRequests() {\r\n        return this.bookingRequests;\r\n    }\r\n\r\n    public Booking getBookingById(int id) {\r\n        for (Booking booking : bookings) {\r\n            if (booking.getId() == id) {\r\n                return booking;\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/model/Tenant.java b/app/src/main/java/com/example/readysethome/model/Tenant.java
+--- a/app/src/main/java/com/example/readysethome/model/Tenant.java	
++++ b/app/src/main/java/com/example/readysethome/model/Tenant.java	
+@@ -81,5 +81,11 @@
+         }
+         return null;
+     }
++    public boolean hasSufficientFunds(double amount) {
+ 
++        if (getCreditCard() != null) {
++            return getCreditCard().getBalance() >= amount;
++        }
++        return false;
++    }
+ }
+Index: app/src/main/res/layout/activity_tenant_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <FrameLayout\r\n        android:id=\"@+id/tenant_main_framelayout\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/tenant_main_bottomNavigationView\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n    </FrameLayout>\r\n\r\n    <com.google.android.material.bottomnavigation.BottomNavigationView\r\n        android:id=\"@+id/tenant_main_bottomNavigationView\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginEnd=\"2dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:menu=\"@menu/tenant_bottom_nav_menu\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_tenant_main.xml b/app/src/main/res/layout/activity_tenant_main.xml
+--- a/app/src/main/res/layout/activity_tenant_main.xml	
++++ b/app/src/main/res/layout/activity_tenant_main.xml	
+@@ -23,6 +23,7 @@
+         android:layout_marginEnd="2dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
+         app:layout_constraintStart_toStartOf="parent"
+         app:menu="@menu/tenant_bottom_nav_menu" />
+ 
+Index: app/src/main/res/layout/fragment_tenant_bookings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".view.Tenant.TenantBookingsFragment\"\r\n    android:background=\"@color/cyan\">\r\n\r\n    <!-- TODO: Update blank fragment layout -->\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:text=\"Bookings Fragment\"\r\n        android:textSize=\"26dp\"\r\n        android:gravity=\"center\"/>\r\n\r\n</FrameLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_tenant_bookings.xml b/app/src/main/res/layout/fragment_tenant_bookings.xml
+--- a/app/src/main/res/layout/fragment_tenant_bookings.xml	
++++ b/app/src/main/res/layout/fragment_tenant_bookings.xml	
+@@ -1,17 +1,24 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".view.Tenant.TenantBookingsFragment"
+-    android:background="@color/cyan">
++    tools:context=".view.Tenant.TenantBookingsFragment">
+ 
+-    <!-- TODO: Update blank fragment layout -->
+-    <TextView
++    <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:text="Bookings Fragment"
+-        android:textSize="26dp"
+-        android:gravity="center"/>
++        android:layout_height="match_parent">
+ 
++        <androidx.recyclerview.widget.RecyclerView
++            android:id="@+id/recycler_view"
++            android:layout_width="0dp"
++            android:layout_height="0dp"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintHorizontal_bias="0.0"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent"
++            app:layout_constraintVertical_bias="0.0" />
++    </androidx.constraintlayout.widget.ConstraintLayout>
+ </FrameLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/readysethome/memorydao/MemoryInitializer.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.memorydao;\r\n\r\nimport com.example.readysethome.dao.Initializer;\r\nimport com.example.readysethome.dao.ListingDAO;\r\nimport com.example.readysethome.dao.OwnerDAO;\r\nimport com.example.readysethome.dao.TenantDAO;\r\nimport com.example.readysethome.dao.UserDAO;\r\nimport com.example.readysethome.model.Listing;\r\nimport com.example.readysethome.model.Owner;\r\nimport com.example.readysethome.model.Tenant;\r\nimport com.example.readysethome.model.User;\r\n\r\npublic class MemoryInitializer extends Initializer {\r\n\r\n    @Override\r\n    protected void eraseData() {\r\n        for (User user : getUserDAO().findAll()) {\r\n            getUserDAO().delete(user);\r\n        }\r\n        for (Listing listing : getListingDAO().findAll()) {\r\n            getListingDAO().delete(listing);\r\n        }\r\n        for (Owner owner : getOwnerDAO().findAll()) {\r\n            getOwnerDAO().delete(owner);\r\n        }\r\n        for (Tenant tenant : getTenantDAO().findAll()) {\r\n            getTenantDAO().delete(tenant);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public UserDAO getUserDAO() {\r\n        return new UserDAOMemory();\r\n    }\r\n\r\n    @Override\r\n    public OwnerDAO getOwnerDAO() {\r\n        return new OwnerDAOMemory();\r\n    }\r\n\r\n    @Override\r\n    public TenantDAO getTenantDAO() {\r\n        return new TenantDAOMemory();\r\n    }\r\n\r\n    @Override\r\n    public ListingDAO getListingDAO() {\r\n        return new ListingDAOMemory();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/memorydao/MemoryInitializer.java b/app/src/main/java/com/example/readysethome/memorydao/MemoryInitializer.java
+--- a/app/src/main/java/com/example/readysethome/memorydao/MemoryInitializer.java	
++++ b/app/src/main/java/com/example/readysethome/memorydao/MemoryInitializer.java	
+@@ -1,5 +1,6 @@
+ package com.example.readysethome.memorydao;
+ 
++import com.example.readysethome.dao.BookingRequestDAO;
+ import com.example.readysethome.dao.Initializer;
+ import com.example.readysethome.dao.ListingDAO;
+ import com.example.readysethome.dao.OwnerDAO;
+@@ -43,8 +44,15 @@
+         return new TenantDAOMemory();
+     }
+ 
++    @Override
++    public BookingRequestDAO getBookingRequestDAO() {
++        return new BookingRequestDAOMemory();
++    }
++
+     @Override
+     public ListingDAO getListingDAO() {
+         return new ListingDAOMemory();
+     }
++
++
+ }
+Index: app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingsAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingsAdapter.java b/app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingsAdapter.java
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingsAdapter.java	
+@@ -0,0 +1,69 @@
++package com.example.readysethome.view.Tenant;
++
++import android.content.Context;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.ImageSwitcher;
++import android.widget.TextView;
++import android.widget.ImageView;
++
++import androidx.annotation.NonNull;
++import androidx.recyclerview.widget.RecyclerView;
++
++import com.example.readysethome.R;
++
++import java.util.ArrayList;
++
++public class TenantBookingsAdapter extends RecyclerView.Adapter<TenantBookingsAdapter.MyViewHolder> {
++    TenantBookingsFragment fragment;
++    private Context context;
++    private ArrayList<TenantBookingModel> bookingModels;
++
++    public TenantBookingsAdapter(Context context, ArrayList<TenantBookingModel> bookingModels,TenantBookingsFragment fragment) {
++        this.context = context;
++        this.bookingModels = bookingModels;
++        this.fragment=fragment;
++    }
++
++    public void setBookingModels(ArrayList<TenantBookingModel> bookingModels) {
++        this.bookingModels = bookingModels;
++    }
++
++    @NonNull
++    @Override
++
++    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++        View view = LayoutInflater.from(context).inflate(R.layout.recycler_view_tenant_booking, parent, false);
++        return new MyViewHolder(view);
++    }
++
++    @Override
++
++    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
++        TenantBookingModel bookingModel = bookingModels.get(position);
++        holder.tvTitle.setText(bookingModel.getTitle());
++        holder.tvDate.setText(bookingModel.getDate());
++        holder.tvStatus.setText(bookingModel.getStatus());
++        holder.tvImage.setImageResource(bookingModels.get(position).getImage());
++    }
++
++    @Override
++    public int getItemCount() {
++        return bookingModels.size();
++    }
++
++    public static class MyViewHolder extends RecyclerView.ViewHolder {
++        public ImageView tvImage;
++
++        TextView tvTitle, tvDate, tvStatus;
++
++        public MyViewHolder(@NonNull View itemView) {
++            super(itemView);
++            tvTitle = itemView.findViewById(R.id.recycler_view_tenant_booking_title);
++            tvDate = itemView.findViewById(R.id.recycler_view_tenant_booking_date);
++            tvStatus = itemView.findViewById(R.id.recycler_view_tenant_booking_status);
++            tvImage=itemView.findViewById(R.id.recylcler_view_tenant_booking_image);
++        }
++    }
++}
+Index: app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingsFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.Tenant;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport com.example.readysethome.R;\r\n\r\n/**\r\n * A simple {@link Fragment} subclass.\r\n * Use the {@link TenantBookingsFragment#newInstance} factory method to\r\n * create an instance of this fragment.\r\n */\r\npublic class TenantBookingsFragment extends Fragment {\r\n\r\n    // TODO: Rename parameter arguments, choose names that match\r\n    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER\r\n    private static final String ARG_PARAM1 = \"param1\";\r\n    private static final String ARG_PARAM2 = \"param2\";\r\n\r\n    // TODO: Rename and change types of parameters\r\n    private String mParam1;\r\n    private String mParam2;\r\n\r\n    public TenantBookingsFragment() {\r\n        // Required empty public constructor\r\n    }\r\n\r\n    /**\r\n     * Use this factory method to create a new instance of\r\n     * this fragment using the provided parameters.\r\n     *\r\n     * @param param1 Parameter 1.\r\n     * @param param2 Parameter 2.\r\n     * @return A new instance of fragment TenantBookingsFragment.\r\n     */\r\n    // TODO: Rename and change types and number of parameters\r\n    public static TenantBookingsFragment newInstance(String param1, String param2) {\r\n        TenantBookingsFragment fragment = new TenantBookingsFragment();\r\n        Bundle args = new Bundle();\r\n        args.putString(ARG_PARAM1, param1);\r\n        args.putString(ARG_PARAM2, param2);\r\n        fragment.setArguments(args);\r\n        return fragment;\r\n    }\r\n\r\n    @Override\r\n    public void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        if (getArguments() != null) {\r\n            mParam1 = getArguments().getString(ARG_PARAM1);\r\n            mParam2 = getArguments().getString(ARG_PARAM2);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_tenant_bookings, container, false);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingsFragment.java b/app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingsFragment.java
+--- a/app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingsFragment.java	
++++ b/app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingsFragment.java	
+@@ -1,66 +1,56 @@
+ package com.example.readysethome.view.Tenant;
+ 
+ import android.os.Bundle;
+-
+-import androidx.fragment.app.Fragment;
+-
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
+ 
++import androidx.fragment.app.Fragment;
++import androidx.recyclerview.widget.LinearLayoutManager;
++import androidx.recyclerview.widget.RecyclerView;
++
+ import com.example.readysethome.R;
++import com.example.readysethome.dao.TenantDAO;
++import com.example.readysethome.memorydao.TenantDAOMemory;
++import com.example.readysethome.model.Tenant;
++import com.example.readysethome.view.Tenant.TenantMain.TenantMainPresenter;
+ 
+-/**
+- * A simple {@link Fragment} subclass.
+- * Use the {@link TenantBookingsFragment#newInstance} factory method to
+- * create an instance of this fragment.
+- */
++import java.util.ArrayList;
++
+ public class TenantBookingsFragment extends Fragment {
+ 
+-    // TODO: Rename parameter arguments, choose names that match
+-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+-    private static final String ARG_PARAM1 = "param1";
+-    private static final String ARG_PARAM2 = "param2";
++    private RecyclerView recyclerView;
++    private TenantBookingsAdapter adapter;
++    private TenantDAO tenantDAO;
++    private Tenant tenant;
+ 
+-    // TODO: Rename and change types of parameters
+-    private String mParam1;
+-    private String mParam2;
++    TenantMainPresenter presenter;
+ 
+-    public TenantBookingsFragment() {
+-        // Required empty public constructor
+-    }
+ 
+-    /**
+-     * Use this factory method to create a new instance of
+-     * this fragment using the provided parameters.
+-     *
+-     * @param param1 Parameter 1.
+-     * @param param2 Parameter 2.
+-     * @return A new instance of fragment TenantBookingsFragment.
+-     */
+-    // TODO: Rename and change types and number of parameters
+-    public static TenantBookingsFragment newInstance(String param1, String param2) {
+-        TenantBookingsFragment fragment = new TenantBookingsFragment();
+-        Bundle args = new Bundle();
+-        args.putString(ARG_PARAM1, param1);
+-        args.putString(ARG_PARAM2, param2);
+-        fragment.setArguments(args);
+-        return fragment;
+-    }
++    private boolean init_recycle_view;
++
++    public TenantBookingsFragment(TenantMainPresenter presenter) {
++        this.presenter = presenter;
++        tenant = presenter.getAttachedTenant();
++        init_recycle_view=false;
+ 
+-    @Override
+-    public void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-        if (getArguments() != null) {
+-            mParam1 = getArguments().getString(ARG_PARAM1);
+-            mParam2 = getArguments().getString(ARG_PARAM2);
+-        }
+-    }
+-
++    }
+     @Override
+     public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState) {
+-        // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.fragment_tenant_bookings, container, false);
++        View view = inflater.inflate(R.layout.fragment_tenant_bookings, container, false);
++
++        recyclerView = view.findViewById(R.id.recycler_view);
++
++
++        if(!init_recycle_view){
++            // Get all bookings and requests for the tenant using the presenter method
++            ArrayList<TenantBookingModel> bookingsAndRequests = presenter.setBookingModels();
++            adapter = new TenantBookingsAdapter(getContext(), bookingsAndRequests,this);
++            init_recycle_view=true;
++        }
++        recyclerView.setAdapter(adapter);
++        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
++        return view;
+     }
+-}
+\ No newline at end of file
++}
+Index: app/src/main/res/layout/recycler_view_tenant_booking.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/recycler_view_tenant_booking.xml b/app/src/main/res/layout/recycler_view_tenant_booking.xml
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/res/layout/recycler_view_tenant_booking.xml	
+@@ -0,0 +1,79 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content">
++
++    <androidx.cardview.widget.CardView
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="1dp"
++        android:layout_marginEnd="1dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" >
++
++        <androidx.constraintlayout.widget.ConstraintLayout
++            android:layout_width="match_parent"
++            android:layout_height="89dp"
++            tools:layout_editor_absoluteX="1dp"
++            tools:layout_editor_absoluteY="1dp">
++
++            <TextView
++                android:id="@+id/recycler_view_tenant_booking_title"
++                android:layout_width="145dp"
++                android:layout_height="22dp"
++                android:layout_marginStart="104dp"
++                android:text="TextView"
++                android:textSize="20dp"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toTopOf="parent"
++                app:layout_constraintVertical_bias="0.149" />
++
++            <TextView
++                android:id="@+id/recycler_view_tenant_booking_date"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="TextView"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintEnd_toEndOf="parent"
++                app:layout_constraintHorizontal_bias="0.572"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toTopOf="parent"
++                app:layout_constraintVertical_bias="0.814" />
++
++            <TextView
++                android:id="@+id/recycler_view_tenant_booking_status"
++                android:layout_width="88dp"
++                android:layout_height="16dp"
++                android:layout_marginStart="66dp"
++                android:layout_marginEnd="160dp"
++                android:text="TextView"
++                android:textStyle="bold"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintEnd_toEndOf="parent"
++                app:layout_constraintHorizontal_bias="1.0"
++                app:layout_constraintStart_toEndOf="@+id/recylcler_view_tenant_booking_image"
++                app:layout_constraintTop_toTopOf="parent"
++                app:layout_constraintVertical_bias="0.493" />
++
++            <ImageView
++                android:id="@+id/recylcler_view_tenant_booking_image"
++                android:layout_width="95dp"
++                android:layout_height="60dp"
++                android:layout_marginEnd="16dp"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintEnd_toStartOf="@+id/recycler_view_tenant_booking_title"
++                app:layout_constraintHorizontal_bias="0.0"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toTopOf="parent"
++                app:layout_constraintVertical_bias="0.551"
++                tools:srcCompat="@tools:sample/avatars" />
++
++        </androidx.constraintlayout.widget.ConstraintLayout>
++    </androidx.cardview.widget.CardView>
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id(\"com.android.application\")\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.example.readysethome\"\r\n    compileSdk = 34\r\n\r\n    defaultConfig {\r\n        applicationId = \"com.example.readysethome\"\r\n        minSdk = 26\r\n        targetSdk = 34\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(getDefaultProguardFile(\"proguard-android-optimize.txt\"), \"proguard-rules.pro\")\r\n        }\r\n    }\r\n\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_1_8\r\n        targetCompatibility = JavaVersion.VERSION_1_8\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation(\"androidx.appcompat:appcompat:1.6.1\")\r\n    implementation(\"com.wdullaer:materialdatetimepicker:4.2.3\")\r\n    implementation(\"com.google.android.material:material:1.11.0\")\r\n    implementation(\"androidx.constraintlayout:constraintlayout:2.1.4\")\r\n    testImplementation(\"junit:junit:4.13.2\")\r\n    testImplementation(\"org.junit.jupiter:junit-jupiter:5.8.1\")\r\n    androidTestImplementation(\"androidx.test.ext:junit:1.1.5\")\r\n    androidTestImplementation(\"androidx.test.espresso:espresso-core:3.5.1\")\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts	
++++ b/app/build.gradle.kts	
+@@ -36,6 +36,7 @@
+     implementation("com.google.android.material:material:1.11.0")
+     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+     testImplementation("junit:junit:4.13.2")
++    implementation("com.wdullaer:materialdatetimepicker:4.2.3")
+     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+     androidTestImplementation("androidx.test.ext:junit:1.1.5")
+     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+Index: app/src/main/java/com/example/readysethome/view/Tenant/TenantMain/TenantMainPresenter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.Tenant.TenantMain;\r\n\r\nimport com.example.readysethome.R;\r\nimport com.example.readysethome.dao.ListingDAO;\r\nimport com.example.readysethome.dao.TenantDAO;\r\nimport com.example.readysethome.dao.UserDAO;\r\nimport com.example.readysethome.memorydao.UserDAOMemory;\r\nimport com.example.readysethome.model.Listing;\r\nimport com.example.readysethome.model.Tenant;\r\nimport com.example.readysethome.model.User;\r\nimport com.example.readysethome.view.Owner.OwnerHomeListingModel;\r\nimport com.example.readysethome.view.Tenant.TenantHomeListingModel;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class TenantMainPresenter {\r\n\r\n    private TenantMainView view;\r\n    private ListingDAO listings;\r\n    private TenantDAO tenants;\r\n    private Tenant attachedTenant;\r\n    ArrayList<TenantHomeListingModel> homeListingModels;\r\n\r\n    /**\r\n     * Αρχικοποιήση μεταβλητών και δημιουργία του listing model μας για το recycler του χρήστη\r\n     * @param view Το view\r\n     * @param listings ΄Ενα listing DAO\r\n     * @param tenants ΄Ενα tenant DAO\r\n     * @param user_id Το id του χρήστη που έχει κάνει login\r\n     */\r\n    TenantMainPresenter(TenantMainView view, ListingDAO listings, TenantDAO tenants, String user_id) {\r\n        this.view = view;\r\n        this.listings = listings;\r\n        this.tenants = tenants;\r\n\r\n        attachedTenant = tenants.findByID(user_id);\r\n\r\n        homeListingModels = new ArrayList<TenantHomeListingModel>();\r\n    }\r\n\r\n    /**\r\n     * Βρίσκει όλα listings και μετά παίρνει τα στοιχεία τους\r\n     * (τίτλο, περιγραφή, τιμή κα εικόνες) και δημιουργει τα αντίστοιχα listing models\r\n     * για το recycler\r\n     */\r\n    public ArrayList<TenantHomeListingModel> setUpHomeListingModels() {\r\n        homeListingModels = new ArrayList<>();\r\n        for (Listing listing : listings.findAll()) {\r\n            int preview_photo;\r\n            if (listing.getPhotos() != null)\r\n                preview_photo = listing.getPhotos()[0];\r\n            else\r\n                preview_photo = R.drawable.child_po;\r\n            homeListingModels.add(new TenantHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + \"€\", listing.getListing_id(), preview_photo));\r\n        }\r\n        return homeListingModels;\r\n    }\r\n\r\n    public Tenant getAttachedTenant() {\r\n        return attachedTenant;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/Tenant/TenantMain/TenantMainPresenter.java b/app/src/main/java/com/example/readysethome/view/Tenant/TenantMain/TenantMainPresenter.java
+--- a/app/src/main/java/com/example/readysethome/view/Tenant/TenantMain/TenantMainPresenter.java	
++++ b/app/src/main/java/com/example/readysethome/view/Tenant/TenantMain/TenantMainPresenter.java	
+@@ -1,14 +1,20 @@
+ package com.example.readysethome.view.Tenant.TenantMain;
+ 
+ import com.example.readysethome.R;
++import com.example.readysethome.dao.BookingRequestDAO;
+ import com.example.readysethome.dao.ListingDAO;
+ import com.example.readysethome.dao.TenantDAO;
+ import com.example.readysethome.dao.UserDAO;
++import com.example.readysethome.memorydao.TenantDAOMemory;
+ import com.example.readysethome.memorydao.UserDAOMemory;
++import com.example.readysethome.model.Booking;
++import com.example.readysethome.model.BookingRequest;
+ import com.example.readysethome.model.Listing;
+ import com.example.readysethome.model.Tenant;
+ import com.example.readysethome.model.User;
+ import com.example.readysethome.view.Owner.OwnerHomeListingModel;
++import com.example.readysethome.view.Tenant.TenantBookingModel;
++import com.example.readysethome.view.Tenant.TenantBookingsAdapter;
+ import com.example.readysethome.view.Tenant.TenantHomeListingModel;
+ 
+ import java.util.ArrayList;
+@@ -21,6 +27,10 @@
+     private Tenant attachedTenant;
+     ArrayList<TenantHomeListingModel> homeListingModels;
+ 
++    ArrayList<TenantBookingModel> bookingModels;
++
++
++
+     /**
+      * Αρχικοποιήση μεταβλητών και δημιουργία του listing model μας για το recycler του χρήστη
+      * @param view Το view
+@@ -36,6 +46,7 @@
+         attachedTenant = tenants.findByID(user_id);
+ 
+         homeListingModels = new ArrayList<TenantHomeListingModel>();
++        bookingModels=new ArrayList<TenantBookingModel>();
+     }
+ 
+     /**
+@@ -55,7 +66,72 @@
+         }
+         return homeListingModels;
+     }
++    /**
++     * Δημιουργεί μια λίστα με τα αντικείμενα TenantBookingModel για το recycler view
++     * με τις κρατήσεις/Αιτήματα κράτησης του ενοικιαστή.
++     *
++     * @return Η λίστα με τα αντικείμενα TenantBookingModel
++     */
++    public ArrayList<TenantBookingModel> setBookingModels() {
++        ArrayList<TenantBookingModel> bookingModels = new ArrayList<>();
++
++        // Add bookings
++        ArrayList<Booking> bookings = attachedTenant.getBookings();
++        for (Booking booking : bookings) {
++            Listing listing = booking.getListing();
++
++            int preview_photo;
++            if (listing.getPhotos() != null) {
++                preview_photo = listing.getPhotos()[0];
++            } else {
++                preview_photo = R.drawable.child_po;
++            }
++
++            bookingModels.add(new TenantBookingModel(
++                    listing.getTitle(),
++                    booking.getCheckIn().toString(),
++                    booking.getBooking_status().toString(),
++                    booking.getId(),
++                    preview_photo
++            ));
++        }
++
++        // Add booking requests
++        ArrayList<BookingRequest> bookingRequests = attachedTenant.getBookingRequests();
++        for (BookingRequest bookingRequest : bookingRequests) {
++            Listing listing = bookingRequest.getListing();
++
++            // Check if there is a booking with the same listing and date
++            boolean hasCorrespondingBooking = bookings.stream()
++                    .anyMatch(booking -> booking.getListing().equals(listing)
++                            && booking.getCheckIn().equals(bookingRequest.getCheck_in()));
++
++            if (!hasCorrespondingBooking) {
++                int preview_photo;
++                if (listing.getPhotos() != null) {
++                    preview_photo = listing.getPhotos()[0];
++                } else {
++                    preview_photo = R.drawable.child_po;
++                }
++
++                bookingModels.add(new TenantBookingModel(
++                        listing.getTitle(),
++                        bookingRequest.getCheck_in().toString(),
++                        bookingRequest.getBooking_status().toString(),
++                        bookingRequest.getBooking_id(),
++                        preview_photo
++                ));
++            }
++        }
+ 
++        return bookingModels;
++
++    }
++    /**
++     * Επιστρέφει τον συνδεδεμένο ενοικιαστή.
++     *
++     * @return Ο ενοικιαστής που είναι συνδεδεμένος
++     */
+     public Tenant getAttachedTenant() {
+         return attachedTenant;
+     }
+Index: app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingConfirmationPresenter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.BookingRequestGui;\r\n\r\npublic class BookingConfirmationPresenter {\r\n\r\n    private BookingConfirmationView view;\r\n\r\n    public BookingConfirmationPresenter(BookingConfirmationView view) {\r\n        this.view = view;\r\n    }\r\n\r\n    public void onViewCreated() {\r\n\r\n        String confirmationMessage = \"Booking confirmed!\";\r\n        view.displayConfirmationMessage(confirmationMessage);\r\n    }\r\n\r\n    public void onHomePageClicked() {\r\n        view.navigateToHomePage();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingConfirmationPresenter.java b/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingConfirmationPresenter.java
+--- a/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingConfirmationPresenter.java	
++++ b/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingConfirmationPresenter.java	
+@@ -1,19 +1,56 @@
+ package com.example.readysethome.view.BookingRequestGui;
+ 
++import com.example.readysethome.dao.BookingRequestDAO;
++import com.example.readysethome.dao.ListingDAO;
++import com.example.readysethome.memorydao.BookingRequestDAOMemory;
++import com.example.readysethome.memorydao.ListingDAOMemory;
++import com.example.readysethome.memorydao.TenantDAOMemory;
++import com.example.readysethome.model.BookingRequest;
++import com.example.readysethome.model.Listing;
++import com.example.readysethome.model.Tenant;
++import java.util.Date;
++
+ public class BookingConfirmationPresenter {
+ 
+     private BookingConfirmationView view;
+ 
+-    public BookingConfirmationPresenter(BookingConfirmationView view) {
++    private BookingRequest bookingrequest;
++
++    private BookingRequestDAO booking_requests;
++    private ListingDAOMemory listings;
++
++    private TenantDAOMemory tenants;
++    private Listing listing;
++
++    private Tenant tenant;
++    Date checkIn;
++    Date checkOut;
++
++    public BookingConfirmationPresenter(BookingConfirmationView view,ListingDAOMemory listings,  Date checkIn, Date checkOut,int listing_id,String tenant_id) {
+         this.view = view;
++        this.listings=listings;
++        this.checkIn = checkIn;
++        this.checkOut = checkOut;
++
++        listing = listings.findByID(listing_id);
++        tenant= tenants.findByID(tenant_id);
+     }
+ 
+     public void onViewCreated() {
+ 
+-        String confirmationMessage = "Booking confirmed!";
++        String confirmationMessage = "Booking Request confirmed!";
+         view.displayConfirmationMessage(confirmationMessage);
++        //submit the booking request
++        booking_requests=new BookingRequestDAOMemory();
++        BookingRequest bookingreq=tenant.makeBookingRequest(listing,checkIn,checkOut);
++
++        booking_requests.save(bookingreq);
+     }
+ 
++
++    public static Date getTodaysDate() {
++        return new Date();
++    }
+     public void onHomePageClicked() {
+         view.navigateToHomePage();
+     }
+Index: app/src/main/java/com/example/readysethome/memorydao/TenantDAOMemory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.memorydao;\r\n\r\nimport com.example.readysethome.dao.TenantDAO;\r\nimport com.example.readysethome.model.Owner;\r\nimport com.example.readysethome.model.Tenant;\r\nimport com.example.readysethome.model.User;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class TenantDAOMemory implements TenantDAO {\r\n    protected static ArrayList<Tenant> tenants = new ArrayList<Tenant>();\r\n\r\n    @Override\r\n    public void delete(Tenant tenant) {\r\n        tenants.remove(tenant);\r\n    }\r\n\r\n    @Override\r\n    public void save(Tenant tenant) {\r\n        tenants.add(tenant);\r\n    }\r\n\r\n    @Override\r\n    public List<Tenant> findAll() {\r\n        return new ArrayList<Tenant>(tenants);\r\n    }\r\n\r\n    @Override\r\n    public Tenant findByID(String id) {\r\n        for (Tenant tenant : tenants) {\r\n            if (tenant.getId().equals(id)) return tenant;\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public Tenant findByEmail(String email) {\r\n        for (Tenant tenant : tenants) {\r\n            if (tenant.getEmail().getAddress().equals(email)) return tenant;\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public String nextID() {\r\n        String next;\r\n        char[] chars = User.last_tenant_ID.toCharArray();\r\n        String temp = \"\";\r\n        for (int i=1; i<chars.length; i++) {\r\n            temp = temp + chars[i];\r\n        }\r\n        int temp_int = Integer.parseInt(temp);\r\n        temp_int++;\r\n        next = \"t\" + temp_int;\r\n\r\n        return next;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/memorydao/TenantDAOMemory.java b/app/src/main/java/com/example/readysethome/memorydao/TenantDAOMemory.java
+--- a/app/src/main/java/com/example/readysethome/memorydao/TenantDAOMemory.java	
++++ b/app/src/main/java/com/example/readysethome/memorydao/TenantDAOMemory.java	
+@@ -1,6 +1,8 @@
+ package com.example.readysethome.memorydao;
+ 
+ import com.example.readysethome.dao.TenantDAO;
++import com.example.readysethome.model.Booking;
++import com.example.readysethome.model.BookingRequest;
+ import com.example.readysethome.model.Owner;
+ import com.example.readysethome.model.Tenant;
+ import com.example.readysethome.model.User;
+@@ -56,4 +58,37 @@
+ 
+         return next;
+     }
++
++    @Override
++    public List<Object> getAllBookingsAndRequests(Tenant tenant) {
++        List<Object> bookingsAndRequests = new ArrayList<>();
++
++
++        bookingsAndRequests.addAll(tenant.getBookings());
++
++
++        bookingsAndRequests.addAll(tenant.getBookingRequests());
++
++        return bookingsAndRequests;
++    }
++
++    @Override
++    public List<Booking> findBookingsByTenant(Tenant tenant) {
++        List<Booking> tenantBookings = new ArrayList<>();
++        for (Booking booking : tenant.getBookings()) {
++            tenantBookings.add(booking);
++        }
++        return tenantBookings;
++    }
++
++    @Override
++    public List<BookingRequest> findBookingRequestsByTenant(Tenant tenant) {
++        List<BookingRequest> tenantBookingRequests = new ArrayList<>();
++        for (BookingRequest bookingRequest : tenant.getBookingRequests()) {
++            tenantBookingRequests.add(bookingRequest);
++        }
++        return tenantBookingRequests;
++    }
+ }
++
++
+Index: app/src/main/java/com/example/readysethome/dao/TenantDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.dao;\r\n\r\nimport com.example.readysethome.model.Owner;\r\nimport com.example.readysethome.model.Tenant;\r\n\r\nimport java.util.List;\r\n\r\npublic interface TenantDAO {\r\n    /**\r\n     * Διαγράφει έναν ενοικιαστή.\r\n     * @param tenant Ο ενοικιαστή\r\n     */\r\n    void delete(Tenant tenant);\r\n\r\n    /**\r\n     * Προσθέτει έναν ενοικιαστή.\r\n     * @param tenant Ο ενοικιαστή\r\n     */\r\n    void save(Tenant tenant);\r\n\r\n    /**\r\n     * Επιστρέφει όλους τους ενοικιαστή.\r\n     * @return Τους ενοικιαστες\r\n     */\r\n    List<Tenant> findAll();\r\n\r\n    /**\r\n     * Βρίσκει έναν ενοικιαστή με βάση το id του.\r\n     * @param id Το id του ενοικιαστή\r\n     * @return Τον ενοικιαστή\r\n     */\r\n    Tenant findByID(String id);\r\n\r\n    /**\r\n     * Βρίσκει έναν ενοικιαστή με βάση το email του.\r\n     * @param email Το email του ενοικιαστή\r\n     * @return Τον ενοικιαστή\r\n     */\r\n    Tenant findByEmail(String email);\r\n\r\n    /**\r\n     * Επιστρέφει το επόμενο id που μπορεί να αποδοθεί σε έναν ενοικιαστή.\r\n     * @return Το επόμενο id\r\n     */\r\n    String nextID();\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/dao/TenantDAO.java b/app/src/main/java/com/example/readysethome/dao/TenantDAO.java
+--- a/app/src/main/java/com/example/readysethome/dao/TenantDAO.java	
++++ b/app/src/main/java/com/example/readysethome/dao/TenantDAO.java	
+@@ -1,5 +1,7 @@
+ package com.example.readysethome.dao;
+ 
++import com.example.readysethome.model.Booking;
++import com.example.readysethome.model.BookingRequest;
+ import com.example.readysethome.model.Owner;
+ import com.example.readysethome.model.Tenant;
+ 
+@@ -8,24 +10,28 @@
+ public interface TenantDAO {
+     /**
+      * Διαγράφει έναν ενοικιαστή.
++     *
+      * @param tenant Ο ενοικιαστή
+      */
+     void delete(Tenant tenant);
+ 
+     /**
+      * Προσθέτει έναν ενοικιαστή.
++     *
+      * @param tenant Ο ενοικιαστή
+      */
+     void save(Tenant tenant);
+ 
+     /**
+      * Επιστρέφει όλους τους ενοικιαστή.
++     *
+      * @return Τους ενοικιαστες
+      */
+     List<Tenant> findAll();
+ 
+     /**
+      * Βρίσκει έναν ενοικιαστή με βάση το id του.
++     *
+      * @param id Το id του ενοικιαστή
+      * @return Τον ενοικιαστή
+      */
+@@ -33,6 +39,7 @@
+ 
+     /**
+      * Βρίσκει έναν ενοικιαστή με βάση το email του.
++     *
+      * @param email Το email του ενοικιαστή
+      * @return Τον ενοικιαστή
+      */
+@@ -40,7 +47,33 @@
+ 
+     /**
+      * Επιστρέφει το επόμενο id που μπορεί να αποδοθεί σε έναν ενοικιαστή.
++     *
+      * @return Το επόμενο id
+      */
+     String nextID();
++
++    /**
++     * Επιστρέφει όλες τις κρατήσεις και τα αιτήματα κρατήσεων για έναν ενοικιαστή.
++     *
++     * @param tenant Ο ενοικιαστής για τον οποίο θέλουμε να επιστραφούν κρατήσεις και αιτήματα
++     * @return Λίστα που περιέχει τόσο κρατήσεις όσο και αιτήματα κρατήσεων
++     */
++    List<Object> getAllBookingsAndRequests(Tenant tenant);
++
++
++    /**
++     * Επιστρέφει όλες τις κρατήσεις ενός ενοικιαστή.
++     *
++     * @param tenant Ο ενοικιαστής
++     * @return Η λίστα των κρατήσεων
++     */
++    List<Booking> findBookingsByTenant(Tenant tenant);
++
++    /**
++     * Επιστρέφει όλα τα αιτήματα κράτησης ενός ενοικιαστή.
++     *
++     * @param tenant Ο ενοικιαστής
++     * @return Η λίστα των αιτημάτων κράτησης
++     */
++    List<BookingRequest> findBookingRequestsByTenant(Tenant tenant);
+ }
+Index: app/src/main/java/com/example/readysethome/view/Tenant/TenantMain/TenantMainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.Tenant.TenantMain;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\n\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.fragment.app.FragmentManager;\r\nimport androidx.fragment.app.FragmentTransaction;\r\n\r\nimport com.example.readysethome.R;\r\nimport com.example.readysethome.memorydao.ListingDAOMemory;\r\nimport com.example.readysethome.memorydao.TenantDAOMemory;\r\nimport com.example.readysethome.view.Tenant.TenantBookingsFragment;\r\nimport com.example.readysethome.view.Tenant.TenantHomeFragment;\r\nimport com.example.readysethome.view.Tenant.TenantNotificationsFragment;\r\nimport com.example.readysethome.view.Tenant.TenantProfileFragment;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\n\r\npublic class TenantMainActivity extends AppCompatActivity implements TenantMainView {\r\n\r\n    BottomNavigationView navbar;\r\n\r\n    @Override\r\n    protected void onCreate(@Nullable Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_tenant_main);\r\n\r\n        Intent intent = getIntent();\r\n        String user_id = intent.getStringExtra(\"user_id\");\r\n\r\n        final TenantMainPresenter presenter = new TenantMainPresenter(TenantMainActivity.this, new ListingDAOMemory(), new TenantDAOMemory(), user_id);\r\n\r\n        // create the fragments\r\n        TenantHomeFragment home = new TenantHomeFragment(presenter);\r\n\r\n        // when the owner main appears set the frame layout to the home fragment\r\n        replaceFragment(home);\r\n\r\n        navbar = findViewById(R.id.tenant_main_bottomNavigationView);\r\n        navbar.setOnItemSelectedListener(item -> {\r\n            if (item.getItemId() == R.id.tenant_nav_home) replaceFragment(home);\r\n            else if (item.getItemId() == R.id.tenant_nav_bookings) replaceFragment(new TenantBookingsFragment());\r\n            else if (item.getItemId() == R.id.tenant_nav_notifications) replaceFragment(new TenantNotificationsFragment());\r\n            else replaceFragment(new TenantProfileFragment());\r\n            return true;\r\n        });\r\n\r\n    }\r\n\r\n    /**\r\n     * Αλλαγή του fragment\r\n     * @param fragment Το fragment στο οποίο θέλουμε να αλλάξουμε\r\n     */\r\n    private void replaceFragment(Fragment fragment) {\r\n        FragmentManager fragmentManager = getSupportFragmentManager();\r\n        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();\r\n        fragmentTransaction.replace(R.id.tenant_main_framelayout, fragment);\r\n        fragmentTransaction.commit();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/Tenant/TenantMain/TenantMainActivity.java b/app/src/main/java/com/example/readysethome/view/Tenant/TenantMain/TenantMainActivity.java
+--- a/app/src/main/java/com/example/readysethome/view/Tenant/TenantMain/TenantMainActivity.java	
++++ b/app/src/main/java/com/example/readysethome/view/Tenant/TenantMain/TenantMainActivity.java	
+@@ -34,14 +34,15 @@
+ 
+         // create the fragments
+         TenantHomeFragment home = new TenantHomeFragment(presenter);
+-
++        // create the fragments
++        TenantBookingsFragment bookings = new TenantBookingsFragment(presenter);
+         // when the owner main appears set the frame layout to the home fragment
+         replaceFragment(home);
+ 
+         navbar = findViewById(R.id.tenant_main_bottomNavigationView);
+         navbar.setOnItemSelectedListener(item -> {
+             if (item.getItemId() == R.id.tenant_nav_home) replaceFragment(home);
+-            else if (item.getItemId() == R.id.tenant_nav_bookings) replaceFragment(new TenantBookingsFragment());
++            else if (item.getItemId() == R.id.tenant_nav_bookings) replaceFragment(bookings);
+             else if (item.getItemId() == R.id.tenant_nav_notifications) replaceFragment(new TenantNotificationsFragment());
+             else replaceFragment(new TenantProfileFragment());
+             return true;
+Index: app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.BookingRequestGui;\r\nimport java.util.Date;\r\npublic interface BookingRequestView {\r\n\r\n    void setPaymentAmount(String paymentAmount);\r\n    void setDepositAmount(String depositAmount);\r\n    void confirm(double payment);\r\n    void cancel();\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestView.java b/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestView.java
+--- a/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestView.java	
++++ b/app/src/main/java/com/example/readysethome/view/BookingRequestGui/BookingRequestView.java	
+@@ -4,7 +4,8 @@
+ 
+     void setPaymentAmount(String paymentAmount);
+     void setDepositAmount(String depositAmount);
+-    void confirm(double payment);
+-    void cancel();
++    void confirm(Date checkin,Date checkout,int listingid,String tenant_id);
++    void cancel(String tenant_id);
++    void insufficientFunds(String tenant_id);
+ 
+ }
+Index: app/src/test/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingViewStub.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.Tenant.TenantViewListing;\r\n\r\nimport com.wdullaer.materialdatetimepicker.date.DatePickerDialog;\r\n\r\nimport java.util.Date;\r\n\r\npublic class TenantViewListingViewStub implements TenantViewListingView, DatePickerDialog.OnDateSetListener {\r\n    String title, desc, price, location, size, checkIn, checkOut;\r\n    String error_msg, successful_msg, onDateSet;\r\n\r\n    public TenantViewListingViewStub() {\r\n        title = desc = price = location = size = checkIn = checkOut = error_msg = successful_msg = onDateSet = \"\";\r\n    }\r\n\r\n    @Override\r\n    public void setListingTitle(String title) {\r\n        this.title = title;\r\n    }\r\n\r\n    @Override\r\n    public void setListingDesc(String desc) {\r\n        this.desc = desc;\r\n    }\r\n\r\n    @Override\r\n    public void setListingPrice(String price) {\r\n        this.price = price;\r\n    }\r\n\r\n    @Override\r\n    public void setListingLocation(String location) {\r\n        this.location = location;\r\n    }\r\n\r\n    @Override\r\n    public void setListingSize(String size) {\r\n        this.size = size;\r\n    }\r\n\r\n    @Override\r\n    public String getCheckInTV() {\r\n        return checkIn;\r\n    }\r\n\r\n    @Override\r\n    public String getCheckOutTV() {\r\n        return checkOut;\r\n    }\r\n\r\n    @Override\r\n    public void setCheckInTV(String checkIn) {\r\n        this.checkIn = checkIn;\r\n    }\r\n\r\n    @Override\r\n    public void setCheckOutTV(String checkOut) {\r\n        this.checkOut = checkOut;\r\n    }\r\n\r\n    @Override\r\n    public void submit(Date checkInTime, Date checkOutTime, int listing_id) {\r\n        successful_msg = \"Successful request.\";\r\n    }\r\n\r\n    @Override\r\n    public void showErrorMessage(String error) {\r\n        this.error_msg = error_msg;\r\n    }\r\n\r\n    public String getTitle() {\r\n        return title;\r\n    }\r\n\r\n    public String getDesc() {\r\n        return desc;\r\n    }\r\n\r\n    public String getPrice() {\r\n        return price;\r\n    }\r\n\r\n    public String getLocation() {\r\n        return location;\r\n    }\r\n\r\n    public String getSize() {\r\n        return size;\r\n    }\r\n\r\n    public String getError_msg() {\r\n        return error_msg;\r\n    }\r\n\r\n    public String getSuccessful_msg() {\r\n        return successful_msg;\r\n    }\r\n\r\n    public String getOnDateSet() {\r\n        return onDateSet;\r\n    }\r\n\r\n    @Override\r\n    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/test/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingViewStub.java b/app/src/test/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingViewStub.java
+--- a/app/src/test/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingViewStub.java	
++++ b/app/src/test/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingViewStub.java	
+@@ -58,7 +58,7 @@
+     }
+ 
+     @Override
+-    public void submit(Date checkInTime, Date checkOutTime, int listing_id) {
++    public void submit(Date checkInTime, Date checkOutTime, int listing_id,String tenant_id) {
+         successful_msg = "Successful request.";
+     }
+ 
+Index: app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingPresenter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.Tenant.TenantViewListing;\r\n\r\nimport android.widget.Toast;\r\n\r\nimport androidx.fragment.app.DialogFragment;\r\n\r\nimport com.example.readysethome.dao.ListingDAO;\r\nimport com.example.readysethome.model.Calendar;\r\nimport com.example.readysethome.model.Listing;\r\nimport com.wdullaer.materialdatetimepicker.date.DatePickerDialog;\r\n\r\nimport java.text.ParseException;\r\nimport java.text.SimpleDateFormat;\r\nimport java.time.Instant;\r\nimport java.time.LocalDate;\r\nimport java.time.ZoneId;\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\nimport java.util.Enumeration;\r\nimport java.util.Locale;\r\n\r\npublic class TenantViewListingPresenter {\r\n    private Listing listing;\r\n    private TenantViewListingView view;\r\n    private ListingDAO listingDAO;\r\n    private Date checkIn;\r\n    private Date checkOut;\r\n\r\n    public TenantViewListingPresenter(TenantViewListingView view, ListingDAO listingDAO, int listing_id) {\r\n        this.view = view;\r\n        this.listingDAO = listingDAO;\r\n\r\n        this.listing = listingDAO.findByID(listing_id);\r\n        setUpListingViewPage();\r\n\r\n        // test\r\n        /*\r\n        java.util.Calendar c = java.util.Calendar.getInstance();\r\n        Date d1 = new Date();\r\n        c.set(java.util.Calendar.YEAR, 2024);\r\n        c.set(java.util.Calendar.MONTH, 0);\r\n        c.set(java.util.Calendar.DAY_OF_MONTH, 13);\r\n        d1.setTime(c.getTimeInMillis());\r\n        Date d2 = new Date();\r\n        c.set(java.util.Calendar.YEAR, 2024);\r\n        c.set(java.util.Calendar.MONTH, 0);\r\n        c.set(java.util.Calendar.DAY_OF_MONTH, 23);\r\n        d2.setTime(c.getTimeInMillis());\r\n        this.listing.getCalendar().setUnavailable(d1, d2);\r\n         */\r\n    }\r\n\r\n    protected void setUpListingViewPage() {\r\n        view.setListingTitle(listing.getTitle());\r\n        view.setListingDesc(listing.getDescription());\r\n        view.setListingPrice(Double.toString(listing.getPrice()) + \"€\");\r\n        view.setListingLocation(listing.getApartment().getLocation().toString());\r\n        view.setListingSize(Double.toString(listing.getApartment().getSize()) + \" m²\");\r\n    }\r\n\r\n    protected boolean isListingAvailable(Date checkInTime, Date checkOutTime) {\r\n        return listing.getCalendar().isAvailable(checkInTime, checkOutTime);\r\n    }\r\n\r\n    protected Date parseDate(String dateString) throws ParseException {\r\n        SimpleDateFormat dateFormat = new SimpleDateFormat(\"MMM dd, yyyy\");\r\n        return dateFormat.parse(dateString);\r\n    }\r\n\r\n    public void setCheckIn(String checkIn) throws ParseException {\r\n        view.setCheckInTV(checkIn);\r\n        this.checkIn = parseDate(checkIn);\r\n    }\r\n\r\n    public void setCheckOut(String checkOut) throws ParseException {\r\n        view.setCheckOutTV(checkOut);\r\n        this.checkOut = parseDate(checkOut);\r\n    }\r\n\r\n    /**\r\n     * Create the DatePickerDialog.\r\n     * @return The DatePickerDialog\r\n     */\r\n    public com.wdullaer.materialdatetimepicker.date.DatePickerDialog createDPD() {\r\n        java.util.Calendar c = java.util.Calendar.getInstance();\r\n        return DatePickerDialog.newInstance(\r\n                (DatePickerDialog.OnDateSetListener)view,\r\n                c.get(java.util.Calendar.YEAR),\r\n                c.get(java.util.Calendar.MONTH),\r\n                c.get(java.util.Calendar.DAY_OF_MONTH)\r\n        );\r\n    }\r\n\r\n    /**\r\n     * Set all the available dates in the DatePickerDialog.\r\n     * @param dpd The DatePickerDialog\r\n     * @param checkIn Check if the user pressed check in (so we can set unavailable all the dates before the check in)\r\n     */\r\n    public void setAvailableInCalendar(DatePickerDialog dpd, boolean checkIn) {\r\n        // disable past dates\r\n        dpd.setMinDate(java.util.Calendar.getInstance());\r\n\r\n        // if in check out disable all past date of check in\r\n        java.util.Calendar c = java.util.Calendar.getInstance();\r\n        if (this.checkIn != null && !checkIn) {\r\n            c.setTime(this.checkIn);\r\n            dpd.setMinDate(c);\r\n        } else if (this.checkOut != null && checkIn) {\r\n            c.setTime(this.checkOut);\r\n            dpd.setMaxDate(c);\r\n        }\r\n\r\n        // disable unavailable dates\r\n        Calendar l_calendar = listing.getCalendar();\r\n        ArrayList<java.util.Calendar> unavailable = new ArrayList<>();\r\n\r\n        // for every kay in l_calendar\r\n        Enumeration<Date> e = l_calendar.getAvailability().keys();\r\n        while (e.hasMoreElements()) {\r\n            Date key = e.nextElement(); // check in\r\n            Date value = l_calendar.getAvailability().get(key); // check put\r\n\r\n            // convert check in, check out dates to local dates\r\n            LocalDate startDate = Instant.ofEpochMilli(key.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();\r\n            LocalDate endDate = Instant.ofEpochMilli(value.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();\r\n\r\n            // for every day from the check in until the check out\r\n            while (startDate.isBefore(endDate) || startDate.equals(endDate)) {\r\n                // add a calendar instance of the local date\r\n                java.util.Calendar temp = java.util.Calendar.getInstance();\r\n                temp.setTime(Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant())); // convert local date to date and set calendar time\r\n                unavailable.add(temp);\r\n                startDate = startDate.plusDays(1); // get the next day\r\n            }\r\n        }\r\n\r\n        // disable unavailable days in the dpd\r\n        java.util.Calendar[] _unavailable = new java.util.Calendar[unavailable.size()];\r\n        for (int i=0; i<unavailable.size(); i++) {\r\n            _unavailable[i] = unavailable.get(i);\r\n        }\r\n        dpd.setDisabledDays(_unavailable);\r\n    }\r\n\r\n    public void handleSubmission() {\r\n        if (this.checkIn == null || this.checkOut == null) {\r\n            view.showErrorMessage(\"Please fill the necessary info\");\r\n            return;\r\n        }\r\n\r\n        // Check listing availability\r\n        if (isListingAvailable(this.checkIn, this.checkOut)) {\r\n            // Navigate to BookingRequestActivity when the Submit Request button is clicked\r\n            view.submit(this.checkIn, this.checkOut, listing.getListing_id());\r\n        } else {\r\n            // Show availability error\r\n            view.showErrorMessage(\"Unavailable\");\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingPresenter.java b/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingPresenter.java
+--- a/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingPresenter.java	
++++ b/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingPresenter.java	
+@@ -5,8 +5,10 @@
+ import androidx.fragment.app.DialogFragment;
+ 
+ import com.example.readysethome.dao.ListingDAO;
++import com.example.readysethome.dao.TenantDAO;
+ import com.example.readysethome.model.Calendar;
+ import com.example.readysethome.model.Listing;
++import com.example.readysethome.model.Tenant;
+ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+ 
+ import java.text.ParseException;
+@@ -26,11 +28,16 @@
+     private Date checkIn;
+     private Date checkOut;
+ 
+-    public TenantViewListingPresenter(TenantViewListingView view, ListingDAO listingDAO, int listing_id) {
++    Tenant tenant;
++    TenantDAO tenants;
++    public TenantViewListingPresenter(TenantViewListingView view, ListingDAO listingDAO, int listing_id,String tenant_id,TenantDAO tenants) {
+         this.view = view;
+         this.listingDAO = listingDAO;
+ 
+         this.listing = listingDAO.findByID(listing_id);
++        this.tenants=tenants;
++        this.tenant=tenants.findByID(tenant_id);
++
+         setUpListingViewPage();
+ 
+         // test
+@@ -51,11 +58,12 @@
+     }
+ 
+     protected void setUpListingViewPage() {
++        if(listing!=null){
+         view.setListingTitle(listing.getTitle());
+         view.setListingDesc(listing.getDescription());
+         view.setListingPrice(Double.toString(listing.getPrice()) + "€");
+         view.setListingLocation(listing.getApartment().getLocation().toString());
+-        view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");
++        view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");}
+     }
+ 
+     protected boolean isListingAvailable(Date checkInTime, Date checkOutTime) {
+@@ -97,6 +105,7 @@
+      * @param checkIn Check if the user pressed check in (so we can set unavailable all the dates before the check in)
+      */
+     public void setAvailableInCalendar(DatePickerDialog dpd, boolean checkIn) {
++
+         // disable past dates
+         dpd.setMinDate(java.util.Calendar.getInstance());
+ 
+@@ -151,7 +160,7 @@
+         // Check listing availability
+         if (isListingAvailable(this.checkIn, this.checkOut)) {
+             // Navigate to BookingRequestActivity when the Submit Request button is clicked
+-            view.submit(this.checkIn, this.checkOut, listing.getListing_id());
++            view.submit(this.checkIn, this.checkOut, listing.getListing_id(),tenant.getId());
+         } else {
+             // Show availability error
+             view.showErrorMessage("Unavailable");
+Index: app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.Tenant.TenantViewListing;\r\n\r\nimport java.util.Date;\r\n\r\npublic interface TenantViewListingView {\r\n    void setListingTitle(String title);\r\n    void setListingDesc(String desc);\r\n    void setListingPrice(String price);\r\n    void setListingLocation(String location);\r\n    void setListingSize(String size);\r\n    String getCheckInTV();\r\n    String getCheckOutTV();\r\n    void setCheckInTV(String checkIn);\r\n    void setCheckOutTV(String checkOut);\r\n    void submit(Date checkInTime, Date checkOutTime, int listing_id);\r\n    void showErrorMessage(String error);\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingView.java b/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingView.java
+--- a/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingView.java	
++++ b/app/src/main/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingView.java	
+@@ -12,7 +12,7 @@
+     String getCheckOutTV();
+     void setCheckInTV(String checkIn);
+     void setCheckOutTV(String checkOut);
+-    void submit(Date checkInTime, Date checkOutTime, int listing_id);
++    void submit(Date checkInTime, Date checkOutTime, int listing_id,String tenant_id);
+     void showErrorMessage(String error);
+ 
+ }
+Index: app/src/test/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingPresenterTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.Tenant.TenantViewListing;\r\n\r\nimport static org.junit.Assert.assertThrows;\r\n\r\nimport com.example.readysethome.dao.Initializer;\r\nimport com.example.readysethome.dao.ListingDAO;\r\nimport com.example.readysethome.memorydao.ListingDAOMemory;\r\nimport com.example.readysethome.memorydao.MemoryInitializer;\r\nimport com.example.readysethome.model.Listing;\r\nimport com.wdullaer.materialdatetimepicker.date.DatePickerDialog;\r\n\r\nimport org.junit.Assert;\r\nimport org.junit.Before;\r\nimport org.junit.Test;\r\n\r\nimport java.text.ParseException;\r\nimport java.util.ArrayList;\r\nimport java.util.Arrays;\r\nimport java.util.Calendar;\r\nimport java.util.Collection;\r\nimport java.util.Collections;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\npublic class TenantViewListingPresenterTest {\r\n    TenantViewListingViewStub view;\r\n    TenantViewListingPresenter presenter;\r\n    Initializer dataHelper;\r\n    ListingDAO listingDAO;\r\n    Listing listing;\r\n\r\n    @Before\r\n    public void setUp() {\r\n        view = new TenantViewListingViewStub();\r\n        listingDAO = new ListingDAOMemory();\r\n        dataHelper = new MemoryInitializer();\r\n        dataHelper.prepareData();\r\n\r\n        presenter = new TenantViewListingPresenter(view, listingDAO, 1);\r\n        listing = listingDAO.findByID(1);\r\n    }\r\n\r\n    /**\r\n     * Τα στοιχεία που εμφανίζονται για την αγγελία στην οθόνη του χρήστη\r\n     */\r\n    @Test\r\n    public void setUpListingDetails() {\r\n        presenter.setUpListingViewPage();\r\n\r\n        Assert.assertEquals(\"Cool apartment\", view.getTitle());\r\n        Assert.assertEquals(\"Small apartment in Athens.\", view.getDesc());\r\n        Assert.assertEquals(\"56.0€\", view.getPrice());\r\n        Assert.assertEquals(\"Athens Str123 18\", view.getLocation());\r\n        Assert.assertEquals(\"28.0 m²\", view.getSize());\r\n    }\r\n\r\n    /**\r\n     * Το availability ενός listing\r\n     */\r\n    @Test\r\n    public void checkIfListingIsAvailable() {\r\n        // make the dates\r\n        java.util.Calendar c = java.util.Calendar.getInstance();\r\n        Date d1 = new Date();\r\n        c.set(java.util.Calendar.YEAR, 2024);\r\n        c.set(java.util.Calendar.MONTH, 0);\r\n        c.set(java.util.Calendar.DAY_OF_MONTH, 13);\r\n        d1.setTime(c.getTimeInMillis());\r\n        Date d2 = new Date();\r\n        c.set(java.util.Calendar.YEAR, 2024);\r\n        c.set(java.util.Calendar.MONTH, 0);\r\n        c.set(java.util.Calendar.DAY_OF_MONTH, 23);\r\n        d2.setTime(c.getTimeInMillis());\r\n\r\n        // available\r\n        boolean result = presenter.isListingAvailable(d1, d2);\r\n        Assert.assertTrue(result);\r\n\r\n        // unavailable\r\n        listing.getCalendar().setUnavailable(d1, d2);\r\n        result = presenter.isListingAvailable(d1, d2);\r\n        Assert.assertFalse(result);\r\n    }\r\n\r\n    /**\r\n     * Parse a string to date\r\n     */\r\n    @Test\r\n    public void checkStringToDateParser() throws ParseException {\r\n        java.util.Calendar c = java.util.Calendar.getInstance();\r\n        Date d1 = new Date();\r\n        c.set(java.util.Calendar.YEAR, 2024);\r\n        c.set(java.util.Calendar.MONTH, 0);\r\n        c.set(java.util.Calendar.DAY_OF_MONTH, 13);\r\n        c.set(Calendar.HOUR_OF_DAY, 0);\r\n        c.set(Calendar.MINUTE, 0);\r\n        c.set(Calendar.SECOND, 0);\r\n        d1.setTime(c.getTimeInMillis());\r\n\r\n        // wrong date string format\r\n        String my_date_wrong = \"JAN, 13, 2024\";\r\n        Assert.assertThrows(ParseException.class, () -> presenter.parseDate(my_date_wrong));\r\n\r\n        // correct date string format\r\n        Date parsed_date;\r\n        String my_date = \"JAN 13, 2024\";\r\n        parsed_date = presenter.parseDate(my_date);\r\n\r\n        Assert.assertEquals(d1.getTime() / 1000, parsed_date.getTime() / 1000);\r\n    }\r\n\r\n    /**\r\n     * Get check in - check out\r\n     */\r\n    @Test\r\n    public void getCheckInCheckOut() throws ParseException {\r\n        String check_in_wrong = \"JAN, 13, 2024\";\r\n        String check_out_wrong = \"JAN, 23, 2024\";\r\n        Assert.assertThrows(ParseException.class, () -> presenter.setCheckIn(check_in_wrong));\r\n        Assert.assertThrows(ParseException.class, () -> presenter.setCheckOut(check_out_wrong));\r\n\r\n        String check_in = \"JAN 13, 2024\";\r\n        String check_out = \"JAN 23, 2024\";\r\n\r\n        presenter.setCheckIn(check_in);\r\n        presenter.setCheckOut(check_out);\r\n        Assert.assertEquals(check_in, view.getCheckInTV());\r\n        Assert.assertEquals(check_out, view.getCheckOutTV());\r\n    }\r\n\r\n    /**\r\n     * Create the DatePickerDialog\r\n     */\r\n    @Test\r\n    public void datePickerDialogCreation() {\r\n        Assert.assertNotNull(presenter.createDPD());\r\n    }\r\n\r\n    /**\r\n     * Set available days in date picker dialog calendar\r\n     */\r\n    @Test\r\n    public void setAvailableDaysTest() throws ParseException {\r\n        // make the dates\r\n        java.util.Calendar c = java.util.Calendar.getInstance();\r\n        Date d1 = new Date();\r\n        c.set(java.util.Calendar.YEAR, 2024);\r\n        c.set(java.util.Calendar.MONTH, 0);\r\n        c.set(java.util.Calendar.DAY_OF_MONTH, 13);\r\n        c.set(Calendar.HOUR_OF_DAY, 0);\r\n        c.set(Calendar.MINUTE, 0);\r\n        c.set(Calendar.SECOND, 0);\r\n        d1.setTime(c.getTimeInMillis());\r\n        Date d2 = new Date();\r\n        c.set(java.util.Calendar.YEAR, 2024);\r\n        c.set(java.util.Calendar.MONTH, 0);\r\n        c.set(java.util.Calendar.DAY_OF_MONTH, 23);\r\n        c.set(Calendar.HOUR_OF_DAY, 0);\r\n        c.set(Calendar.MINUTE, 0);\r\n        c.set(Calendar.SECOND, 0);\r\n        d2.setTime(c.getTimeInMillis());\r\n\r\n        // set unavailable\r\n        listing.getCalendar().setUnavailable(d1, d2);\r\n        DatePickerDialog dpd = presenter.createDPD();\r\n\r\n        // check in is null\r\n        presenter.setAvailableInCalendar(dpd, true);\r\n\r\n        // get the dpd dates\r\n        List<Calendar> dis = Arrays.asList(dpd.getDisabledDays());\r\n        Date dpd_d1 = new Date(); Date dpd_d2 = new Date();\r\n        dpd_d1.setTime(Collections.min(dis).getTimeInMillis());\r\n        dpd_d2.setTime(Collections.max(dis).getTimeInMillis());\r\n\r\n        Assert.assertEquals(d1.getTime() / 1000, dpd_d1.getTime() / 1000);\r\n        Assert.assertEquals(d2.getTime() / 1000, dpd_d2.getTime() / 1000);\r\n        Assert.assertEquals(listing.getCalendar().isAvailable(d1, d2), listing.getCalendar().isAvailable(dpd_d1, dpd_d2));\r\n\r\n        // check in not null\r\n        presenter.setCheckIn(\"JAN 13, 2024\");\r\n        presenter.setAvailableInCalendar(dpd, true);\r\n\r\n        Assert.assertEquals(listing.getCalendar().isAvailable(d1, d2), listing.getCalendar().isAvailable(dpd_d1, dpd_d2));\r\n\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/test/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingPresenterTest.java b/app/src/test/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingPresenterTest.java
+--- a/app/src/test/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingPresenterTest.java	
++++ b/app/src/test/java/com/example/readysethome/view/Tenant/TenantViewListing/TenantViewListingPresenterTest.java	
+@@ -4,8 +4,10 @@
+ 
+ import com.example.readysethome.dao.Initializer;
+ import com.example.readysethome.dao.ListingDAO;
++import com.example.readysethome.dao.TenantDAO;
+ import com.example.readysethome.memorydao.ListingDAOMemory;
+ import com.example.readysethome.memorydao.MemoryInitializer;
++import com.example.readysethome.memorydao.TenantDAOMemory;
+ import com.example.readysethome.model.Listing;
+ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+ 
+@@ -27,6 +29,8 @@
+     TenantViewListingPresenter presenter;
+     Initializer dataHelper;
+     ListingDAO listingDAO;
++
++    TenantDAO tenantDAO;
+     Listing listing;
+ 
+     @Before
+@@ -35,8 +39,9 @@
+         listingDAO = new ListingDAOMemory();
+         dataHelper = new MemoryInitializer();
+         dataHelper.prepareData();
++        tenantDAO=new TenantDAOMemory();
+ 
+-        presenter = new TenantViewListingPresenter(view, listingDAO, 1);
++        presenter = new TenantViewListingPresenter(view, listingDAO, 1,"t1",tenantDAO);
+         listing = listingDAO.findByID(1);
+     }
+ 
+Index: app/src/main/java/com/example/readysethome/view/Tenant/TenantHomeFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.Tenant;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\n\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport com.example.readysethome.R;\r\nimport com.example.readysethome.view.Tenant.TenantMain.TenantMainPresenter;\r\nimport com.example.readysethome.view.Tenant.TenantViewListing.TenantViewListingActivity;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class TenantHomeFragment extends Fragment {\r\n\r\n    private TenantMainPresenter presenter;\r\n    private boolean init_recycle_view;\r\n    private RecyclerView recyclerView;\r\n    private ArrayList<TenantHomeListingModel> homeListingModels;\r\n    private TenantHome_RecyclerViewAdaptor adapter;\r\n\r\n\r\n    public TenantHomeFragment(TenantMainPresenter presenter) {\r\n        this.presenter = presenter;\r\n        init_recycle_view = false;\r\n    }\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        // Inflate the layout for this fragment\r\n        View view =  inflater.inflate(R.layout.fragment_tenant_home, container, false);\r\n\r\n        // get the recycler view of tenant home fragment\r\n        recyclerView = view.findViewById(R.id.tenant_home_recyclerView);\r\n\r\n        // prevent from adding copies of the existing rows\r\n        if (!init_recycle_view) {\r\n            homeListingModels = presenter.setUpHomeListingModels();\r\n            // make the adapter for the recycler\r\n            adapter = new TenantHome_RecyclerViewAdaptor(getContext(), homeListingModels, TenantHomeFragment.this);\r\n            init_recycle_view = true;\r\n        }\r\n        recyclerView.setAdapter(adapter);\r\n        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));\r\n\r\n        return view;\r\n    }\r\n\r\n    public void onItemClick(int pos) {\r\n        Intent intent = new Intent(getContext(), TenantViewListingActivity.class);\r\n        // pass listing id\r\n        intent.putExtra(\"LISTING_ID\", homeListingModels.get(pos).getId());\r\n        startActivity(intent);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/Tenant/TenantHomeFragment.java b/app/src/main/java/com/example/readysethome/view/Tenant/TenantHomeFragment.java
+--- a/app/src/main/java/com/example/readysethome/view/Tenant/TenantHomeFragment.java	
++++ b/app/src/main/java/com/example/readysethome/view/Tenant/TenantHomeFragment.java	
+@@ -57,6 +57,7 @@
+         Intent intent = new Intent(getContext(), TenantViewListingActivity.class);
+         // pass listing id
+         intent.putExtra("LISTING_ID", homeListingModels.get(pos).getId());
++        intent.putExtra("tenant_id",presenter.getAttachedTenant().getId());
+         startActivity(intent);
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/readysethome/view/User/UserLogIn/UserLoginActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.view.User.UserLogIn;\r\n\r\nimport android.app.AlertDialog;\r\nimport android.content.DialogInterface;\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.EditText;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport com.example.readysethome.R;\r\nimport com.example.readysethome.memorydao.UserDAOMemory;\r\nimport com.example.readysethome.model.User;\r\nimport com.example.readysethome.view.Owner.OwnerMain.OwnerMainActivity;\r\nimport com.example.readysethome.view.Tenant.TenantMain.TenantMainActivity;\r\nimport com.example.readysethome.view.User.UserSignUp.UserSignUpActivity;\r\n\r\npublic class UserLoginActivity extends AppCompatActivity implements UserLogInView {\r\n\r\n    /**\r\n     * Εμφανίζει ένα μήνυμα τύπου alert με\r\n     * τίτλο title και μήνυμα message.\r\n     * @param title Ο τίτλος του μηνύματος\r\n     * @param message Το περιεχόμενο του μηνύματος\r\n     */\r\n    public void showErrorMessage(String title, String message)\r\n    {\r\n        AlertDialog.Builder builder = new AlertDialog.Builder(UserLoginActivity.this);\r\n        builder.setCancelable(false);\r\n        builder.setTitle(title);\r\n        builder.setMessage(message);\r\n        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {\r\n            @Override\r\n            public void onClick(DialogInterface dialog, int which) {\r\n                dialog.cancel();\r\n            }\r\n        });\r\n\r\n        AlertDialog alertDialog = builder.create();\r\n        alertDialog.show();\r\n    }\r\n\r\n    /**\r\n     * Το μήνυμα που εμφανίζεται όταν τελειώνει\r\n     * επιτυχώς ένα activity.\r\n     * @param message Το μήνυμα που θα εμφανίσει\r\n     */\r\n    public void successfullyFinishActivity(String message, User user)\r\n    {\r\n        Toast.makeText(UserLoginActivity.this, message, Toast.LENGTH_SHORT).show();\r\n\r\n        Intent intent = null;\r\n        if (user.getUserType() == 0) {\r\n            intent = new Intent(UserLoginActivity.this, TenantMainActivity.class);\r\n        } else {\r\n            intent = new Intent(UserLoginActivity.this, OwnerMainActivity.class);\r\n        }\r\n        intent.putExtra(\"user_id\", user.getId());\r\n        startActivity(intent);\r\n    }\r\n\r\n    /**\r\n     * Επιστρέφει το email του user.\r\n     * @return Το email του user\r\n     */\r\n    public String getEmail() {\r\n        return ((EditText)findViewById(R.id.login_email)).getText().toString().trim();\r\n    }\r\n\r\n    /**\r\n     * Επιστρέφει τον κωδικό του user.\r\n     * @return Τον κωδικό του user\r\n     */\r\n    public String getPass() {\r\n        return ((EditText)findViewById(R.id.login_password)).getText().toString().trim();\r\n    }\r\n\r\n    /**\r\n     * Δημιουργεί to layout και αρχικοποιεί\r\n     * το activity.\r\n     *\r\n     * @param savedInstanceState το Instance state\r\n     */\r\n    @Override\r\n    protected void onCreate(@Nullable Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_user_login);\r\n\r\n        final UserLogInPresenter presenter = new UserLogInPresenter(UserLoginActivity.this, new UserDAOMemory());\r\n\r\n        findViewById(R.id.login_submit).setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                presenter.onUserConnect();\r\n            }\r\n        });\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/User/UserLogIn/UserLoginActivity.java b/app/src/main/java/com/example/readysethome/view/User/UserLogIn/UserLoginActivity.java
+--- a/app/src/main/java/com/example/readysethome/view/User/UserLogIn/UserLoginActivity.java	
++++ b/app/src/main/java/com/example/readysethome/view/User/UserLogIn/UserLoginActivity.java	
+@@ -60,6 +60,7 @@
+         }
+         intent.putExtra("user_id", user.getId());
+         startActivity(intent);
++        finish();
+     }
+ 
+     /**
+Index: app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingModel.java b/app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingModel.java
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/readysethome/view/Tenant/TenantBookingModel.java	
+@@ -0,0 +1,54 @@
++package com.example.readysethome.view.Tenant;
++
++import java.text.ParseException;
++import java.text.SimpleDateFormat;
++import java.util.Date;
++import java.util.Locale;
++
++public class TenantBookingModel {
++    private String title;
++    private String date;
++    private String status;
++    private int id;
++    private int image;
++
++    public TenantBookingModel(String title, String date, String status, int id,int image) {
++        this.title = title;
++        this.date = formatDate(date);
++        this.status = status;
++        this.id = id;
++        this.image=image;
++    }
++
++    public String getTitle() {
++        return title;
++    }
++
++    public String getDate() {
++        return formatDate(date);
++    }
++
++    public String getStatus() {
++        return status;
++    }
++
++    public int getId() {
++        return id;
++    }
++
++    public int getImage() {
++        return image;
++    }
++    private String formatDate(String dateString) {
++        try {
++            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
++            Date date = sdfInput.parse(dateString);
++
++            SimpleDateFormat sdfOutput = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
++            return sdfOutput.format(date);
++        } catch (ParseException e) {
++            e.printStackTrace(); // Handle the parsing exception
++            return dateString; // Return the original string if parsing fails
++        }
++    }
++}
