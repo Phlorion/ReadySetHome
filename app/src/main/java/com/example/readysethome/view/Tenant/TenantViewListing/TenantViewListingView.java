@@ -8,13 +8,6 @@ public interface TenantViewListingView {
     void setListingPrice(String price);
     void setListingLocation(String location);
     void setListingSize(String size);
-    void setOwnerName(String ownerName);
-    void setBathrooms(String bathrooms);
-    void setWifi(Boolean wifi);
-    void setBalcony(Boolean balcony);
-    void setBedrooms(String bedrooms);
-    void setKitchens(String kitchens);
-    void setFloor(String floor);
     String getCheckInTV();
     String getCheckOutTV();
     void setCheckInTV(String checkIn);
