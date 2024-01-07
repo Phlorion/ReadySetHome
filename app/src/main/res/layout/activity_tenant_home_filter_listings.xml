@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Filters"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="Destination"
+        android:textSize="16dp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <CheckBox
+        android:id="@+id/checkBox_ath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Athens"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <CheckBox
+        android:id="@+id/checkBox_thessal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thessaloniki"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_ath" />
+
+    <CheckBox
+        android:id="@+id/checkBox_patra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Patra"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_thessal" />
+
+    <CheckBox
+        android:id="@+id/checkBox_hrakleio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hrakleio"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_patra" />
+
+    <CheckBox
+        android:id="@+id/checkBox_iwan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="12dp"
+        android:text="Iwannina"
+        app:layout_constraintStart_toEndOf="@+id/checkBox_ath"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <CheckBox
+        android:id="@+id/checkBox_volos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volos"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_iwan"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_iwan" />
+
+    <CheckBox
+        android:id="@+id/checkBox_syros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Syros"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_iwan"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_volos" />
+
+    <CheckBox
+        android:id="@+id/checkBox_nafp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nafplion"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_iwan"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_syros" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Price"
+        android:textSize="16dp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_hrakleio" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/price_slider"
+        android:valueFrom="0"
+        android:valueTo="1000"
+        android:value="1000"
+        app:labelBehavior="floating"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:text="0"
+        app:layout_constraintStart_toStartOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="8dp"
+        android:text="10000"
+        app:layout_constraintStart_toEndOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Stay"
+        android:textSize="16dp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/price_slider" />
+
+    <EditText
+        android:id="@+id/filter_stay_check_in"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="CheckIn: dd-MM-yyyy"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <EditText
+        android:id="@+id/filter_stay_check_out"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="CheckOut: dd-MM-yyyy"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/filter_stay_check_in" />
+
+    <Button
+        android:id="@+id/filters_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="60dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_stay_check_out"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/filters_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/filters_save" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

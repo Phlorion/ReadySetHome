@@ -158,18 +158,6 @@ public abstract class Initializer {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         // ap2
         ArrayList<Bathroom> ap2_baths = new ArrayList<>();
         ap2_baths.add(new Bathroom(12, true, true, true));
