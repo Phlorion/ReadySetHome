@@ -13,6 +13,7 @@ import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.OwnerDAOMemory;
 import com.example.readysethome.view.Owner.OwnerHomeFragment;
 import com.example.readysethome.view.Owner.OwnerPendingFragment;
+import com.example.readysethome.view.Owner.OwnerPendingModel;
 import com.example.readysethome.view.Owner.OwnerProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,6 +36,7 @@ public class OwnerMainActivity extends AppCompatActivity implements OwnerMainVie
         // create the fragments
         OwnerHomeFragment home = new OwnerHomeFragment(presenter);
         OwnerProfileFragment profile = new OwnerProfileFragment(presenter);
+        OwnerPendingFragment pending = new OwnerPendingFragment(presenter);
 
         // when the owner main appears set the frame layout to the home fragment
         replaceFragment(home);
@@ -42,7 +44,7 @@ public class OwnerMainActivity extends AppCompatActivity implements OwnerMainVie
         navbar = findViewById(R.id.owner_main_bottomNavigationView);
         navbar.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.owner_nav_home) replaceFragment(home);
-            else if (item.getItemId() == R.id.owner_nav_pending) replaceFragment(new OwnerPendingFragment());
+            else if (item.getItemId() == R.id.owner_nav_pending) replaceFragment(pending);
             else replaceFragment(profile);
             return true;
         });

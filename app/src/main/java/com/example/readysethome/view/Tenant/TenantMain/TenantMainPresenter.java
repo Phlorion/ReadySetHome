@@ -61,7 +61,7 @@ public class TenantMainPresenter {
                 preview_photo = listing.getPhotos()[0];
             else
                 preview_photo = R.drawable.child_po;
-            homeListingModels.add(new TenantHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + "€", listing.getListing_id(), preview_photo));
+            homeListingModels.add(new TenantHomeListingModel(listing.getTitle(), listing.getDescription(), Double.toString(listing.getPrice()) + "€", listing.getApartment().getLocation().toString(), listing.getListing_id(), preview_photo, listing));
         }
         return homeListingModels;
     }
