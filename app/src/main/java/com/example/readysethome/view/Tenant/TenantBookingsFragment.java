@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.readysethome.R;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.TenantDAO;
+import com.example.readysethome.memorydao.BookingRequestDAOMemory;
 import com.example.readysethome.memorydao.BookingsDAOMemory;
 import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.TenantDAOMemory;
@@ -40,6 +41,7 @@ public class TenantBookingsFragment extends Fragment {
     private boolean init_recycle_view;
 
     BookingsDAOMemory bookings;
+    BookingRequestDAOMemory bookingRequests;
 
 
     public TenantBookingsFragment(TenantMainPresenter presenter) {
@@ -47,6 +49,7 @@ public class TenantBookingsFragment extends Fragment {
         tenant = presenter.getAttachedTenant();
         init_recycle_view=false;
         bookings=new BookingsDAOMemory();
+        bookingRequests=new BookingRequestDAOMemory();
 
     }
 
@@ -76,6 +79,8 @@ public class TenantBookingsFragment extends Fragment {
     public void onItemClick(int position) {
         // Handle item click here
         TenantBookingModel clickedBooking = bookingsAndRequests.get(position);
+        System.out.println(position);
+        System.out.println(bookingsAndRequests.get(position)==null);
 
         // Show a confirmation dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -87,8 +92,13 @@ public class TenantBookingsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // User clicked Yes
+                    //if it is not in the bookings dao
 
-                cancelBooking(bookings.findByID(clickedBooking.getId()));
+                if(bookings.findByID(clickedBooking.getId())!=null){
+                    cancelBooking(bookings.findByID(clickedBooking.getId()));
+                } else if (bookingRequests.findByID(clickedBooking.getId())!=null) {
+                    cancelBookingRequest(bookingRequests.findByID(clickedBooking.getId()));}
+
             }
         });
 
@@ -104,10 +114,17 @@ public class TenantBookingsFragment extends Fragment {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-    private void cancelBooking(Booking booking) {
-        // Perform the cancellation logic here
+    protected void cancelBooking(Booking booking){
         presenter.cancelBooking(booking);
+        cancelProcedure();
+    }
+    protected void cancelBookingRequest(BookingRequest bookingRequest){
+        presenter.cancelBookingRequest(bookingRequest);
+        cancelProcedure();
+    }
+
+    private void cancelProcedure() {
+
 
         // Show a confirmation dialog for cancellation completion
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());

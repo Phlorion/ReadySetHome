@@ -70,12 +70,16 @@ public class TenantBookingsAdapter extends RecyclerView.Adapter<TenantBookingsAd
             tvStatus = itemView.findViewById(R.id.recycler_view_tenant_booking_status);
             tvImage=itemView.findViewById(R.id.recylcler_view_tenant_booking_image);
 
-            final int adapterPosition = getAdapterPosition();
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    fragment.onItemClick(adapterPosition);
+                    if (fragment != null) {
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION) {
+                            fragment.onItemClick(pos);
+                        }
+                    }
                 }
             });
         }

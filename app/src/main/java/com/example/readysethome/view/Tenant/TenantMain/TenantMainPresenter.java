@@ -147,7 +147,8 @@ public class TenantMainPresenter {
     public Tenant getAttachedTenant() {
         return attachedTenant;
     }
-    public void cancelBooking(Booking booking){booking.cancel();}
+    public void cancelBooking(Booking booking){attachedTenant.cancelBooking(booking);}
+    public void cancelBookingRequest(BookingRequest bookingRequest){attachedTenant.cancelBookingRequest(bookingRequest);}
     public ArrayList<TenantBookingModel> getBookingModels() {
         return bookingModels;
     }
