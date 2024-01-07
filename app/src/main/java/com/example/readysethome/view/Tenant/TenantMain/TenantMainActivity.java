@@ -24,6 +24,7 @@ public class TenantMainActivity extends AppCompatActivity implements TenantMainV
     BottomNavigationView navbar;
     TenantHomeFragment home;
     TenantBookingsFragment bookings;
+    TenantProfileFragment profile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +40,8 @@ public class TenantMainActivity extends AppCompatActivity implements TenantMainV
         home = new TenantHomeFragment(presenter);
         // create the fragments
         bookings = new TenantBookingsFragment(presenter);
+        // create the fragments
+        profile = new TenantProfileFragment(presenter);
         // when the owner main appears set the frame layout to the home fragment
         replaceFragment(home);
 
@@ -47,7 +50,7 @@ public class TenantMainActivity extends AppCompatActivity implements TenantMainV
             if (item.getItemId() == R.id.tenant_nav_home) replaceFragment(home);
             else if (item.getItemId() == R.id.tenant_nav_bookings) replaceFragment(bookings);
             else if (item.getItemId() == R.id.tenant_nav_notifications) replaceFragment(new TenantNotificationsFragment());
-            else replaceFragment(new TenantProfileFragment());
+            else replaceFragment(profile);
             return true;
         });
 

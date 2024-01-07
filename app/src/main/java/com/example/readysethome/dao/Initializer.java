@@ -130,7 +130,7 @@ public abstract class Initializer {
         d3.setTime(c.getTimeInMillis());
 
         BookingRequest bookingRequest1 = tenant1.makeBookingRequest(l1, d2, d3);
-        owner1.confirmBookingRequest(bookingRequest1);
+//        owner1.confirmBookingRequest(bookingRequest1);
 
         java.util.Calendar c4 = java.util.Calendar.getInstance();
         Date d4 = new Date();
@@ -154,7 +154,7 @@ public abstract class Initializer {
         d6.setTime(c6.getTimeInMillis());
 
         BookingRequest bookingRequest2 = tenant1.makeBookingRequest(l1, d5, d6);
-        owner1.confirmBookingRequest(bookingRequest2);
+//        owner1.confirmBookingRequest(bookingRequest2);
 
 
 

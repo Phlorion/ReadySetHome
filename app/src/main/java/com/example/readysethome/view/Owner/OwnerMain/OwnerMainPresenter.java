@@ -9,10 +9,12 @@ import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.OwnerDAO;
 import com.example.readysethome.dao.UserDAO;
 import com.example.readysethome.memorydao.UserDAOMemory;
+import com.example.readysethome.model.BookingRequest;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Owner;
 import com.example.readysethome.model.User;
 import com.example.readysethome.view.Owner.OwnerHomeListingModel;
+import com.example.readysethome.view.Owner.OwnerPendingModel;
 import com.example.readysethome.view.Owner.OwnerProfileFragment;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class OwnerMainPresenter {
     private OwnerDAO owners;
     private Owner attachedOwner;
     ArrayList<OwnerHomeListingModel> listingModels;
+    ArrayList<OwnerPendingModel> pendingModels;
 
     /**
      * Αρχικοποιήση μεταβλητών και δημιουργία του listing model μας για το recycler του χρήστη
@@ -61,6 +64,20 @@ public class OwnerMainPresenter {
         return listingModels;
     }
 
+    public ArrayList<OwnerPendingModel> setUpPendingModels() {
+        pendingModels = new ArrayList<>();
+        ArrayList<BookingRequest> brs = attachedOwner.getBookingRequests();
+        for (BookingRequest br : brs) {
+            int preview_photo;
+            if (br.getListing().getPhotos() != null)
+                preview_photo = br.getListing().getPhotos()[0];
+            else
+                preview_photo = R.drawable.child_po;
+            pendingModels.add(new OwnerPendingModel(br.getTenant().getFirstName() + " " + br.getTenant().getLastName(), br.getListing().getTitle(), preview_photo, br.getBooking_id()));
+        }
+        return pendingModels;
+    }
+
     public ArrayList<OwnerHomeListingModel> addListingModel(Listing listing) {
         int preview_photo;
         if (listing.getPhotos() != null)
@@ -74,5 +91,23 @@ public class OwnerMainPresenter {
 
     public Owner getAttachedOwner() {
         return attachedOwner;
+    }
+
+    public void pendingConfirm(int pos) {
+        for (BookingRequest br : attachedOwner.getBookingRequests()) {
+            if (br.getBooking_id() == pendingModels.get(pos).getBrId()) {
+                attachedOwner.confirmBookingRequest(br);
+                break;
+            }
+        }
+    }
+
+    public void pendingDecline(int pos) {
+        for (BookingRequest br : attachedOwner.getBookingRequests()) {
+            if (br.getBooking_id() == pendingModels.get(pos).getBrId()) {
+                attachedOwner.declineBookingRequest(br);
+                break;
+            }
+        }
     }
 }
