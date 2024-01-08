@@ -1,5 +1,5 @@
 package com.example.readysethome.view.Owner.OwnerAddListing;
-
+/*
 public class OwnerAddListingViewStub implements OwnerAddListingView {
     String city, street, address_num, floor, ap_size, bath_size, kitchen_size, bedroom_size, double_beds, single_beds, title, desc, price;
     boolean wifi, living_room, balcony, shower, toilet, hairdryer, oven, microwave, refrigerator, toaster, coffee_machine, dining_table, tv;
@@ -268,3 +268,4 @@ public class OwnerAddListingViewStub implements OwnerAddListingView {
         error_msg = message;
     }
 }
+*/

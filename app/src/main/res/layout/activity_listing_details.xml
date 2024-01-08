@@ -142,6 +142,39 @@
                 app:layout_constraintStart_toStartOf="@+id/checkOutBtn"
                 app:layout_constraintTop_toBottomOf="@+id/checkOutBtn" />
 
+            <TextView
+                android:id="@+id/listingfloor"
+                android:layout_width="52dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="40dp"
+
+                android:layout_marginTop="168dp"
+                android:text="floor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listingdesc" />
+
+            <TextView
+                android:id="@+id/listingwifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="48dp"
+                android:text="wifi"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.491" />
+
+            <TextView
+                android:id="@+id/listingbalcony"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginBottom="372dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

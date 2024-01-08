@@ -32,14 +32,14 @@ public class BookingConfirmationPresenterTest {
     @Before
     public void setUp() {
         view = new BookingConfirmationViewStub();
-        listings = new ListingDAOMemory(); // Assuming you have an implementation for ListingDAOMemory
+        listings = new ListingDAOMemory();
         listing = new Listing();
-        tenants = new TenantDAOMemory(); // Assuming you have an implementation for TenantDAOMemory
+        tenants = new TenantDAOMemory();
         tenant = new Tenant("John", "Doe", new EmailAddress("john@example.com"), new Password("password"), new CreditCard(), new Date());
         checkIn = new Date();
         checkOut = new Date();
 
-        // Assuming you have proper implementations for findByID in your DAOs
+
         listings.save(listing);
         tenants.save(tenant);
 

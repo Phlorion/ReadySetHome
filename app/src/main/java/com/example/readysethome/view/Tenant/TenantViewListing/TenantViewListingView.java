@@ -8,11 +8,19 @@ public interface TenantViewListingView {
     void setListingPrice(String price);
     void setListingLocation(String location);
     void setListingSize(String size);
+
+    void setListingFloor(String floor);
+
     String getCheckInTV();
     String getCheckOutTV();
     void setCheckInTV(String checkIn);
     void setCheckOutTV(String checkOut);
+
+
+    void setFloorTV(String floor);
+
     void submit(Date checkInTime, Date checkOutTime, int listing_id, String tenant_id);
     void showErrorMessage(String error);
 
+    void setListingWifi(boolean wifi);
 }

@@ -29,10 +29,6 @@ public class BookingRequestPresenter {
         listing = listings.findByID(listing_id);
         this.tenants = tenants;
         this.tenant = tenants.findByID(tenant_id);
-
-        if (tenant == null) {
-            Log.e("BookingRequestPresenter", "Unable to find tenant with ID: " + tenant_id);
-        }
     }
 
     /**

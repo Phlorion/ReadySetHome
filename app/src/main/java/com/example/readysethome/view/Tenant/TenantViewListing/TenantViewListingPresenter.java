@@ -64,6 +64,8 @@ public class TenantViewListingPresenter {
             view.setListingPrice(Double.toString(listing.getPrice()) + "€");
             view.setListingLocation(listing.getApartment().getLocation().toString());
             view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");
+            view.setListingFloor(Integer.toString(listing.getApartment().getFloor()));
+            view.setListingWifi(listing.getApartment().isWifi());
         }
     }
 

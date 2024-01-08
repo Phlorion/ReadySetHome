@@ -1,5 +1,5 @@
 package com.example.readysethome.view.Tenant.TenantViewListing;
-
+/*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Date;
@@ -39,6 +39,11 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
             this.size = size;
         }
 
+    @Override
+    public void setListingFloor(String floor) {
+
+    }
+
         @Override
         public void setOwnerName(String ownerName) {
             this.owner = ownerName;
@@ -60,7 +65,7 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
         }
 
 
-    @Override
+        @Override
         public void setBedrooms(String bedrooms) {
             this.bedrooms = bedrooms;
         }
@@ -95,7 +100,12 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
             this.checkOut = checkOut;
         }
 
-        @Override
+    @Override
+    public void setFloorTV(String floor) {
+
+    }
+
+    @Override
         public void submit(Date checkInTime, Date checkOutTime, int listing_id, String tenant_id) {
             successful_msg = "Successful request.";
         }
@@ -105,7 +115,12 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
             this.error_msg = error;
         }
 
-        public String getTitle() {
+    @Override
+    public void setListingWifi(boolean wifi) {
+
+    }
+
+    public String getTitle() {
             return title;
         }
 
@@ -170,3 +185,4 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
             }
         }
 
+*/
