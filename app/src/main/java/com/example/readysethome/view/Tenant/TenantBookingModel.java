@@ -25,7 +25,7 @@ public class TenantBookingModel {
     }
 
     public String getDate() {
-        return date;
+        return transformDate(date);
     }
 
     public String getStatus() {
@@ -39,18 +39,18 @@ public class TenantBookingModel {
     public int getImage() {
         return image;
     }
-    /*
-    private String formatDate(String dateString) {
+    private String transformDate(String inputDate) {
         try {
-            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            Date date = sdfInput.parse(dateString);
 
-            SimpleDateFormat sdfOutput = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            return sdfOutput.format(date);
+            SimpleDateFormat inputFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss 'GMT'Z yyyy", Locale.US);
+            Date date = inputFormat.parse(inputDate);
+
+
+            SimpleDateFormat outputFormat = new SimpleDateFormat("EEE MMM dd yyyy", Locale.US);
+            return outputFormat.format(date);
         } catch (ParseException e) {
-            e.printStackTrace(); // Handle the parsing exception
-            return dateString; // Return the original string if parsing fails
+            e.printStackTrace();
+            return inputDate;
         }
     }
-     */
 }

@@ -1,6 +1,12 @@
 package com.example.readysethome.model;
 
 import com.example.readysethome.MainActivity;
+import com.example.readysethome.dao.Initializer;
+import com.example.readysethome.dao.TenantDAO;
+import com.example.readysethome.dao.UserDAO;
+import com.example.readysethome.memorydao.MemoryInitializer;
+import com.example.readysethome.memorydao.TenantDAOMemory;
+import com.example.readysethome.memorydao.UserDAOMemory;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +21,10 @@ public class BookingRequest {
     private Listing listing;
     private Tenant tenant;
 
+    Initializer init;
+
+    UserDAO usersnull;
+    User userDummie;
     public BookingRequest(Listing listing, Date submission_date, Date check_in, Date check_out, Tenant tenant) {
         lastBookingId++;
         this.booking_id = lastBookingId;
@@ -23,6 +33,8 @@ public class BookingRequest {
         this.check_in = check_in;
         this.check_out = check_out;
         this.tenant = tenant;
+        usersnull= new  UserDAOMemory();
+        userDummie=usersnull.findByID("t0");
     }
 
     //Methodos gia thn ypovolh aithmatos
@@ -88,7 +100,11 @@ public class BookingRequest {
 
     // Methodos gia thn enhmerwsh
     private void notifyUser(User user, String Title, String Desc) {
-        MainActivity.SYSTEM.getEmail().send(user.getEmail(), Title, Desc);
+        if(user==null){
+            user=userDummie;
+        }
+
+        user.getEmail().send(user.getEmail(),Title,Desc);
     }
 
     // count the days between two given dates

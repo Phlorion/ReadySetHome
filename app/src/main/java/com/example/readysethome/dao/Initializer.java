@@ -69,9 +69,16 @@ public abstract class Initializer {
         User user2 = new User("Anestis", "Thanasi", new EmailAddress("p3210273@aueb.gr"), new Password("9090"), new CreditCard("0987098709870987"), new Date());
         user2._setId("t1");
         userDAO.save(user2);
+
         User user3 = new User("Triantafyllos", "Kiosse", new EmailAddress("p3210079@aueb.gr"), new Password("4545"), new CreditCard("467467467467"), new Date());
         user3._setId("o2");
         userDAO.save(user3);
+
+         User SYSTEM = new User("ReadySetHome", "Admin", new EmailAddress("readysethomeAdmin@gmail.com"),
+                new Password("admin"), new CreditCard("0000000000000000"), new Date());
+         SYSTEM._setId("t0");
+         userDAO.save(SYSTEM);
+
 
         // create some listings and assign them to some users
         ListingDAO listingDAO = getListingDAO();

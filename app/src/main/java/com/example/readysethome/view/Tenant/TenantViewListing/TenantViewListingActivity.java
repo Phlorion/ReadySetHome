@@ -4,21 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import com.example.readysethome.R;
 import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.TenantDAOMemory;
-import com.example.readysethome.model.Listing;
 import com.example.readysethome.view.BookingRequestGui.BookingRequestActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -33,6 +26,11 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     Button checkOutBtn;
     TextView checkInDisplay;
     TextView checkOutDisplay;
+
+    TextView floorDisplay;
+    TextView WifiDisplay;
+
+    TextView balconyDisplay;
     boolean checkInPressed;
     TenantViewListingPresenter presenter;
 
@@ -93,6 +91,7 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
 
     @Override
     public void setListingTitle(String title) {
+
         ((TextView)findViewById(R.id.listingtitle)).setText(title);
     }
 
@@ -115,7 +114,39 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     public void setListingSize(String size) {
         ((TextView)findViewById(R.id.listingsize)).setText(size);
     }
+    @Override
+    public void setListingFloor(String floor) {
+        System.out.println(floor);
+        ((TextView)findViewById(R.id.listingfloor)).setText("Floor: "+floor);
+    }
+    @Override
+    public void setListingBedrooms(int bedrooms) {
 
+        ((TextView)findViewById(R.id.listingbedrooms)).setText("Bedrooms: "+bedrooms);
+    } @Override
+    public void setListingBathrooms(int bathrooms) {
+
+        ((TextView)findViewById(R.id.listingbathrooms)).setText("Bathrooms: "+bathrooms);
+    } @Override
+    public void setListingKitchens(int kitchens) {
+
+        ((TextView)findViewById(R.id.listingkitchens)).setText("Kitchens: "+kitchens);
+    }
+    @Override
+    public void setListingWifi(boolean wifi) {
+       String Str_wifi=wifi?"Wifi:yes":"Wifi:no";
+        ((TextView)findViewById(R.id.listingwifi)).setText(Str_wifi);
+    }
+    @Override
+    public void setListingBalcony(boolean balcony) {
+       String Str_balcony=balcony?"Balcony:yes":"Balcony:no";
+        ((TextView)findViewById(R.id.listingbalcony)).setText(Str_balcony);
+    }
+    @Override
+    public void setListingLivingRoom(boolean livingroom) {
+       String Str_livingroom=livingroom?"Living room:yes":"Living room:no";
+        ((TextView)findViewById(R.id.listinglivingroom)).setText(Str_livingroom);
+    }
     @Override
     public String getCheckInTV() {
         return checkInDisplay.getText().toString();
@@ -135,6 +166,9 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     public void setCheckOutTV(String checkOut) {
         checkOutDisplay.setText(checkOut);
     }
+
+    @Override
+    public void setFloorTV(String floor){System.out.println(floor);floorDisplay.setText(floor);}
 
     @Override
     public void submit(Date checkInTime, Date checkOutTime, int listing_id,String tenant_id) {

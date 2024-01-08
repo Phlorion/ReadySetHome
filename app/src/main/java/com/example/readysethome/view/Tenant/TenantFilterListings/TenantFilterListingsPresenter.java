@@ -1,12 +1,14 @@
 package com.example.readysethome.view.Tenant.TenantFilterListings;
 
+import android.widget.EditText;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class TenantFilterListingsPresenter {
     TenantFilterListingsView view;
 
-    public TenantFilterListingsPresenter(TenantFilterListingsActivity view) {
+    public TenantFilterListingsPresenter(TenantFilterListingsView view) {
         this.view = view;
     }
 
@@ -58,8 +60,12 @@ public class TenantFilterListingsPresenter {
                 return null;
             }
         } else { // if check_in or check_out null, don't consider either
+
             check_in = "";
             check_out = "";
+            view.setWantedCheckIn(check_in);
+            view.setWantedCheckOut(check_out);
+
         }
 
         FilterHolder filterHolder = new FilterHolder(view.getAth(), view.getThes(), view.getPatra(), view.getHrakleio(), view.getIwan(), view.getVolos(), view.getSyros(), view.getNafpion(), price, check_in, check_out);

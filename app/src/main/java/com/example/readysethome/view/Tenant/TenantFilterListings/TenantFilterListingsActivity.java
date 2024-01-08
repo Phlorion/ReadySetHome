@@ -149,6 +149,16 @@ public class TenantFilterListingsActivity extends AppCompatActivity implements T
     }
 
     @Override
+    public void setWantedCheckIn(String checkIn) {
+        ((EditText)findViewById(R.id.filter_stay_check_in)).setText(checkIn);
+    }
+
+    @Override
+    public void setWantedCheckOut(String checkOut) {
+        ((EditText)findViewById(R.id.filter_stay_check_in)).setText(checkOut);
+    }
+
+    @Override
     public void setWantedPrice(String wantedPrice) {
         ((Slider)findViewById(R.id.price_slider)).setValue(Float.parseFloat(wantedPrice));
     }

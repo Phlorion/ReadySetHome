@@ -23,6 +23,8 @@ public interface TenantFilterListingsView {
 
     String getWantedCheckIn();
     String getWantedCheckOut();
+    void setWantedCheckIn(String checkIn);
+    void setWantedCheckOut(String checkOut);
     void setWantedPrice(String wantedPrice);
 
     void showMessage(String message);
