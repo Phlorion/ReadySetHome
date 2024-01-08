@@ -39,7 +39,7 @@
             android:id="@+id/tenant_profile_nameView"
             android:layout_width="319dp"
             android:layout_height="59dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="24dp"
             android:text="Name"
             android:textAlignment="viewStart"
             android:textSize="26dp"
@@ -51,27 +51,45 @@
             android:id="@+id/tenant_profile_emailView"
             android:layout_width="319dp"
             android:layout_height="59dp"
-            android:layout_marginTop="24dp"
             android:text="Email"
             android:textAlignment="viewStart"
             android:textSize="26dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tenant_profile_surnameView"
-            app:layout_constraintVertical_bias="0.133" />
+            app:layout_constraintTop_toBottomOf="@+id/tenant_profile_surnameView" />
 
         <TextView
             android:id="@+id/tenant_profile_surnameView"
             android:layout_width="319dp"
             android:layout_height="59dp"
-            android:layout_marginTop="28dp"
             android:text="Surname"
             android:textAlignment="viewStart"
             android:textSize="26dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tenant_profile_nameView" />
+
+        <TextView
+            android:id="@+id/tenant_profile_id"
+            android:layout_width="319dp"
+            android:layout_height="59dp"
+            android:text="Id"
+            android:textAlignment="viewStart"
+            android:textSize="26dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tenant_profile_emailView" />
+
+        <TextView
+            android:id="@+id/tenant_profile_balance"
+            android:layout_width="319dp"
+            android:layout_height="59dp"
+            android:text="Balance"
+            android:textAlignment="viewStart"
+            android:textSize="26dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tenant_profile_id" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

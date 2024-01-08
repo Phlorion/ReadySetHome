@@ -31,7 +31,9 @@ public class OwnerProfileFragment extends Fragment {
         ((TextView) view.findViewById(R.id.owner_profile_nameView)).setText(presenter.getAttachedOwner().getFirstName());
         ((TextView) view.findViewById(R.id.owner_profile_surnameView)).setText(presenter.getAttachedOwner().getLastName());
         ((TextView) view.findViewById(R.id.owner_profile_emailView)).setText(presenter.getAttachedOwner().getEmail().getAddress());
-        ((ImageView)view.findViewById(R.id.owner_profile_profilePicture)).setImageResource(R.drawable.child_po);
+        ((ImageView) view.findViewById(R.id.owner_profile_profilePicture)).setImageResource(R.drawable.child_po);
+        ((TextView) view.findViewById(R.id.owner_profile_id)).setText(presenter.getAttachedOwner().getId());
+        ((TextView) view.findViewById(R.id.owner_profile_balance)).setText(String.valueOf(presenter.getAttachedOwner().getCreditCard().getBalance()));
 
         return view;
     }

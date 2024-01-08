@@ -73,7 +73,7 @@ public class OwnerMainPresenter {
                 preview_photo = br.getListing().getPhotos()[0];
             else
                 preview_photo = R.drawable.child_po;
-            pendingModels.add(new OwnerPendingModel(br.getTenant().getFirstName() + " " + br.getTenant().getLastName(), br.getListing().getTitle(), preview_photo, br.getBooking_id()));
+            pendingModels.add(new OwnerPendingModel(br.getTenant().getFirstName() + " " + br.getTenant().getLastName(), br.getListing().getTitle(), preview_photo, br.getBooking_id(), br.getCheck_in(), br.getCheck_out()));
         }
         return pendingModels;
     }

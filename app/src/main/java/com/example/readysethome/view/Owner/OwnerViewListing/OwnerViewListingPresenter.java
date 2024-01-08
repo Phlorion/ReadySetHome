@@ -106,7 +106,7 @@ public class OwnerViewListingPresenter {
         if (month.length() == 1) {
             month = "0" + month;
         }
-        System.out.println("MONTH UGA " + month);
+
         String yearmonth = year + "-" + month;
 
         if (listing.getMonthlyIncome().get(yearmonth) != null) {
