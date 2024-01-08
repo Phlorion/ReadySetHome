@@ -36,56 +36,60 @@
         app:layout_constraintTop_toBottomOf="@+id/owner_profile_profileTag"
         tools:src="@tools:sample/avatars" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/owner_profile_infoContainer"
-        android:layout_width="405dp"
-        android:layout_height="248dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/owner_profile_surnameView"
+        android:layout_width="319dp"
+        android:layout_height="59dp"
+        android:text="Surname"
+        android:textAlignment="viewStart"
+        android:textSize="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/owner_profile_profilePicture">
+        app:layout_constraintTop_toBottomOf="@+id/owner_profile_nameView" />
 
-        <TextView
-            android:id="@+id/owner_profile_surnameView"
-            android:layout_width="319dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="24dp"
-            android:text="Surname"
-            android:textAlignment="viewStart"
-            android:textSize="26dp"
-            app:layout_constraintBottom_toTopOf="@+id/owner_profile_emailView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/owner_profile_nameView" />
+    <TextView
+        android:id="@+id/owner_profile_emailView"
+        android:layout_width="319dp"
+        android:layout_height="59dp"
+        android:text="Email"
+        android:textAlignment="viewStart"
+        android:textSize="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/owner_profile_surnameView" />
 
-        <TextView
-            android:id="@+id/owner_profile_emailView"
-            android:layout_width="319dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:text="Email"
-            android:textAlignment="viewStart"
-            android:textSize="26dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/owner_profile_surnameView" />
+    <TextView
+        android:id="@+id/owner_profile_nameView"
+        android:layout_width="319dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="24dp"
+        android:text="Name"
+        android:textAlignment="viewStart"
+        android:textSize="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/owner_profile_profilePicture" />
 
-        <TextView
-            android:id="@+id/owner_profile_nameView"
-            android:layout_width="319dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="24dp"
-            android:text="Name"
-            android:textAlignment="viewStart"
-            android:textSize="26dp"
-            app:layout_constraintBottom_toTopOf="@+id/owner_profile_surnameView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="spread" />
+    <TextView
+        android:id="@+id/owner_profile_id"
+        android:layout_width="319dp"
+        android:layout_height="59dp"
+        android:text="Id"
+        android:textAlignment="viewStart"
+        android:textSize="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/owner_profile_emailView" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/owner_profile_balance"
+        android:layout_width="319dp"
+        android:layout_height="59dp"
+        android:text="Balance"
+        android:textAlignment="viewStart"
+        android:textSize="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/owner_profile_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

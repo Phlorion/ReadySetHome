@@ -30,6 +30,8 @@ public class TenantProfileFragment extends Fragment {
         ((TextView) view.findViewById(R.id.tenant_profile_surnameView)).setText(presenter.getAttachedTenant().getLastName());
         ((TextView) view.findViewById(R.id.tenant_profile_emailView)).setText(presenter.getAttachedTenant().getEmail().getAddress());
         ((ImageView)view.findViewById(R.id.tenant_profile_profilePicture)).setImageResource(R.drawable.child_po);
+        ((TextView) view.findViewById(R.id.tenant_profile_id)).setText(presenter.getAttachedTenant().getId());
+        ((TextView) view.findViewById(R.id.tenant_profile_balance)).setText(String.valueOf(presenter.getAttachedTenant().getCreditCard().getBalance()));
 
         return view;
     }

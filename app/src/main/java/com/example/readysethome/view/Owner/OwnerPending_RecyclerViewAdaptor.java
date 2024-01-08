@@ -44,6 +44,8 @@ public class OwnerPending_RecyclerViewAdaptor extends RecyclerView.Adapter<Owner
         holder.listingsTitle.setText(pendingModels.get(position).getListingsTitle());
         holder.tenantsName.setText(pendingModels.get(position).getTenants_Name());
         holder.imageView.setImageResource(pendingModels.get(position).getImage());
+        holder.checkIn.setText(pendingModels.get(position).getCheckIn());
+        holder.checkOut.setText(pendingModels.get(position).getCheckOut());
     }
 
     @Override
@@ -57,12 +59,14 @@ public class OwnerPending_RecyclerViewAdaptor extends RecyclerView.Adapter<Owner
         // Kinda like in the onCreate method
 
         ImageView imageView;
-        TextView tenantsName, listingsTitle;
+        TextView tenantsName, listingsTitle, checkIn, checkOut;
         public MyViewHolder(@NonNull View itemView, OwnerMainPresenter presenter, ArrayList<OwnerPendingModel> pendingModels) {
             super(itemView);
             imageView = itemView.findViewById(R.id.owner_pending_recycler_view_row_image);
             tenantsName = itemView.findViewById(R.id.owner_pending_recycler_view_tenant_name);
             listingsTitle = itemView.findViewById(R.id.owner_pending_recycler_view_listing_title);
+            checkIn = itemView.findViewById(R.id.owner_pending_recycler_view_checkIn);
+            checkOut = itemView.findViewById(R.id.owner_pending_recycler_view_checkOut);
             Button buttonConfirm = itemView.findViewById(R.id.owner_pending_recycler_view_confirm);
             Button buttonDecline = itemView.findViewById(R.id.owner_pending_recycler_view_decline);
 

@@ -39,19 +39,21 @@
                 android:text="ListingsTItle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.457"
                 app:layout_constraintStart_toEndOf="@+id/owner_pending_recycler_view_row_image"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.353" />
+                app:layout_constraintVertical_bias="0.12" />
 
             <TextView
                 android:id="@+id/owner_pending_recycler_view_tenant_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="44dp"
+                android:layout_marginBottom="76dp"
                 android:text="TenanatsName"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/owner_pending_recycler_view_row_image" />
+                app:layout_constraintStart_toEndOf="@+id/owner_pending_recycler_view_row_image"
+                app:layout_constraintTop_toBottomOf="@+id/owner_pending_recycler_view_listing_title" />
 
             <Button
                 android:id="@+id/owner_pending_recycler_view_confirm"
@@ -75,6 +77,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.277"
                 app:layout_constraintStart_toEndOf="@+id/owner_pending_recycler_view_tenant_name" />
+
+            <TextView
+                android:id="@+id/owner_pending_recycler_view_checkIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Check In"
+                app:layout_constraintStart_toEndOf="@+id/owner_pending_recycler_view_row_image"
+                app:layout_constraintTop_toBottomOf="@+id/owner_pending_recycler_view_tenant_name" />
+
+            <TextView
+                android:id="@+id/owner_pending_recycler_view_checkOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Check Out"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/owner_pending_recycler_view_row_image"
+                app:layout_constraintTop_toBottomOf="@+id/owner_pending_recycler_view_checkIn" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
