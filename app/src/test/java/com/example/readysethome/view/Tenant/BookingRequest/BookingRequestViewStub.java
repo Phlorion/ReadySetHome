@@ -49,8 +49,6 @@ public class BookingRequestViewStub implements BookingRequestView {
         cancelTenantId = tenantId;
     }
 
-
-
     public boolean isConfirmCalled() {
         return confirmCalled;
     }

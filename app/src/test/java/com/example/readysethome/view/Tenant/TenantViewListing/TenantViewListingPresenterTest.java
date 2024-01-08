@@ -175,11 +175,14 @@ public class TenantViewListingPresenterTest {
         // get the dpd dates
         List<Calendar> dis = Arrays.asList(dpd.getDisabledDays());
         Collections.sort(dis);
+        for (Calendar d : dis) {
+            System.out.println(d.getTime());
+        }
 
         Date dpd_d1 = new Date(); Date dpd_d2 = new Date();
-        dpd_d1.setTime(dis.get(19).getTimeInMillis());
+        dpd_d1.setTime(dis.get(0).getTimeInMillis());
         System.out.println(dpd_d1.getTime());
-        dpd_d2.setTime(dis.get(29).getTimeInMillis());
+        dpd_d2.setTime(dis.get(10).getTimeInMillis());
         System.out.println(dpd_d2.getTime());
 
         Assert.assertEquals(d1.getTime() / 1000, dpd_d1.getTime() / 1000);
@@ -197,7 +200,6 @@ public class TenantViewListingPresenterTest {
         presenter.setAvailableInCalendar(dpd, true);
 
         Assert.assertEquals(listing.getCalendar().isAvailable(d1, d2), listing.getCalendar().isAvailable(dpd_d1, dpd_d2));
-
     }
 
     /**

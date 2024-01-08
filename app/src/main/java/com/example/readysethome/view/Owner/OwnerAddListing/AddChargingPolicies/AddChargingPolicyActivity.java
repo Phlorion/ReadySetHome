@@ -1,6 +1,7 @@
 package com.example.readysethome.view.Owner.OwnerAddListing.AddChargingPolicies;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readysethome.R;
@@ -26,15 +28,19 @@ public class AddChargingPolicyActivity extends AppCompatActivity implements AddC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_add_charging_policies);
 
+        final AddChargingPolicyPresenter presenter = new AddChargingPolicyPresenter(AddChargingPolicyActivity.this);
+
         RecyclerView recyclerView = findViewById(R.id.charging_policies_recycler_view);
-        final AddChargingPolicyPresenter presenter = new AddChargingPolicyPresenter(AddChargingPolicyActivity.this, recyclerView);
-        presenter.setAdapter();
+        ChargingPolicyAdaptor adapter = new ChargingPolicyAdaptor(this, presenter.getChargingPolicyModels());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // get Intent
         Intent intent = getIntent();
         if (intent.getSerializableExtra("EXISTING_CHARGING_POLICIES") != null) {
             presenter.setChargingPolicies((ArrayList<ChargingPolicy>) intent.getSerializableExtra("EXISTING_CHARGING_POLICIES"));
             presenter.setChargingPoliciesModels();
+            adapter.setChargingModels(presenter.getChargingPolicyModels());
         }
 
         // add
@@ -55,6 +61,7 @@ public class AddChargingPolicyActivity extends AppCompatActivity implements AddC
                     public void onClick(DialogInterface dialog, int which) {
                         presenter.addChargingPolicy(start_ind.getText().toString().trim(), end_ind.getText().toString().trim(), price_diff.getText().toString().trim(),
                                 desc.getText().toString().trim());
+                        adapter.setChargingModels(presenter.getChargingPolicyModels());
                         dialog.dismiss();
                     }
                 });

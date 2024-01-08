@@ -16,8 +16,6 @@ public class AddListingServicesPresenter {
     AddListingServicesView view;
     ArrayList<ListingServicesModel> listingServicesModel;
     ArrayList<ListingsServices> listingServices;
-    RecyclerView recyclerView;
-    ListingServicesAdaptor adapter;
 
     /**
      * 'Ελεγχος αν το στοιχείο είναι κενό.
@@ -28,18 +26,11 @@ public class AddListingServicesPresenter {
         return str.equals("");
     }
 
-    public AddListingServicesPresenter(AddListingServicesView view, RecyclerView recyclerView) {
+    public AddListingServicesPresenter(AddListingServicesView view) {
         this.view = view;
-        this.recyclerView = recyclerView;
 
         this.listingServices = new ArrayList<>();
         this.listingServicesModel = new ArrayList<>();
-    }
-
-    public void setAdapter() {
-        adapter = new ListingServicesAdaptor((Context) view, listingServicesModel);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager((Context) view));
     }
 
     public void addListingService(String type, String price) {
@@ -53,7 +44,7 @@ public class AddListingServicesPresenter {
         try {
             Double.parseDouble(price);
         } catch (NumberFormatException e) {
-            view.showMessage("Price dif must be a number");
+            view.showMessage("Price must be a number");
             return;
         }
 
@@ -79,21 +70,24 @@ public class AddListingServicesPresenter {
         listingServices.add(listingsService);
 
         listingServicesModel.add(new ListingServicesModel(type, price));
-        adapter.setListingServicesModels(listingServicesModel);
     }
 
     public ArrayList<ListingsServices> getListingServices() {
         return listingServices;
     }
 
+    public ArrayList<ListingServicesModel> getListingServicesModel() {
+        return listingServicesModel;
+    }
+
     public void setListingServices(ArrayList<ListingsServices> listingServices) {
         this.listingServices = listingServices;
     }
 
-    public void setListingServicesModel() {
+    public ArrayList<ListingServicesModel> setListingServicesModel() {
         for (ListingsServices l_s : listingServices) {
             listingServicesModel.add(new ListingServicesModel(l_s.getType().toString(), Double.toString(l_s.getPrice())));
         }
-        adapter.setListingServicesModels(listingServicesModel);
+        return listingServicesModel;
     }
 }

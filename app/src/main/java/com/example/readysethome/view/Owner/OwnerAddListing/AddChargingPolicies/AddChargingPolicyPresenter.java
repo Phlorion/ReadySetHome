@@ -17,8 +17,6 @@ public class AddChargingPolicyPresenter {
     AddChargingPolicyView view;
     ArrayList<ChargingPolicyModel> chargingPolicyModels;
     ArrayList<ChargingPolicy> chargingPolicies;
-    RecyclerView recyclerView;
-    ChargingPolicyAdaptor adapter;
 
     /**
      * 'Ελεγχος αν το στοιχείο είναι κενό.
@@ -29,30 +27,24 @@ public class AddChargingPolicyPresenter {
         return str.equals("");
     }
 
-    public AddChargingPolicyPresenter(AddChargingPolicyView view, RecyclerView recycler) {
+    public AddChargingPolicyPresenter(AddChargingPolicyView view) {
         this.view = view;
-        this.recyclerView = recycler;
 
         chargingPolicies = new ArrayList<>();
         chargingPolicyModels = new ArrayList<>();
     }
 
-    public void setAdapter() {
-        adapter = new ChargingPolicyAdaptor((Context) view, chargingPolicyModels);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager((Context) view));
-    }
 
-    public void addChargingPolicy(String start_ind, String end_ind, String price_diff, String desc) {
+    public ArrayList<ChargingPolicyModel> addChargingPolicy(String start_ind, String end_ind, String price_diff, String desc) {
         // check if null strings
         if (isNull(start_ind) || isNull(end_ind) || isNull(price_diff)) {
             view.showMessage("Εισάγετε όλα τα δεδομένα");
-            return;
+            return null;
         }
         // start_ind or end_ind don't match the string format
         else if (!start_ind.matches("\\d{2}-\\d{2}-\\d{4}$") || !end_ind.matches("\\d{2}-\\d{2}-\\d{4}")) {
             view.showMessage("Dates should be: dd-MM-yyyy");
-            return;
+            return null;
         }
 
         // price dif not double
@@ -60,7 +52,7 @@ public class AddChargingPolicyPresenter {
             Double.parseDouble(price_diff);
         } catch (NumberFormatException e) {
             view.showMessage("Price dif must be a number");
-            return;
+            return null;
         }
 
         // invalid dates
@@ -70,18 +62,22 @@ public class AddChargingPolicyPresenter {
             start = formatter.parse(start_ind);
             end = formatter.parse(end_ind);
         } catch (ParseException e) {
-            view.showMessage("Invalid dates");
-            return;
+            return null;
         }
+
         ChargingPolicy chargingPolicy = new ChargingPolicy(start, end, desc, Double.parseDouble(price_diff));
         chargingPolicies.add(chargingPolicy);
 
         chargingPolicyModels.add(new ChargingPolicyModel(start_ind, end_ind, desc, price_diff + "€"));
-        adapter.setChargingModels(chargingPolicyModels);
+        return chargingPolicyModels;
     }
 
     public ArrayList<ChargingPolicy> getChargingPolicies() {
         return chargingPolicies;
+    }
+
+    public ArrayList<ChargingPolicyModel> getChargingPolicyModels() {
+        return chargingPolicyModels;
     }
 
     public void setChargingPolicies(ArrayList<ChargingPolicy> chargingPolicies) {
@@ -93,6 +89,5 @@ public class AddChargingPolicyPresenter {
         for (ChargingPolicy c_p : chargingPolicies) {
             chargingPolicyModels.add(new ChargingPolicyModel(formatter.format(c_p.getStart_index()), formatter.format(c_p.getEnd_index()), c_p.getDescription(), Double.toString(c_p.getPrice_diff()) + "€"));
         }
-        adapter.setChargingModels(chargingPolicyModels);
     }
 }

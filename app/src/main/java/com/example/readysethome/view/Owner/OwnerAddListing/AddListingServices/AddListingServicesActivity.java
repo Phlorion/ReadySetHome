@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readysethome.R;
@@ -34,15 +35,19 @@ public class AddListingServicesActivity extends AppCompatActivity implements Add
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_add_listing_services);
 
+        final AddListingServicesPresenter presenter = new AddListingServicesPresenter(AddListingServicesActivity.this);
+
         RecyclerView recyclerView = findViewById(R.id.listing_services_recycler_view);
-        final AddListingServicesPresenter presenter = new AddListingServicesPresenter(AddListingServicesActivity.this, recyclerView);
-        presenter.setAdapter();
+        ListingServicesAdaptor adapter = new ListingServicesAdaptor(this, presenter.getListingServicesModel());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // get Intent
         Intent intent = getIntent();
         if (intent.getSerializableExtra("EXISTING_LISTING_SERVICES") != null) {
             presenter.setListingServices((ArrayList<ListingsServices>) intent.getSerializableExtra("EXISTING_LISTING_SERVICES"));
             presenter.setListingServicesModel();
+            adapter.setListingServicesModels(presenter.setListingServicesModel());
         }
 
         // add
@@ -65,6 +70,7 @@ public class AddListingServicesActivity extends AppCompatActivity implements Add
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         presenter.addListingService(spinner.getSelectedItem().toString(), price.getText().toString().trim());
+                        adapter.setListingServicesModels(presenter.setListingServicesModel());
                     }
                 });
 

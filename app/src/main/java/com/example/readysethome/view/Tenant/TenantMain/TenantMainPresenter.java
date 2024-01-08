@@ -66,6 +66,7 @@ public class TenantMainPresenter {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         return sdf.format(date);
     }
+
     /**
      * Δημιουργεί μια λίστα με τα αντικείμενα TenantBookingModel για το recycler view
      * με τις κρατήσεις/Αιτήματα κράτησης του ενοικιαστή.
@@ -120,26 +121,6 @@ public class TenantMainPresenter {
         return bookingModels;
     }
 
-    public ArrayList<TenantBookingModel> addBookingModel(BookingRequest bookingRequest) {
-        Listing listing = bookingRequest.getListing();
-        int preview_photo;
-        if (listing.getPhotos() != null) {
-            preview_photo = listing.getPhotos()[0];
-        } else {
-            preview_photo = R.drawable.child_po;
-        }
-
-        bookingModels.add(new TenantBookingModel(
-                listing.getTitle(),
-                bookingRequest.getCheck_in().toString(),
-                bookingRequest.getBooking_status().toString(),
-                bookingRequest.getBooking_id(),
-                preview_photo
-        ));
-
-        return bookingModels;
-    }
-
     /**
      * Επιστρέφει τον συνδεδεμένο ενοικιαστή.
      * @return Ο ενοικιαστής που είναι συνδεδεμένος
@@ -159,7 +140,5 @@ public class TenantMainPresenter {
      * @param bookingRequest Το αίτημα κράτησης
      */
     public void cancelBookingRequest(BookingRequest bookingRequest){attachedTenant.cancelBookingRequest(bookingRequest);}
-    public ArrayList<TenantBookingModel> getBookingModels() {
-        return bookingModels;
-    }
+
 }

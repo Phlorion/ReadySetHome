@@ -29,10 +29,6 @@ public class BookingRequestPresenter {
         listing = listings.findByID(listing_id);
         this.tenants = tenants;
         this.tenant = tenants.findByID(tenant_id);
-
-        if (tenant == null) {
-            Log.e("BookingRequestPresenter", "Unable to find tenant with ID: " + tenant_id);
-        }
     }
 
     /**
@@ -54,15 +50,9 @@ public class BookingRequestPresenter {
      * @return true αν ο ενοικιαστής έχει επαρκή funds, διαφορετικά false
      */
     public boolean tenantHasSufficientFunds() {
-        if (tenant != null) {
-            double paymentAmount = calculatePaymentAmount();
-            return tenant.hasSufficientFunds(paymentAmount * 0.2);
-        } else {
-            Log.e("BookingRequestPresenter", "Tenant is null");
-            return false; // Handle the case when tenant is null
-        }
+        double paymentAmount = calculatePaymentAmount();
+        return tenant.hasSufficientFunds(paymentAmount * 0.2);
     }
-
 
 
     /**
