@@ -49,8 +49,4 @@ public class OwnerPendingFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
     }
-
-    public void onItemClick(int pos) {
-
-    }
 }

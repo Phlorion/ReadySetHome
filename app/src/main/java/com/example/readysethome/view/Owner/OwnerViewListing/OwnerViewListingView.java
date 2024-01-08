@@ -8,8 +8,6 @@ public interface OwnerViewListingView {
     void setIncomePerMonth(String income);
     void setCancellationsPerMonth(String cancellations);
     void setBookingsPerMonth(String bookings);
-    void setRating(String rating);
-
     void setOccupancy(String bookedDays);
 
     String getYear();

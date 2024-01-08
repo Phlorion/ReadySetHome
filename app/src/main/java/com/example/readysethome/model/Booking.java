@@ -41,26 +41,37 @@ public class Booking {
     public boolean isCancelled() {
         return isCancelled;
     }
-    public void cancel() {
+
+    public void cancel(ReservationStatus cause) {
+        System.out.println(cause);
         if (!isCancelled) {
             isCancelled = true;
-            bookingRequest.setBooking_status( ReservationStatus.CANCELLED_BY_TENANT);
-            double refundAmount = calculateRefundAmount();
-            bookingRequest.getTenant().getCreditCard().refund(refundAmount);
-            notifyUser(bookingRequest.getTenant(), "Booking Canceled", "Your booking has been canceled successfully. A refund of $" + refundAmount + " has been processed.");
-            bookingRequest.getListing().getCalendar().setAvailable(bookingRequest.getCheck_in(), bookingRequest.getCheck_out());
-
-            getListing().calculateCancellationsPerMonth(getCheckIn());
+            if (cause.equals(ReservationStatus.CANCELLED_BY_TENANT)) {
+                bookingRequest.setBooking_status( ReservationStatus.CANCELLED_BY_TENANT);
+                double refundAmount = calculateRefundAmount(cause);
+                bookingRequest.getTenant().getCreditCard().refund(refundAmount);
+                notifyUser(bookingRequest.getTenant(), "Booking Canceled", "Your booking has been canceled successfully. A refund of $" + refundAmount + " has been processed.");
+                bookingRequest.getListing().getCalendar().setAvailable(bookingRequest.getCheck_in(), bookingRequest.getCheck_out());
+                getListing().calculateCancellationsPerMonth(getCheckIn());
+            } else if (cause.equals(ReservationStatus.CANCELLED_BY_OWNER)) {
+                bookingRequest.setBooking_status( ReservationStatus.CANCELLED_BY_OWNER);
+                double refundAmount = calculateRefundAmount(cause);
+                bookingRequest.getTenant().getCreditCard().refund(refundAmount);
+            }
 
             getTenant().getBookings().remove(this);
         }
     }
 
     // Calculates the refund amount
-    private double calculateRefundAmount() {
+    private double calculateRefundAmount(ReservationStatus cause) {
         long days_of_stay = daysBetween(bookingRequest.getCheck_in(), bookingRequest.getCheck_out());
         double totalCost =(days_of_stay * bookingRequest.getListing().getPrice());
-        double refundPercentage = (daysUntilCheckIn(new Date()) <= 30) ? 0.95 : 1.0;
+        double refundPercentage;
+        if (cause != ReservationStatus.CANCELLED_BY_OWNER)
+            refundPercentage = (daysUntilCheckIn(new Date()) <= 30) ? 0.95 : 1.0;
+        else
+            refundPercentage = 1.0;
         return totalCost * refundPercentage;
     }
 

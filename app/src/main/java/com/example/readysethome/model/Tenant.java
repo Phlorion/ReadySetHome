@@ -39,7 +39,7 @@ public class Tenant extends User {
 
     public void cancelBooking(Booking booking) {
         if (!booking.isActive()) {
-            booking.cancel();
+            booking.cancel(ReservationStatus.CANCELLED_BY_TENANT);
             deleteBookingById(booking.getId());
             System.out.println("Booking canceled successfully.");
         }

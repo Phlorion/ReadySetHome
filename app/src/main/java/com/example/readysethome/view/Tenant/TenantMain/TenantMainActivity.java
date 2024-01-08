@@ -14,7 +14,6 @@ import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.TenantDAOMemory;
 import com.example.readysethome.view.Tenant.TenantBookingsFragment;
 import com.example.readysethome.view.Tenant.TenantHomeFragment;
-import com.example.readysethome.view.Tenant.TenantNotificationsFragment;
 import com.example.readysethome.view.Tenant.TenantProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -49,7 +48,6 @@ public class TenantMainActivity extends AppCompatActivity implements TenantMainV
         navbar.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.tenant_nav_home) replaceFragment(home);
             else if (item.getItemId() == R.id.tenant_nav_bookings) replaceFragment(bookings);
-            else if (item.getItemId() == R.id.tenant_nav_notifications) replaceFragment(new TenantNotificationsFragment());
             else replaceFragment(profile);
             return true;
         });

@@ -9,6 +9,7 @@ import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.TenantDAO;
 import com.example.readysethome.model.Booking;
 import com.example.readysethome.model.Listing;
+import com.example.readysethome.model.Owner;
 import com.example.readysethome.model.Tenant;
 
 import java.text.DateFormat;
@@ -62,41 +63,6 @@ public class OwnerViewListingPresenter {
             view.setImage(listing.getPhotos()[0]);
         else
             view.setImage(R.drawable.child_po);
-
-        /*Calendar c1 = Calendar.getInstance();
-        Date d1;
-        c1.set(Calendar.YEAR, 2023);
-        c1.set(Calendar.MONTH, 5);
-        c1.set(Calendar.DAY_OF_MONTH, 28);
-        c1.set(Calendar.HOUR_OF_DAY, 0);
-        c1.set(Calendar.MINUTE, 0);
-        c1.set(Calendar.SECOND, 0);
-        d1 = c1.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
-        String yearmonth = dateFormat.format(d1);
-
-        if (listing.getMonthlyIncome().get(yearmonth) != null) {
-            double monthlyIncome = listing.getMonthlyIncome().get(yearmonth);
-            view.setIncomePerMonth(Double.toString(monthlyIncome));
-        }
-
-        if (listing.getMonthlyCancellations().get(yearmonth) != null) {
-            int monthlyCancellations = listing.getMonthlyCancellations().get(yearmonth);
-            view.setCancellationsPerMonth(Integer.toString(monthlyCancellations));
-        }
-        else {
-            view.setCancellationsPerMonth(Integer.toString(0));
-        }
-
-        double rating = listing.getRating();
-        view.setRating(Double.toString(rating));
-
-        int bookingsPerMonth = findTheBookings(listing.getListing_id(), yearmonth);
-        view.setBookingsPerMonth(Integer.toString(bookingsPerMonth));
-
-        double occupancy = listing.calculateOccupancy(c1);
-        view.setOccupancy(Double.toString(occupancy));*/
-
     }
 
     public void submitPressed() {
@@ -125,9 +91,6 @@ public class OwnerViewListingPresenter {
             view.setCancellationsPerMonth(Integer.toString(0));
         }
 
-        double rating = listing.getRating();
-        view.setRating(Double.toString(rating));
-
         int bookingsPerMonth = findTheBookings(listing.getListing_id(), yearmonth);
         view.setBookingsPerMonth(Integer.toString(bookingsPerMonth));
 
@@ -142,5 +105,22 @@ public class OwnerViewListingPresenter {
 
         double occupancy = listing.calculateOccupancy(c1);
         view.setOccupancy(Double.toString(occupancy));
+    }
+
+    /**
+     * Delete this registered listing
+     */
+    public Listing deleteListing() {
+        Owner owner = listing.getOwner();
+        ArrayList<Booking> bookings = new ArrayList<Booking>();
+        for (Tenant t : tenants.findAll()) {
+            for (Booking b : t.getBookings()) {
+                if (b.getListing().getListing_id() == listing.getListing_id()) {
+                    bookings.add(b);
+                }
+            }
+        }
+        owner.removeListing(listing, listings.findAll(), bookings);
+        return listing;
     }
 }
