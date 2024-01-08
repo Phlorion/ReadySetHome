@@ -206,11 +206,13 @@ public class Listing implements Serializable {
     public void updatePriceDueToPolicy() {
         setOriginal_Price(getPrice());
         double tmp_Price = getOriginal_Price();
-        for (ChargingPolicy chargingPolicy : getChargingPolicies()) {
-            tmp_Price += chargingPolicy.getPrice_diff();
+        if (chargingPolicies != null) {
+            for (ChargingPolicy chargingPolicy : getChargingPolicies()) {
+                tmp_Price += chargingPolicy.getPrice_diff();
+            }
+            setUpdated_Price(tmp_Price);
+            setPrice(getUpdated_Price());
         }
-        setUpdated_Price(tmp_Price);
-        setPrice(getUpdated_Price());
     }
 
     public void addService(ListingsServices listingsServices) {

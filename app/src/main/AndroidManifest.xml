@@ -45,6 +45,9 @@
             android:name=".view.Tenant.TenantFilterListings.TenantFilterListingsActivity"
             android:exported="false"/>
         <activity
+            android:name=".view.Owner.OwnerAddListing.AddListingServices.AddListingServicesActivity"
+            android:exported="false"/>
+        <activity
             android:name=".view.HomePage.HomePageActivity"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden">
