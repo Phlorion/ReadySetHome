@@ -122,10 +122,14 @@ public class OwnerAddListingPresenter {
             }
         }
 
+        ListingsServices[] listing_services_array = null;
         // create and save listing
-        ListingsServices[] listing_services_array = listingsServices.toArray(new ListingsServices[0]);
+        if (listingsServices != null)
+            listing_services_array = listingsServices.toArray(new ListingsServices[0]);
         Listing listing = owner.addListing(apartment, title, desc, Double.parseDouble(price), false, null, listing_services_array);
-        listing.setChargingPolicies(chargingPolicies);
+        if (chargingPolicies != null)
+            listing.setChargingPolicies(chargingPolicies);
+
         listings.save(listing);
 
         view.successfullyFinishActivity("Επιτυχής προσθήκη της αγγελίας.");

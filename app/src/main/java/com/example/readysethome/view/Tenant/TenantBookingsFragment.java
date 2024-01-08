@@ -2,28 +2,16 @@ package com.example.readysethome.view.Tenant;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readysethome.R;
-import com.example.readysethome.dao.ListingDAO;
-import com.example.readysethome.dao.TenantDAO;
-import com.example.readysethome.memorydao.BookingRequestDAOMemory;
-import com.example.readysethome.memorydao.BookingsDAOMemory;
-import com.example.readysethome.memorydao.ListingDAOMemory;
-import com.example.readysethome.memorydao.TenantDAOMemory;
 import com.example.readysethome.model.Booking;
 import com.example.readysethome.model.BookingRequest;
 import com.example.readysethome.model.Tenant;
@@ -40,17 +28,11 @@ public class TenantBookingsFragment extends Fragment {
     TenantMainPresenter presenter;
     private boolean init_recycle_view;
 
-    BookingsDAOMemory bookings;
-    BookingRequestDAOMemory bookingRequests;
-
 
     public TenantBookingsFragment(TenantMainPresenter presenter) {
         this.presenter = presenter;
         tenant = presenter.getAttachedTenant();
         init_recycle_view=false;
-        bookings=new BookingsDAOMemory();
-        bookingRequests=new BookingRequestDAOMemory();
-
     }
 
     @Override

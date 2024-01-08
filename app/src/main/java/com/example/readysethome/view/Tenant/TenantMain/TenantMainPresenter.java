@@ -1,20 +1,13 @@
 package com.example.readysethome.view.Tenant.TenantMain;
 
 import com.example.readysethome.R;
-import com.example.readysethome.dao.BookingRequestDAO;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.TenantDAO;
-import com.example.readysethome.dao.UserDAO;
-import com.example.readysethome.memorydao.TenantDAOMemory;
-import com.example.readysethome.memorydao.UserDAOMemory;
 import com.example.readysethome.model.Booking;
 import com.example.readysethome.model.BookingRequest;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Tenant;
-import com.example.readysethome.model.User;
-import com.example.readysethome.view.Owner.OwnerHomeListingModel;
 import com.example.readysethome.view.Tenant.TenantBookingModel;
-import com.example.readysethome.view.Tenant.TenantBookingsAdapter;
 import com.example.readysethome.view.Tenant.TenantHomeListingModel;
 
 import java.text.SimpleDateFormat;
