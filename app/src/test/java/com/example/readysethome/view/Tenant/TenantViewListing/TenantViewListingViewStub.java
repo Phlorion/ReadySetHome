@@ -84,6 +84,31 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
         this.wifi=wifi;
     }
 
+    @Override
+    public void setListingBalcony(boolean balcony) {
+
+    }
+
+    @Override
+    public void setListingLivingRoom(boolean livingRoom) {
+
+    }
+
+    @Override
+    public void setListingBathrooms(int size) {
+
+    }
+
+    @Override
+    public void setListingKitchens(int size) {
+
+    }
+
+    @Override
+    public void setListingBedrooms(int size) {
+
+    }
+
     public String getTitle() {
         return title;
     }
