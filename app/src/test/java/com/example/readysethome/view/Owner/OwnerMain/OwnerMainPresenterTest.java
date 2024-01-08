@@ -4,18 +4,28 @@ import com.example.readysethome.R;
 import com.example.readysethome.dao.Initializer;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.OwnerDAO;
+import com.example.readysethome.dao.TenantDAO;
 import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.MemoryInitializer;
 import com.example.readysethome.memorydao.OwnerDAOMemory;
+import com.example.readysethome.memorydao.TenantDAOMemory;
+import com.example.readysethome.model.BookingRequest;
+import com.example.readysethome.model.CreditCard;
+import com.example.readysethome.model.EmailAddress;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Owner;
+import com.example.readysethome.model.Password;
+import com.example.readysethome.model.Tenant;
+import com.example.readysethome.model.User;
 import com.example.readysethome.view.Owner.OwnerHomeListingModel;
+import com.example.readysethome.view.Owner.OwnerPendingModel;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class OwnerMainPresenterTest {
 
@@ -25,7 +35,11 @@ public class OwnerMainPresenterTest {
     ListingDAO listings;
     OwnerDAO owners;
     Owner owner;
+
+    TenantDAO tenants;
     ArrayList<OwnerHomeListingModel> listingModels;
+    ArrayList<OwnerPendingModel> pendingModels;
+    ArrayList<BookingRequest> brs;
 
 
     @Before
@@ -36,6 +50,7 @@ public class OwnerMainPresenterTest {
 
         listings = new ListingDAOMemory();
         owners = new OwnerDAOMemory();
+        tenants = new TenantDAOMemory();
 
         presenter = new OwnerMainPresenter(view, listings, owners, "o1");
 
@@ -45,6 +60,12 @@ public class OwnerMainPresenterTest {
         listingModels.add(view.getModel1());
         listingModels.add(view.getModel2());
         listingModels.add(view.getModel3());
+
+        pendingModels = new ArrayList<>();
+        pendingModels.add(view.getPendingModel1());
+        pendingModels.add(view.getPendingModel2());
+
+        brs = new ArrayList<>();
     }
 
     /**
@@ -96,5 +117,29 @@ public class OwnerMainPresenterTest {
 
         Assert.assertEquals(listingModels.get(4).getImage(), presenterListingModels.get(4).getImage());
 
+    }
+
+    @Test
+    public void getOwnerPendings() {
+        ArrayList<OwnerPendingModel> temp = presenter.setUpPendingModels();
+        Assert.assertEquals(pendingModels.size(), temp.size());
+        Listing ls = listings.findByID(1);
+        ls.setPhotos(null);
+        temp = presenter.setUpPendingModels();
+        Assert.assertEquals(R.drawable.child_po, temp.get(0).getImage());
+    }
+
+    @Test
+    public void pendingConfirmTest() {
+        ArrayList<OwnerPendingModel> temp = presenter.setUpPendingModels();
+        presenter.pendingConfirm(0);
+        Assert.assertEquals(1, owner.getBookingRequests().size());
+    }
+
+    @Test
+    public void pendingDeclineTest() {
+        ArrayList<OwnerPendingModel> temp = presenter.setUpPendingModels();
+        presenter.pendingDecline(0);
+        Assert.assertEquals(1, owner.getBookingRequests().size());
     }
 }

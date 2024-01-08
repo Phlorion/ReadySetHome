@@ -130,4 +130,21 @@ public class UserTest {
         user.setAcc_bday(date);
         Assert.assertEquals(date, user.getAcc_bday());
     }
+
+    @Test
+    public void equalsTest() {
+        Assert.assertFalse(user.equals(user2));
+    }
+
+    @Test
+    public void getUserTypeTest() {
+        Assert.assertEquals(0, user.getUserType());
+        Assert.assertEquals(1, user2.getUserType());
+    }
+
+    @Test
+    public void _setIdTest() {
+        user._setId("t58");
+        Assert.assertEquals("t58", user.getId());
+    }
 }

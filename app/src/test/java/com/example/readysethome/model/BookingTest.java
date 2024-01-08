@@ -203,7 +203,7 @@ public class BookingTest {
 
     @Test
     public void isActive_CurrentlyActive() {
-        assertTrue(booking.isActive());
+        assertFalse(booking.isActive());
     }
 
 

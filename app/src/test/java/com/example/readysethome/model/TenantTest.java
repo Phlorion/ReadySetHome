@@ -1,5 +1,6 @@
 package com.example.readysethome.model;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -111,5 +112,10 @@ public class TenantTest {
         Booking b = new Booking(br);
         int id = br.getBooking_id();
         assertNull(tenant.getBookingById(id));
+    }
+
+    @Test
+    public void hasSufficientFundsTest() {
+        Assert.assertTrue(tenant.hasSufficientFunds(1));
     }
 }

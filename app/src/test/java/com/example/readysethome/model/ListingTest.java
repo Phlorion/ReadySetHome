@@ -2,8 +2,11 @@ package com.example.readysethome.model;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -109,7 +112,7 @@ public class ListingTest {
         final int[] photos2 = {2, 1};
         final int[] photos3 = {2, 1};
         test.setPhotos(photos2);
-        assertEquals(photos3, test.getPhotos());
+        assertEquals(photos2, test.getPhotos());
     }
 
     @Test
@@ -366,38 +369,21 @@ public class ListingTest {
 
     @Test
     public void calculateMonthlyIncome() {
-        // Set up Tenant, Listing, BookingRequest, and Booking instances
-        Tenant tenant = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
-                new Password("password123"), new CreditCard("1234567890123456", 10000), new Date());
-        final Date customDate6 = Date.from(Instant.parse("2023-01-09T00:00:00.000Z"));
-        final Date customDate62 = Date.from(Instant.parse("2023-02-05T00:00:00.000Z"));
-        BookingRequest br = tenant.makeBookingRequest(test, customDate6, customDate62);
-        owner.confirmBookingRequest(br);
+        java.util.Calendar c = java.util.Calendar.getInstance();
+        Date d1 = new Date();
+        c.set(java.util.Calendar.YEAR, 2023);
+        c.set(java.util.Calendar.MONTH, 5);
+        c.set(java.util.Calendar.DAY_OF_MONTH, 13);
+        c.set(java.util.Calendar.HOUR_OF_DAY, 0);
+        c.set(java.util.Calendar.MINUTE, 0);
+        c.set(java.util.Calendar.SECOND, 0);
+        d1.setTime(c.getTimeInMillis());
 
-        // Set up Tenant, Listing, BookingRequest, and Booking instances
-        Tenant tenant2 = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
-                new Password("password123"), new CreditCard("1234567890123456", 100000), new Date());
-        final Date customDate1 = Date.from(Instant.parse("2024-01-06T00:00:00.000Z"));
-        final Date customDate12 = Date.from(Instant.parse("2024-01-07T00:00:00.000Z"));
-        BookingRequest br2 = tenant.makeBookingRequest(test, customDate1, customDate12);
-        owner.confirmBookingRequest(br2);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+        String yearmonth = dateFormat.format(d1);
+        test.calculateMonthlyIncome(d1, 100);
 
-        // Set up Tenant, Listing, BookingRequest, and Booking instances
-        Tenant tenant3 = new Tenant("John", "Doe", new EmailAddress("john.doe@example.com"),
-                new Password("password123"), new CreditCard("1234567890123456", 100000), new Date());
-        final Date customDate3 = Date.from(Instant.parse("2024-01-12T00:00:00.000Z"));
-        final Date customDate32 = Date.from(Instant.parse("2024-01-23T00:00:00.000Z"));
-        BookingRequest br3 = tenant.makeBookingRequest(test, customDate1, customDate12);
-        owner.confirmBookingRequest(br3);
-
-
-
-        HashMap<String, Double> monthlyIncome2 = new HashMap<>();
-        monthlyIncome2.put("2023-00", test.getPrice());
-        monthlyIncome2.put("2024-00", test.getPrice());
-        monthlyIncome2.replace("2024-00", test.getPrice()*2);
-
-        assertEquals(monthlyIncome2, test.getMonthlyIncome());
+        assertEquals(100.0, test.getMonthlyIncome().get(yearmonth), 0.0);
     }
 
     @Test

@@ -161,7 +161,7 @@ public abstract class Initializer {
         d6.setTime(c6.getTimeInMillis());
 
         BookingRequest bookingRequest2 = tenant1.makeBookingRequest(l1, d5, d6);
-//        owner1.confirmBookingRequest(bookingRequest2);
+        owner1.confirmBookingRequest(bookingRequest2);
 
 
 
