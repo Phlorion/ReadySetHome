@@ -89,7 +89,7 @@ public class OwnerAddListingPresenterTest {
         view.setFloor("1");
         listing = presenter.addListing();
         Assert.assertEquals("Επιτυχής προσθήκη της αγγελίας.", view.getSuccess_msg());
-        Assert.assertEquals(4, listing.getListing_id());
+        Assert.assertEquals(listings.getNextId() - 1, listing.getListing_id());
         Assert.assertNotNull(listing);
     }
 

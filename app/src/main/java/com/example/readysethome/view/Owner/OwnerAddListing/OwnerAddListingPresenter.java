@@ -127,6 +127,7 @@ public class OwnerAddListingPresenter {
         if (listingsServices != null)
             listing_services_array = listingsServices.toArray(new ListingsServices[0]);
         Listing listing = owner.addListing(apartment, title, desc, Double.parseDouble(price), false, null, listing_services_array);
+        System.out.println(listing);
         if (chargingPolicies != null)
             listing.setChargingPolicies(chargingPolicies);
 

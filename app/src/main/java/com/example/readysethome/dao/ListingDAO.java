@@ -44,4 +44,6 @@ public interface ListingDAO {
      * @return Τις αγγελίες
      */
     ArrayList<Listing> findByOwner(Owner owner);
+
+    int getNextId();
 }

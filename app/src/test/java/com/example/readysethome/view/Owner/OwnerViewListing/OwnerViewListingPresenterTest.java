@@ -9,6 +9,7 @@ import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.MemoryInitializer;
 import com.example.readysethome.memorydao.OwnerDAOMemory;
 import com.example.readysethome.memorydao.TenantDAOMemory;
+import com.example.readysethome.model.BookingRequest;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Owner;
 
@@ -17,6 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class OwnerViewListingPresenterTest {
@@ -36,6 +38,21 @@ public class OwnerViewListingPresenterTest {
         tenants = new TenantDAOMemory();
         owners = new OwnerDAOMemory();
         presenter = new OwnerViewListingPresenter(view, dataHelper.getListingDAO(), dataHelper.getTenantDAO(), 1);
+
+        java.util.Calendar c5 = java.util.Calendar.getInstance();
+        Date d5 = new Date();
+        c5.set(java.util.Calendar.YEAR, 2023);
+        c5.set(java.util.Calendar.MONTH, 5);
+        c5.set(java.util.Calendar.DAY_OF_MONTH, 3);
+        d5.setTime(c5.getTimeInMillis());
+
+        Date d6 = new Date();
+        c5.set(java.util.Calendar.YEAR, 2023);
+        c5.set(java.util.Calendar.MONTH, 5);
+        c5.set(java.util.Calendar.DAY_OF_MONTH, 7);
+        d6.setTime(c5.getTimeInMillis());
+        BookingRequest b_r = tenants.findByID("t1").makeBookingRequest(listings.findByID(1), d5, d6);
+        listings.findByID(1).getOwner().confirmBookingRequest(b_r);
     }
 
     @Test

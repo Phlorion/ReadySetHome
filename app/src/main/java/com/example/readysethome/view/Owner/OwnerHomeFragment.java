@@ -60,6 +60,7 @@ public class OwnerHomeFragment extends Fragment {
             public void onActivityResult(ActivityResult o) {
                 if (o != null && o.getResultCode() == 0) {
                     if (o.getData() != null) {
+                        System.out.println("-------------------------GANG-----------------------------");
                         ListingDAO listingDAO = new ListingDAOMemory();
                         int listing_id = o.getData().getIntExtra("NEW_LISTING", 0);
                         listingModels = presenter.addListingModel(listingDAO.findByID(listing_id));

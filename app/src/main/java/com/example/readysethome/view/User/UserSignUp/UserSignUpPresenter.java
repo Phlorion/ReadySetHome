@@ -130,6 +130,7 @@ public class UserSignUpPresenter {
 
         User new_user = new User(firstName, lastName, new EmailAddress(email), new Password(password), new CreditCard(creditCard), new Date());
         new_user.setId(account_type);
+        System.out.println(new_user.getId());
         users.save(new_user);
         if (account_type.equals("Tenant")) {
             Tenant new_tenant = new Tenant(new_user.getFirstName(), new_user.getLastName(), new_user.getEmail(), new_user.getPassword(), new_user.getCreditCard(), new_user.getAcc_bday());

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class Listing implements Serializable {
-    private static int last_listing_ID = 0;
+    public static int last_listing_ID = 0;
     private int listing_id;
     private Apartment apartment;
     private String title;

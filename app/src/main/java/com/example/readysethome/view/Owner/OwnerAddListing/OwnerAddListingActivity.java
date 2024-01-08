@@ -95,12 +95,13 @@ public class OwnerAddListingActivity extends AppCompatActivity implements OwnerA
             @Override
             public void onClick(View v) {
                 listing = presenter.addListing();
-
-                int resultCode = 0;
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("NEW_LISTING", listing.getListing_id());
-                setResult(resultCode, resultIntent);
-                finish();
+                if (listing != null) {
+                    int resultCode = 0;
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("NEW_LISTING", listing.getListing_id());
+                    setResult(resultCode, resultIntent);
+                    finish();
+                }
             }
         });
     }

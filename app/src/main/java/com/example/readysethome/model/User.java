@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class User implements Serializable {
 
-    public static String last_tenant_ID = "t0";
-    public static String last_owner_ID = "o0";
+    public static String last_tenant_ID = "t1";
+    public static String last_owner_ID = "o2";
     private String id;
     private String firstName;
     private String lastName;

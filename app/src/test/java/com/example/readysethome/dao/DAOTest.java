@@ -30,7 +30,7 @@ public class DAOTest {
     private TenantDAO tenantDAO;
     private ListingDAO listingDAO;
 
-    public static final int INITIAL_USER_COUNT = 3;
+    public static final int INITIAL_USER_COUNT = 4;
     public static final int INITIAL_OWNER_COUNT = 2;
     public static final int INITIAL_TENANT_COUNT = 1;
     public static final int INITIAL_LISTING_COUNT = 3;

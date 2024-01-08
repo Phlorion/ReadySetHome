@@ -60,4 +60,9 @@ public class ListingDAOMemory implements ListingDAO {
         }
         return temp;
     }
+
+    @Override
+    public int getNextId() {
+        return Listing.last_listing_ID + 1;
+    }
 }
