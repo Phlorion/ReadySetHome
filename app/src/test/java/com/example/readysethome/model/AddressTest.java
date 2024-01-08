@@ -68,4 +68,9 @@ public class AddressTest {
         int hash = Objects.hash(address.getCity(), address.getStreet(), address.getAddress_num());
         Assert.assertEquals(hash, address.hashCode());
     }
+
+    @Test
+    public void toStringTest() {
+        Assert.assertEquals("Athens 28h Oktovriou 24", address.toString());
+    }
 }

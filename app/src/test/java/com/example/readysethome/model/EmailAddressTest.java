@@ -35,4 +35,10 @@ public class EmailAddressTest {
     public void send() {
         Assert.assertEquals(0, e.send(e2, "Hello", "BarbaMixalhsOfficial"));
     }
+
+    @Test
+    public void equalsTest() {
+        EmailAddress e3 = new EmailAddress("georgeavrb@gmail.com");
+        assertTrue(e.equals(e3));
+    }
 }
