@@ -74,7 +74,7 @@ public class BookingRequestPresenterTest {
     }
 
     /**
-     * Δοκιμή υποβολής αιτήματος κράτησης με επαρκή κεφάλαια.
+     * Δοκιμή υποβολής αιτήματος κράτησης με επαρκή funds.
      */
     @Test
     public void testOnSubmitBookingRequest() {

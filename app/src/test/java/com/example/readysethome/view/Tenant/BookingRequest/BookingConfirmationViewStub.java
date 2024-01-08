@@ -10,6 +10,8 @@ public class BookingConfirmationViewStub implements BookingConfirmationView {
     private boolean navigateToHomePageCalled = false;
     private String navigateToHomePageTenantId;
 
+    private boolean onHomePageClickedCalled = false;
+
     @Override
     public void displayConfirmationMessage(String message) {
         displayConfirmationMessageCalled = true;
@@ -20,6 +22,7 @@ public class BookingConfirmationViewStub implements BookingConfirmationView {
     public void navigateToHomePage(String tenantId) {
         navigateToHomePageCalled = true;
         navigateToHomePageTenantId = tenantId;
+
     }
 
     public boolean isDisplayConfirmationMessageCalled() {

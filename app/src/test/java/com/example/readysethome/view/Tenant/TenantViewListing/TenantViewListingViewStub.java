@@ -38,6 +38,12 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
     public void setListingSize(String size) {
         this.size = size;
     }
+
+    @Override
+    public void setListingFloor(String floor) {
+        this.floor=floor;
+    }
+
     @Override
     public String getCheckInTV() {
         return checkIn;
@@ -59,6 +65,11 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
     }
 
     @Override
+    public void setFloorTV(String floor) {
+
+    }
+
+    @Override
     public void submit(Date checkInTime, Date checkOutTime, int listing_id, String tenant_id) {
         successful_msg = "Successful request.";
     }
@@ -66,6 +77,11 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
     @Override
     public void showErrorMessage(String error) {
         this.error_msg = error;
+    }
+
+    @Override
+    public void setListingWifi(boolean wifi) {
+        this.wifi=wifi;
     }
 
     public String getTitle() {
