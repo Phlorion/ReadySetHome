@@ -80,15 +80,9 @@ public class TenantBookingsFragment extends Fragment {
 
     public void onItemClick(int position) {
         // Handle item click here
-
-        System.out.println( bookingsAndRequests.size());
-
-        adapter.setBookingModels(bookingsAndRequests);
-        System.out.println(bookingsAndRequests.size());
         TenantBookingModel clickedBooking = bookingsAndRequests.get(position);
         System.out.println(position);
         System.out.println(bookingsAndRequests.get(position)==null);
-
 
         // Show a confirmation dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -100,13 +94,20 @@ public class TenantBookingsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // User clicked Yes
-                    //if it is not in the bookings dao
-
-                if(bookings.findByID(clickedBooking.getId())!=null){
-                    cancelBooking(bookings.findByID(clickedBooking.getId()));
-                } else if (bookingRequests.findByID(clickedBooking.getId())!=null) {
-                    cancelBookingRequest(bookingRequests.findByID(clickedBooking.getId()));}
-
+                // if it is still a request, then cancel booking request
+                for (BookingRequest b_r : presenter.getAttachedTenant().getBookingRequests()) {
+                    if (b_r.getBooking_id() == clickedBooking.getId()) {
+                        cancelBookingRequest(b_r);
+                        break;
+                    }
+                }
+                // if it is a registered booking, then cancel booking
+                for (Booking b : presenter.getAttachedTenant().getBookings()) {
+                    if (b.getId() == clickedBooking.getId()) {
+                        cancelBooking(b);
+                        break;
+                    }
+                }
             }
         });
 

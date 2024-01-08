@@ -154,7 +154,17 @@ public class TenantMainPresenter {
     public Tenant getAttachedTenant() {
         return attachedTenant;
     }
+
+    /**
+     * Ο συνδεδεμένος ενοικιαστής καλείται να ακυρώσει μία κράτηση.
+     * @param booking Η κράτηση
+     */
     public void cancelBooking(Booking booking){attachedTenant.cancelBooking(booking);}
+
+    /**
+     * Ο συνδεδεμένος ενοικιαστής καλείται να ακυρώσει ένα αίτημα κράτησης.
+     * @param bookingRequest Το αίτημα κράτησης
+     */
     public void cancelBookingRequest(BookingRequest bookingRequest){attachedTenant.cancelBookingRequest(bookingRequest);}
     public ArrayList<TenantBookingModel> getBookingModels() {
         return bookingModels;
