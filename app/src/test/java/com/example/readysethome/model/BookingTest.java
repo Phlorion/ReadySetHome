@@ -173,14 +173,14 @@ public class BookingTest {
         // 1. booking that has not been canceled before
         Booking bookingToCancel = new Booking(new BookingRequest(listing, new Date(), new Date(), new Date(), tenant));
         assertFalse(bookingToCancel.isCancelled());
-        bookingToCancel.cancel();
+        bookingToCancel.cancel(ReservationStatus.CANCELLED_BY_TENANT);
         assertTrue(bookingToCancel.isCancelled());
         assertEquals(ReservationStatus.CANCELLED_BY_TENANT, bookingToCancel.getBooking_status());
         // 2.cancel a booking that has already been canceled
         Booking alreadyCancelledBooking = new Booking(new BookingRequest(listing, new Date(), new Date(), new Date(), tenant));
-        alreadyCancelledBooking.cancel();
+        alreadyCancelledBooking.cancel(ReservationStatus.CANCELLED_BY_TENANT);
         //try to cancel again
-        alreadyCancelledBooking.cancel();
+        alreadyCancelledBooking.cancel(ReservationStatus.CANCELLED_BY_TENANT);
         assertTrue(alreadyCancelledBooking.isCancelled());
     }
 

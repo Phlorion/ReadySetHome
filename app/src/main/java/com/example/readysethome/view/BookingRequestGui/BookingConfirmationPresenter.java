@@ -1,11 +1,7 @@
 package com.example.readysethome.view.BookingRequestGui;
 
-import com.example.readysethome.dao.BookingRequestDAO;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.TenantDAO;
-import com.example.readysethome.memorydao.BookingRequestDAOMemory;
-import com.example.readysethome.memorydao.ListingDAOMemory;
-import com.example.readysethome.memorydao.TenantDAOMemory;
 import com.example.readysethome.model.BookingRequest;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Tenant;
@@ -17,7 +13,6 @@ public class BookingConfirmationPresenter {
 
     private BookingRequest bookingrequest;
 
-    private BookingRequestDAO booking_requests;
     private ListingDAO listings;
 
     private TenantDAO tenants;
@@ -41,10 +36,7 @@ public class BookingConfirmationPresenter {
         String confirmationMessage = "Booking Request confirmed!";
         view.displayConfirmationMessage(confirmationMessage);
         //submit the booking request
-        booking_requests = new BookingRequestDAOMemory();
         bookingrequest = tenant.makeBookingRequest(listing,checkIn,checkOut);
-
-        booking_requests.save(bookingrequest);
     }
 
     public void onHomePageClicked() {

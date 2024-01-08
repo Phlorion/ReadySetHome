@@ -51,29 +51,4 @@ public interface TenantDAO {
      * @return Το επόμενο id
      */
     String nextID();
-
-    /**
-     * Επιστρέφει όλες τις κρατήσεις και τα αιτήματα κρατήσεων για έναν ενοικιαστή.
-     *
-     * @param tenant Ο ενοικιαστής για τον οποίο θέλουμε να επιστραφούν κρατήσεις και αιτήματα
-     * @return Λίστα που περιέχει τόσο κρατήσεις όσο και αιτήματα κρατήσεων
-     */
-    List<Object> getAllBookingsAndRequests(Tenant tenant);
-
-
-    /**
-     * Επιστρέφει όλες τις κρατήσεις ενός ενοικιαστή.
-     *
-     * @param tenant Ο ενοικιαστής
-     * @return Η λίστα των κρατήσεων
-     */
-    List<Booking> findBookingsByTenant(Tenant tenant);
-
-    /**
-     * Επιστρέφει όλα τα αιτήματα κράτησης ενός ενοικιαστή.
-     *
-     * @param tenant Ο ενοικιαστής
-     * @return Η λίστα των αιτημάτων κράτησης
-     */
-    List<BookingRequest> findBookingRequestsByTenant(Tenant tenant);
 }

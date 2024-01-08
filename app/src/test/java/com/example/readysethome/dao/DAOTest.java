@@ -305,5 +305,4 @@ public class DAOTest {
         Assert.assertEquals(INITIAL_TENANT_COUNT - 1, tenantDAO.findAll().size());
         Assert.assertNull(tenantDAO.findByID("t1"));
     }
-
 }

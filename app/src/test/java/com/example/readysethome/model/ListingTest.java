@@ -458,9 +458,9 @@ public class ListingTest {
         Booking idBr2 =  tenant.getBookingById(br2.getBooking_id());
         Booking idBr3 = tenant.getBookingById(br3.getBooking_id());
 
-        idBr.cancel();
-        idBr2.cancel();
-        idBr3.cancel();
+        idBr.cancel(ReservationStatus.CANCELLED_BY_TENANT);
+        idBr2.cancel(ReservationStatus.CANCELLED_BY_TENANT);
+        idBr3.cancel(ReservationStatus.CANCELLED_BY_TENANT);
 
         assertEquals(0, tenant.getBookings().size());
     }

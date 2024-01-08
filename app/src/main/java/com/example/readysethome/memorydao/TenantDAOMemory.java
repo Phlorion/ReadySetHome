@@ -1,9 +1,6 @@
 package com.example.readysethome.memorydao;
 
 import com.example.readysethome.dao.TenantDAO;
-import com.example.readysethome.model.Booking;
-import com.example.readysethome.model.BookingRequest;
-import com.example.readysethome.model.Owner;
 import com.example.readysethome.model.Tenant;
 import com.example.readysethome.model.User;
 
@@ -57,37 +54,6 @@ public class TenantDAOMemory implements TenantDAO {
         next = "t" + temp_int;
 
         return next;
-    }
-
-    @Override
-    public List<Object> getAllBookingsAndRequests(Tenant tenant) {
-        List<Object> bookingsAndRequests = new ArrayList<>();
-
-
-        bookingsAndRequests.addAll(tenant.getBookings());
-
-
-        bookingsAndRequests.addAll(tenant.getBookingRequests());
-
-        return bookingsAndRequests;
-    }
-
-    @Override
-    public List<Booking> findBookingsByTenant(Tenant tenant) {
-        List<Booking> tenantBookings = new ArrayList<>();
-        for (Booking booking : tenant.getBookings()) {
-            tenantBookings.add(booking);
-        }
-        return tenantBookings;
-    }
-
-    @Override
-    public List<BookingRequest> findBookingRequestsByTenant(Tenant tenant) {
-        List<BookingRequest> tenantBookingRequests = new ArrayList<>();
-        for (BookingRequest bookingRequest : tenant.getBookingRequests()) {
-            tenantBookingRequests.add(bookingRequest);
-        }
-        return tenantBookingRequests;
     }
 }
 
