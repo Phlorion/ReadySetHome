@@ -1,5 +1,5 @@
 package com.example.readysethome.view.Tenant.TenantViewListing;
-/*
+
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Date;
@@ -44,41 +44,11 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
 
     }
 
-        @Override
-        public void setOwnerName(String ownerName) {
-            this.owner = ownerName;
-        }
-
-        @Override
-        public void setBathrooms(String bathrooms) {
-            this.bathrooms = bathrooms;
-        }
-
-        @Override
-        public void setWifi(Boolean wifi) {
-            this.wifi=wifi;
-        }
-
-        @Override
-        public void setBalcony(boolean balcony) {
-                this.balcony=balcony;
-        }
 
 
-        @Override
-        public void setBedrooms(String bedrooms) {
-            this.bedrooms = bedrooms;
-        }
 
-        @Override
-        public void setKitchens(String kitchens) {
-            this.kitchens = kitchens;
-        }
 
-        @Override
-        public void setFloor(String floor) {
-            this.floor = floor;
-        }
+
 
         @Override
         public String getCheckInTV() {
@@ -124,65 +94,64 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
             return title;
         }
 
-        public String getDesc() {
-            return desc;
-        }
+    public String getDesc() {
+        return desc;
+    }
 
-        public String getPrice() {
-            return price;
-        }
+    public String getPrice() {
+        return price;
+    }
 
-        public String getLocation() {
-            return location;
-        }
+    public String getLocation() {
+        return location;
+    }
 
-        public String getSize() {
-            return size;
-        }
+    public String getSize() {
+        return size;
+    }
 
-        public String getOwner() {
-            return owner;
-        }
+    public String getOwner() {
+        return owner;
+    }
 
-        public String getBathrooms() {
-            return bathrooms;
-        }
+    public String getBathrooms() {
+        return bathrooms;
+    }
 
-        public boolean getWifi() {
-            return wifi;
-        }
+    public boolean getWifi() {
+        return wifi;
+    }
 
-        public boolean getBalcony() {
-            return balcony;
-        }
+    public boolean getBalcony() {
+        return balcony;
+    }
 
-        public String getBedrooms() {
-            return bedrooms;
-        }
+    public String getBedrooms() {
+        return bedrooms;
+    }
 
-        public String getKitchens() {
-            return kitchens;
-        }
+    public String getKitchens() {
+        return kitchens;
+    }
 
-        public String getFloor() {
-            return floor;
-        }
+    public String getFloor() {
+        return floor;
+    }
 
-        public String getError_msg() {
-            return error_msg;
-        }
+    public String getError_msg() {
+        return error_msg;
+    }
 
-        public String getSuccessful_msg() {
-            return successful_msg;
-        }
+    public String getSuccessful_msg() {
+        return successful_msg;
+    }
 
-        public String getOnDateSet() {
-            return onDateSet;
-        }
-        @Override
-        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+    public String getOnDateSet() {
+        return onDateSet;
+    }
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
-            }
         }
+    }
 
-*/
