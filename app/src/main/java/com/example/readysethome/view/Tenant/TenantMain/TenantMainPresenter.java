@@ -1,23 +1,19 @@
 package com.example.readysethome.view.Tenant.TenantMain;
 
 import com.example.readysethome.R;
-import com.example.readysethome.dao.BookingRequestDAO;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.dao.TenantDAO;
-import com.example.readysethome.dao.UserDAO;
-import com.example.readysethome.memorydao.TenantDAOMemory;
-import com.example.readysethome.memorydao.UserDAOMemory;
 import com.example.readysethome.model.Booking;
 import com.example.readysethome.model.BookingRequest;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Tenant;
-import com.example.readysethome.model.User;
-import com.example.readysethome.view.Owner.OwnerHomeListingModel;
 import com.example.readysethome.view.Tenant.TenantBookingModel;
-import com.example.readysethome.view.Tenant.TenantBookingsAdapter;
 import com.example.readysethome.view.Tenant.TenantHomeListingModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class TenantMainPresenter {
 
@@ -66,6 +62,10 @@ public class TenantMainPresenter {
         return homeListingModels;
     }
 
+    private String formatDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        return sdf.format(date);
+    }
     /**
      * Δημιουργεί μια λίστα με τα αντικείμενα TenantBookingModel για το recycler view
      * με τις κρατήσεις/Αιτήματα κράτησης του ενοικιαστή.
@@ -89,7 +89,7 @@ public class TenantMainPresenter {
 
             bookingModels.add(new TenantBookingModel(
                     listing.getTitle(),
-                    booking.getCheckIn().toString(),
+                    formatDate(booking.getCheckIn()),
                     booking.getBooking_status().toString(),
                     booking.getId(),
                     preview_photo
@@ -148,6 +148,17 @@ public class TenantMainPresenter {
         return attachedTenant;
     }
 
+    /**
+     * Ο συνδεδεμένος ενοικιαστής καλείται να ακυρώσει μία κράτηση.
+     * @param booking Η κράτηση
+     */
+    public void cancelBooking(Booking booking){attachedTenant.cancelBooking(booking);}
+
+    /**
+     * Ο συνδεδεμένος ενοικιαστής καλείται να ακυρώσει ένα αίτημα κράτησης.
+     * @param bookingRequest Το αίτημα κράτησης
+     */
+    public void cancelBookingRequest(BookingRequest bookingRequest){attachedTenant.cancelBookingRequest(bookingRequest);}
     public ArrayList<TenantBookingModel> getBookingModels() {
         return bookingModels;
     }

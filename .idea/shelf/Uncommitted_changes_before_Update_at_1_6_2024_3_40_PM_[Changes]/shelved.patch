@@ -1,0 +1,115 @@
+Index: app/src/main/java/com/example/readysethome/dao/Initializer.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.readysethome.dao;\r\n\r\nimport com.example.readysethome.R;\r\nimport com.example.readysethome.model.Address;\r\nimport com.example.readysethome.model.Apartment;\r\nimport com.example.readysethome.model.Bathroom;\r\nimport com.example.readysethome.model.Bedroom;\r\nimport com.example.readysethome.model.BookingRequest;\r\nimport com.example.readysethome.model.CreditCard;\r\nimport com.example.readysethome.model.EmailAddress;\r\nimport com.example.readysethome.model.Kitchen;\r\nimport com.example.readysethome.model.Listing;\r\nimport com.example.readysethome.model.Owner;\r\nimport com.example.readysethome.model.Password;\r\nimport com.example.readysethome.model.Tenant;\r\nimport com.example.readysethome.model.User;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\n\r\npublic abstract class Initializer {\r\n    /**\r\n     * Διαγράφει τα αποθηκευμένα δεδομένα.\r\n     */\r\n    protected abstract void eraseData();\r\n\r\n    /**\r\n     * Επιστρέφει το DAO των users.\r\n     * @return Το DAO των users\r\n     */\r\n    public abstract UserDAO getUserDAO();\r\n\r\n    /**\r\n     * Επιστρέφει το DAO των owners.\r\n     * @return Το DAO των owners\r\n     */\r\n    public abstract OwnerDAO getOwnerDAO();\r\n\r\n    /**\r\n     * Επιστρέφει το DAO των tenants.\r\n     * @return Το DAO των tenants\r\n     */\r\n    public abstract TenantDAO getTenantDAO();\r\n\r\n    /**\r\n     * Επιστρέφει το DAO των listings.\r\n     * @return Το DAO των listings\r\n     */\r\n    public abstract ListingDAO getListingDAO();\r\n\r\n    /**\r\n     * Εισάγει τα δοκιμαστικά δεδομένα.\r\n     */\r\n    public void prepareData() {\r\n        // πριν εισάγουμε τα δεδομένα διαγράφουμε ότι υπάρχει\r\n        eraseData();\r\n\r\n        // create some users\r\n        UserDAO userDAO = getUserDAO();\r\n\r\n        OwnerDAO ownerDAO = getOwnerDAO();\r\n\r\n        TenantDAO tenantDAO = getTenantDAO();\r\n\r\n        User user1 = new User(\"George\", \"Avrabos\", new EmailAddress(\"p3210001@aueb.gr\"), new Password(\"1234\"), new CreditCard(\"1234123412341234\"), new Date());\r\n        user1._setId(\"o1\");\r\n        userDAO.save(user1);\r\n        User user2 = new User(\"Anestis\", \"Thanasi\", new EmailAddress(\"p3210273@aueb.gr\"), new Password(\"9090\"), new CreditCard(\"0987098709870987\"), new Date());\r\n        user2._setId(\"t1\");\r\n        userDAO.save(user2);\r\n        User user3 = new User(\"Triantafyllos\", \"Kiosse\", new EmailAddress(\"p3210079@aueb.gr\"), new Password(\"4545\"), new CreditCard(\"467467467467\"), new Date());\r\n        user3._setId(\"o2\");\r\n        userDAO.save(user3);\r\n\r\n        // create some listings and assign them to some users\r\n        ListingDAO listingDAO = getListingDAO();\r\n\r\n        Owner owner1 = new Owner(user1.getFirstName(), user1.getLastName(), user1.getEmail(), user1.getPassword(), user1.getCreditCard(), user1.getAcc_bday());\r\n        owner1._setId(user1.getId());\r\n        ownerDAO.save(owner1);\r\n\r\n        Tenant tenant1 = new Tenant(user2.getFirstName(), user2.getLastName(), user2.getEmail(), user2.getPassword(), user2.getCreditCard(), user2.getAcc_bday());\r\n        tenant1._setId(user2.getId());\r\n        tenantDAO.save(tenant1);\r\n\r\n        Owner owner2 = new Owner(user3.getFirstName(), user3.getLastName(), user3.getEmail(), user3.getPassword(), user3.getCreditCard(), user3.getAcc_bday());\r\n        owner2._setId(user3.getId());\r\n        ownerDAO.save(owner2);\r\n\r\n        // ap1\r\n        ArrayList<Bathroom> ap1_baths = new ArrayList<>();\r\n        ap1_baths.add(new Bathroom(8, true, true, false));\r\n        ArrayList<Bedroom> ap1_beds = new ArrayList<>();\r\n        ap1_beds.add(new Bedroom(12, 1, 0, true));\r\n        ArrayList<Kitchen> ap1_kits = new ArrayList<>();\r\n        ap1_kits.add(new Kitchen(8, true, false, true, true, false, false));\r\n        Apartment ap1 = new Apartment(new Address(\"Athens\", \"Str123\", \"18\"), 2, 28, true, true, true, ap1_baths, ap1_beds, ap1_kits);\r\n        Listing l1 = owner1.addListing(ap1, \"Cool apartment\", \"Small apartment in Athens.\", 56.00, false, new int[]{R.drawable.o1_l1_0, R.drawable.o1_l1_1}, null);\r\n        l1.setListing_id(1);\r\n        listingDAO.save(l1);\r\n\r\n        java.util.Calendar c1 = java.util.Calendar.getInstance();\r\n        Date d1 = new Date();\r\n        c1.set(java.util.Calendar.YEAR, 2023);\r\n        c1.set(java.util.Calendar.MONTH, 5);\r\n        c1.set(java.util.Calendar.DAY_OF_MONTH, 13);\r\n        d1.setTime(c1.getTimeInMillis());\r\n\r\n        java.util.Calendar c2 = java.util.Calendar.getInstance();\r\n        Date d2 = new Date();\r\n        c2.set(java.util.Calendar.YEAR, 2023);\r\n        c2.set(java.util.Calendar.MONTH, 5);\r\n        c2.set(java.util.Calendar.DAY_OF_MONTH, 14);\r\n        d2.setTime(c2.getTimeInMillis());\r\n\r\n        java.util.Calendar c3 = java.util.Calendar.getInstance();\r\n        Date d3 = new Date();\r\n        c3.set(java.util.Calendar.YEAR, 2023);\r\n        c3.set(java.util.Calendar.MONTH, 5);\r\n        c3.set(java.util.Calendar.DAY_OF_MONTH, 27);\r\n        d3.setTime(c3.getTimeInMillis());\r\n\r\n        Tenant t1 = new Tenant(\"John\", \"Papadopoulos\", new EmailAddress(\"johnpapadop@gmail.com\"),\r\n                new Password(\"j0001\"), new CreditCard(\"1600150014001300\", 19999999), new Date());\r\n\r\n        BookingRequest bookingRequest1 = t1.makeBookingRequest(l1, d2, d3);\r\n        owner1.confirmBookingRequest(bookingRequest1);\r\n\r\n        java.util.Calendar c4 = java.util.Calendar.getInstance();\r\n        Date d4 = new Date();\r\n        c4.set(java.util.Calendar.YEAR, 2023);\r\n        c4.set(java.util.Calendar.MONTH, 5);\r\n        c4.set(java.util.Calendar.DAY_OF_MONTH, 2);\r\n        d4.setTime(c4.getTimeInMillis());\r\n\r\n        java.util.Calendar c5 = java.util.Calendar.getInstance();\r\n        Date d5 = new Date();\r\n        c5.set(java.util.Calendar.YEAR, 2023);\r\n        c5.set(java.util.Calendar.MONTH, 5);\r\n        c5.set(java.util.Calendar.DAY_OF_MONTH, 3);\r\n        d5.setTime(c5.getTimeInMillis());\r\n\r\n        java.util.Calendar c6 = java.util.Calendar.getInstance();\r\n        Date d6 = new Date();\r\n        c6.set(java.util.Calendar.YEAR, 2023);\r\n        c6.set(java.util.Calendar.MONTH, 5);\r\n        c6.set(java.util.Calendar.DAY_OF_MONTH, 7);\r\n        d6.setTime(c6.getTimeInMillis());\r\n\r\n\r\n\r\n        BookingRequest bookingRequest2 = t1.makeBookingRequest(l1, d5, d6);\r\n        owner1.confirmBookingRequest(bookingRequest2);\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n        // ap2\r\n        ArrayList<Bathroom> ap2_baths = new ArrayList<>();\r\n        ap2_baths.add(new Bathroom(12, true, true, true));\r\n        ArrayList<Bedroom> ap2_beds = new ArrayList<>();\r\n        ap2_beds.add(new Bedroom(18, 1, 1, true));\r\n        ArrayList<Kitchen> ap2_kits = new ArrayList<>();\r\n        ap2_kits.add(new Kitchen(14, true, true, true, true, true, false));\r\n        Apartment ap2 = new Apartment(new Address(\"Athens\", \"Str889\", \"16A\"), 3, 36, true, true, true, ap2_baths, ap2_beds, ap2_kits);\r\n        Listing l2 = owner1.addListing(ap2, \"Nice apartment\", \"Nice little apartment in Athens.\", 64.00, false, new int[]{R.drawable.o1_l2_0}, null);\r\n        l2.setListing_id(2);\r\n        listingDAO.save(l2);\r\n\r\n        // ap2\r\n        ArrayList<Bathroom> ap3_baths = new ArrayList<>();\r\n        ap3_baths.add(new Bathroom(8, true, true, true));\r\n        ap3_baths.add(new Bathroom(14, true, true, true));\r\n        ArrayList<Bedroom> ap3_beds = new ArrayList<>();\r\n        ap3_beds.add(new Bedroom(20, 2, 1, true));\r\n        ArrayList<Kitchen> ap3_kits = new ArrayList<>();\r\n        ap3_kits.add(new Kitchen(20, true, true, true, true, true, true));\r\n        Apartment ap3 = new Apartment(new Address(\"Athens\", \"BigStreet1100\", \"9\"), 1, 60, true, true, true, ap3_baths, ap3_beds, ap3_kits);\r\n        Listing l3 = owner1.addListing(ap3, \"Big apartment\", \"Big and awesome apartment in Athens.\", 112.00, false, new int[]{R.drawable.o1_l3_0}, null);\r\n        l3.setListing_id(3);\r\n        listingDAO.save(l3);\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/readysethome/dao/Initializer.java b/app/src/main/java/com/example/readysethome/dao/Initializer.java
+--- a/app/src/main/java/com/example/readysethome/dao/Initializer.java	
++++ b/app/src/main/java/com/example/readysethome/dao/Initializer.java	
+@@ -1,10 +1,12 @@
+ package com.example.readysethome.dao;
+ 
+ import com.example.readysethome.R;
++import com.example.readysethome.memorydao.BookingRequestDAOMemory;
+ import com.example.readysethome.model.Address;
+ import com.example.readysethome.model.Apartment;
+ import com.example.readysethome.model.Bathroom;
+ import com.example.readysethome.model.Bedroom;
++import com.example.readysethome.model.Booking;
+ import com.example.readysethome.model.BookingRequest;
+ import com.example.readysethome.model.CreditCard;
+ import com.example.readysethome.model.EmailAddress;
+@@ -42,6 +44,11 @@
+      */
+     public abstract TenantDAO getTenantDAO();
+ 
++    /**
++     * Επιστρέφει το DAO των booking requests.
++     * @return Το DAO των booking requests
++     */
++    public abstract BookingRequestDAO getBookingRequestDAO();
+     /**
+      * Επιστρέφει το DAO των listings.
+      * @return Το DAO των listings
+@@ -62,10 +69,12 @@
+ 
+         TenantDAO tenantDAO = getTenantDAO();
+ 
++        BookingRequestDAO bookingRequestDAO =getBookingRequestDAO();
++
+         User user1 = new User("George", "Avrabos", new EmailAddress("p3210001@aueb.gr"), new Password("1234"), new CreditCard("1234123412341234"), new Date());
+         user1._setId("o1");
+         userDAO.save(user1);
+-        User user2 = new User("Anestis", "Thanasi", new EmailAddress("p3210273@aueb.gr"), new Password("9090"), new CreditCard("0987098709870987"), new Date());
++        User user2 = new User("Anestis", "Thanasi", new EmailAddress("p3210273@aueb.gr"), new Password("9090"), new CreditCard("0987098709870987",100), new Date());
+         user2._setId("t1");
+         userDAO.save(user2);
+         User user3 = new User("Triantafyllos", "Kiosse", new EmailAddress("p3210079@aueb.gr"), new Password("4545"), new CreditCard("467467467467"), new Date());
+@@ -87,6 +96,15 @@
+         owner2._setId(user3.getId());
+         ownerDAO.save(owner2);
+ 
++        User user4 = new User("John", "Papadopoulos", new EmailAddress("johnpapadop@gmail.com"),
++                new Password("j0001"), new CreditCard("1600150014001300", 19999999), new Date());
++        user4._setId("t2");
++       // userDAO.save(user4);
++        Tenant t1 = new Tenant("John", "Papadopoulos", new EmailAddress("johnpapadop@gmail.com"),
++                new Password("j0001"), new CreditCard("1600150014001300", 19999999), new Date());
++        t1._setId(user4.getId());
++        //tenantDAO.save(t1);
++
+         // ap1
+         ArrayList<Bathroom> ap1_baths = new ArrayList<>();
+         ap1_baths.add(new Bathroom(8, true, true, false));
+@@ -112,7 +130,6 @@
+         c2.set(java.util.Calendar.MONTH, 5);
+         c2.set(java.util.Calendar.DAY_OF_MONTH, 14);
+         d2.setTime(c2.getTimeInMillis());
+-
+         java.util.Calendar c3 = java.util.Calendar.getInstance();
+         Date d3 = new Date();
+         c3.set(java.util.Calendar.YEAR, 2023);
+@@ -120,12 +137,10 @@
+         c3.set(java.util.Calendar.DAY_OF_MONTH, 27);
+         d3.setTime(c3.getTimeInMillis());
+ 
+-        Tenant t1 = new Tenant("John", "Papadopoulos", new EmailAddress("johnpapadop@gmail.com"),
+-                new Password("j0001"), new CreditCard("1600150014001300", 19999999), new Date());
+-
+         BookingRequest bookingRequest1 = t1.makeBookingRequest(l1, d2, d3);
+         owner1.confirmBookingRequest(bookingRequest1);
+ 
++        //bookingRequestDAO.save(bookingRequest1);
+         java.util.Calendar c4 = java.util.Calendar.getInstance();
+         Date d4 = new Date();
+         c4.set(java.util.Calendar.YEAR, 2023);
+@@ -153,19 +168,6 @@
+         owner1.confirmBookingRequest(bookingRequest2);
+ 
+ 
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+         // ap2
+         ArrayList<Bathroom> ap2_baths = new ArrayList<>();
+         ap2_baths.add(new Bathroom(12, true, true, true));
+@@ -191,5 +193,7 @@
+         l3.setListing_id(3);
+         listingDAO.save(l3);
+ 
++
++
+     }
+ }

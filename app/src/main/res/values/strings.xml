@@ -5,6 +5,12 @@
         <item>Tenant</item>
         <item>Owner</item>
     </string-array>
+    <string-array name="listing_service_types">
+        <item>CLEANING SERVICE</item>
+        <item>WIFI</item>
+        <item>LINEN FEES</item>
+        <item>RESORT FEES</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -59,11 +59,12 @@ public class TenantViewListingPresenter {
 
     protected void setUpListingViewPage() {
         if(listing!=null){
-        view.setListingTitle(listing.getTitle());
-        view.setListingDesc(listing.getDescription());
-        view.setListingPrice(Double.toString(listing.getPrice()) + "€");
-        view.setListingLocation(listing.getApartment().getLocation().toString());
-        view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");}
+            view.setListingTitle(listing.getTitle());
+            view.setListingDesc(listing.getDescription());
+            view.setListingPrice(Double.toString(listing.getPrice()) + "€");
+            view.setListingLocation(listing.getApartment().getLocation().toString());
+            view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");
+        }
     }
 
     protected boolean isListingAvailable(Date checkInTime, Date checkOutTime) {

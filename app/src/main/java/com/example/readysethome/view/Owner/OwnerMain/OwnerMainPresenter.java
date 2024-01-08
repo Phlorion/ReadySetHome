@@ -12,6 +12,7 @@ import com.example.readysethome.memorydao.UserDAOMemory;
 import com.example.readysethome.model.BookingRequest;
 import com.example.readysethome.model.Listing;
 import com.example.readysethome.model.Owner;
+import com.example.readysethome.model.ReservationStatus;
 import com.example.readysethome.model.User;
 import com.example.readysethome.view.Owner.OwnerHomeListingModel;
 import com.example.readysethome.view.Owner.OwnerPendingModel;
@@ -68,12 +69,14 @@ public class OwnerMainPresenter {
         pendingModels = new ArrayList<>();
         ArrayList<BookingRequest> brs = attachedOwner.getBookingRequests();
         for (BookingRequest br : brs) {
-            int preview_photo;
-            if (br.getListing().getPhotos() != null)
-                preview_photo = br.getListing().getPhotos()[0];
-            else
-                preview_photo = R.drawable.child_po;
-            pendingModels.add(new OwnerPendingModel(br.getTenant().getFirstName() + " " + br.getTenant().getLastName(), br.getListing().getTitle(), preview_photo, br.getBooking_id(), br.getCheck_in(), br.getCheck_out()));
+            if (!br.getBooking_status().equals(ReservationStatus.CANCELLED_BY_OWNER)) {
+                int preview_photo;
+                if (br.getListing().getPhotos() != null)
+                    preview_photo = br.getListing().getPhotos()[0];
+                else
+                    preview_photo = R.drawable.child_po;
+                pendingModels.add(new OwnerPendingModel(br.getTenant().getFirstName() + " " + br.getTenant().getLastName(), br.getListing().getTitle(), preview_photo, br.getBooking_id()));
+            }
         }
         return pendingModels;
     }

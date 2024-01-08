@@ -23,15 +23,15 @@
 
             <TextView
                 android:id="@+id/recycler_view_tenant_booking_title"
-                android:layout_width="145dp"
-                android:layout_height="22dp"
-                android:layout_marginStart="104dp"
+                android:layout_width="148dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="160dp"
                 android:text="TextView"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.149" />
+                app:layout_constraintVertical_bias="0.089" />
 
             <TextView
                 android:id="@+id/recycler_view_tenant_booking_date"
@@ -40,10 +40,10 @@
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.572"
+                app:layout_constraintHorizontal_bias="0.709"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.814" />
+                app:layout_constraintVertical_bias="0.914" />
 
             <TextView
                 android:id="@+id/recycler_view_tenant_booking_status"
@@ -55,10 +55,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/recylcler_view_tenant_booking_image"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.493" />
+                app:layout_constraintVertical_bias="0.561" />
 
             <ImageView
                 android:id="@+id/recylcler_view_tenant_booking_image"

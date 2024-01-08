@@ -20,7 +20,9 @@ import android.widget.SearchView;
 import com.example.readysethome.R;
 import com.example.readysethome.dao.ListingDAO;
 import com.example.readysethome.memorydao.ListingDAOMemory;
+import com.example.readysethome.model.BookingRequest;
 import com.example.readysethome.model.Listing;
+import com.example.readysethome.model.ReservationStatus;
 import com.example.readysethome.view.Owner.OwnerAddListing.OwnerAddListingActivity;
 import com.example.readysethome.view.Owner.OwnerMain.OwnerMainPresenter;
 import com.example.readysethome.view.Owner.OwnerViewListing.OwnerViewListingActivity;
@@ -37,6 +39,8 @@ public class OwnerHomeFragment extends Fragment {
     private ArrayList<OwnerHomeListingModel> listingModels;
     private OwnerHome_RecyclerViewAdaptor adapter;
 
+    ActivityResultLauncher<Intent> startForResult;
+
     public OwnerHomeFragment(OwnerMainPresenter presenter) {
         this.presenter = presenter;
         init_recycle_view = false;
@@ -51,7 +55,7 @@ public class OwnerHomeFragment extends Fragment {
         /**
          * Παίρνουμε το αποτέλεσμα ενός activity
          */
-        ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult o) {
                 if (o != null && o.getResultCode() == 0) {
@@ -59,6 +63,17 @@ public class OwnerHomeFragment extends Fragment {
                         ListingDAO listingDAO = new ListingDAOMemory();
                         int listing_id = o.getData().getIntExtra("NEW_LISTING", 0);
                         listingModels = presenter.addListingModel(listingDAO.findByID(listing_id));
+                        adapter.setListingModels(listingModels);
+                    }
+                }
+                if (o != null && o.getResultCode() == 99) {
+                    if (o.getData() != null) {
+                        ListingDAO listingDAO = new ListingDAOMemory();
+                        int listing_id = o.getData().getIntExtra("DELETED_LISTING", 0);
+                        Listing listing_to_be_removed = listingDAO.findByID(listing_id);
+                        listingDAO.delete(listing_to_be_removed);
+                        listingModels = presenter.setUpListingModels();
+                        System.out.println(listingModels.size());
                         adapter.setListingModels(listingModels);
                     }
                 }
@@ -97,13 +112,11 @@ public class OwnerHomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.owner_home_recycler);
 
         // prevent from adding copies of the existing rows
-        if (!init_recycle_view) {
-            listingModels = presenter.setUpListingModels();
-            defaultListingModels = listingModels;
-            // make the adapter for the recycler
-            adapter = new OwnerHome_RecyclerViewAdaptor(getContext(), listingModels, OwnerHomeFragment.this);
-            init_recycle_view = true;
-        }
+        listingModels = presenter.setUpListingModels();
+        defaultListingModels = listingModels;
+        // make the adapter for the recycler
+        adapter = new OwnerHome_RecyclerViewAdaptor(getContext(), listingModels, OwnerHomeFragment.this);
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -129,6 +142,6 @@ public class OwnerHomeFragment extends Fragment {
         Intent intent = new Intent(getContext(), OwnerViewListingActivity.class);
         intent.putExtra("LISTING_ID", listingModels.get(pos).getListing());
 
-        startActivity(intent);
+        startForResult.launch(intent);
     }
 }

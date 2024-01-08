@@ -53,7 +53,7 @@ public class BookingRequestPresenter {
      *
      * @return true αν ο ενοικιαστής έχει επαρκή funds, διαφορετικά false
      */
-    private boolean tenantHasSufficientFunds() {
+    public boolean tenantHasSufficientFunds() {
         if (tenant != null) {
             double paymentAmount = calculatePaymentAmount();
             return tenant.hasSufficientFunds(paymentAmount * 0.2);

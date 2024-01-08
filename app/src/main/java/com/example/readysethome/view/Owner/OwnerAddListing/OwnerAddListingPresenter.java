@@ -33,6 +33,7 @@ public class OwnerAddListingPresenter {
     public ArrayList<ChargingPolicy> getChargingPolicies() {
         return chargingPolicies;
     }
+    public ArrayList<ListingsServices> getListingsServices() {return listingsServices;}
 
     /**
      * 'Ελεγχος αν το στοιχείο είναι κενό.
@@ -50,6 +51,7 @@ public class OwnerAddListingPresenter {
      */
     public void addListingServices(ArrayList<ListingsServices> listingsServices) {
         this.listingsServices = listingsServices;
+        view.setListingServicesTV(this.listingsServices.size() + " listing services");
     }
 
     /**
@@ -120,8 +122,14 @@ public class OwnerAddListingPresenter {
             }
         }
 
+        ListingsServices[] listing_services_array = null;
         // create and save listing
-        Listing listing = owner.addListing(apartment, title, desc, Double.parseDouble(price), false, null, null);
+        if (listingsServices != null)
+            listing_services_array = listingsServices.toArray(new ListingsServices[0]);
+        Listing listing = owner.addListing(apartment, title, desc, Double.parseDouble(price), false, null, listing_services_array);
+        if (chargingPolicies != null)
+            listing.setChargingPolicies(chargingPolicies);
+
         listings.save(listing);
 
         view.successfullyFinishActivity("Επιτυχής προσθήκη της αγγελίας.");

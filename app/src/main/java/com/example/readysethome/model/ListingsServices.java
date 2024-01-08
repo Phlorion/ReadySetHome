@@ -1,6 +1,8 @@
 package com.example.readysethome.model;
 
-public class ListingsServices {
+import java.io.Serializable;
+
+public class ListingsServices implements Serializable {
     private double price;
     private ListingsServicesType type;
 

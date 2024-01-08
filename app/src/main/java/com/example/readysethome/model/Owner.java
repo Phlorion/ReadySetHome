@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 public class Owner extends User {
     ArrayList<BookingRequest> pendingBookingRequests;
@@ -42,7 +43,7 @@ public class Owner extends User {
     }
 
     public void cancelBooking(Booking booking) {
-        booking.cancel();
+        booking.cancel(ReservationStatus.CANCELLED_BY_OWNER);
     }
 
     public double checkOccupancy(Listing listing, java.util.Calendar calendar) {
@@ -72,13 +73,18 @@ public class Owner extends User {
         return listing;
     }
 
-    public void removeListing(Listing listing, ArrayList<Listing> listings, ArrayList<Booking> bookings) {
+    public void removeListing(Listing listing, List<Listing> listings, ArrayList<Booking> bookings) {
         // check if there are bookings for the listing and if there are cancel them
         for (Iterator<Booking> iterator = bookings.iterator(); iterator.hasNext();) {
             Booking booking = iterator.next();
-            if (booking.getListing() == listing) {
+            if (booking.getListing().getListing_id() == listing.getListing_id()) {
                 this.cancelBooking(booking);
                 iterator.remove();
+            }
+        }
+        for (BookingRequest b_r : pendingBookingRequests) {
+            if (b_r.getListing().getListing_id() == listing.getListing_id()) {
+                b_r.setBooking_status(ReservationStatus.CANCELLED_BY_OWNER);
             }
         }
         // remove listing from datastore

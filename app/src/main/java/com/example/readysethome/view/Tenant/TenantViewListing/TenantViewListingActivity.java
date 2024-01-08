@@ -34,7 +34,7 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     TextView checkInDisplay;
     TextView checkOutDisplay;
     boolean checkInPressed;
-    TenantViewListingPresenter presenter = null;
+    TenantViewListingPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +49,10 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
         presenter = new TenantViewListingPresenter(TenantViewListingActivity.this, new ListingDAOMemory(), listing_id,tenant_id,new TenantDAOMemory());
 
         checkInBtn = findViewById(R.id.checkInBtn);
-        checkInDisplay = findViewById(R.id.checkInDisplay);
         checkOutBtn = findViewById(R.id.checkOutBtn);
-        checkOutDisplay = findViewById(R.id.checkOutDisplay);
-        checkInPressed = false;
+        checkInDisplay = findViewById(R.id.textView21);
+        checkOutDisplay = findViewById(R.id.textView22);
+
 
         // check in pressed
         checkInBtn.setOnClickListener(new View.OnClickListener() {

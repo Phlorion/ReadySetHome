@@ -12,7 +12,7 @@ public interface TenantViewListingView {
     String getCheckOutTV();
     void setCheckInTV(String checkIn);
     void setCheckOutTV(String checkOut);
-    void submit(Date checkInTime, Date checkOutTime, int listing_id,String tenant_id);
+    void submit(Date checkInTime, Date checkOutTime, int listing_id, String tenant_id);
     void showErrorMessage(String error);
 
 }

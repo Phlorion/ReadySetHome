@@ -8,40 +8,6 @@
     tools:layout_editor_absoluteY="24dp">
 
     <TextView
-        android:id="@+id/owner_viewListing_selectMonth"
-        android:layout_width="50dp"
-        android:layout_height="21dp"
-        android:layout_marginBottom="104dp"
-        android:text="Month"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/owner_viewListing_selectMonthValue"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectYear"
-        app:layout_constraintTop_toTopOf="@+id/owner_viewListing_selectMonthValue"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/owner_viewListing_ratingValue"
-        android:layout_width="160dp"
-        android:layout_height="23dp"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_cancelationsPerMonthValue"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_cancelationsPerMonthValue"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_cancelationsPerMonthValue" />
-
-    <TextView
-        android:id="@+id/owner_viewListing_occupancyValue"
-        android:layout_width="160dp"
-        android:layout_height="23dp"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_ratingValue"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_ratingValue"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_ratingValue" />
-
-    <TextView
         android:id="@+id/owner_viewListing_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,128 +57,152 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/owner_viewListing_incomePerMonthValue"
+        android:layout_width="160dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="36dp"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_desc" />
+
+    <TextView
+        android:id="@+id/owner_viewListing_occupancyValue"
+        android:layout_width="160dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="8dp"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_cancelationsPerMonthValue"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_cancelationsPerMonthValue"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_cancelationsPerMonthValue" />
+
+    <TextView
+        android:id="@+id/owner_viewListing_bookingsPerMonthValue"
+        android:layout_width="160dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="20dp"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_incomePerMonthValue"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_incomePerMonthValue"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_incomePerMonthValue" />
+
+    <TextView
+        android:id="@+id/owner_viewListing_cancelationsPerMonthValue"
+        android:layout_width="160dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_bookingsPerMonthValue"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_bookingsPerMonthValue"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_bookingsPerMonthValue" />
+
+    <TextView
         android:id="@+id/owner_viewListing_incomePerMonth"
         android:layout_width="160dp"
         android:layout_height="24dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="124dp"
         android:text="Income per month"
         app:layout_constraintEnd_toStartOf="@+id/owner_viewListing_incomePerMonthValue"
-        app:layout_constraintHorizontal_bias="0.298"
+        app:layout_constraintHorizontal_bias="0.24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_desc" />
-
-    <TextView
-        android:id="@+id/owner_viewListing_incomePerMonthValue"
-        android:layout_width="160dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="30dp"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_desc" />
 
     <TextView
         android:id="@+id/owner_viewListing_bookingsPerMonth"
         android:layout_width="160dp"
         android:layout_height="24dp"
+        android:layout_marginTop="20dp"
         android:text="Bookings per month"
         app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_incomePerMonth"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/owner_viewListing_incomePerMonth"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_incomePerMonth" />
-
-    <TextView
-        android:id="@+id/owner_viewListing_bookingsPerMonthValue"
-        android:layout_width="160dp"
-        android:layout_height="24dp"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_incomePerMonthValue"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_incomePerMonthValue"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_incomePerMonthValue" />
 
     <TextView
         android:id="@+id/owner_viewListing_cancelationsPerMonth"
         android:layout_width="160dp"
         android:layout_height="23dp"
+        android:layout_marginTop="4dp"
         android:text="Cancelations per month"
         app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_bookingsPerMonth"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/owner_viewListing_bookingsPerMonth"
         app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_bookingsPerMonth" />
-
-    <TextView
-        android:id="@+id/owner_viewListing_cancelationsPerMonthValue"
-        android:layout_width="160dp"
-        android:layout_height="24dp"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_bookingsPerMonthValue"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_bookingsPerMonthValue"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_bookingsPerMonthValue" />
-
-    <TextView
-        android:id="@+id/owner_viewListing_rating"
-        android:layout_width="160dp"
-        android:layout_height="23dp"
-        android:text="Rating"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_cancelationsPerMonth"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_cancelationsPerMonth"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_cancelationsPerMonth" />
 
     <TextView
         android:id="@+id/owner_viewListing_occupancy"
         android:layout_width="160dp"
         android:layout_height="23dp"
+        android:layout_marginTop="8dp"
         android:text="Occupancy"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_rating"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_rating"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_rating" />
+        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_cancelationsPerMonth"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_cancelationsPerMonth"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_cancelationsPerMonth" />
 
     <EditText
         android:id="@+id/owner_viewListing_selectYearValue"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="32dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_occupancyValue" />
-
-    <TextView
-        android:id="@+id/owner_viewListing_selectYear"
-        android:layout_width="50dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:text="Year"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/owner_viewListing_selectYearValue"
-        app:layout_constraintHorizontal_bias="0.173"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_occupancy"
-        app:layout_constraintVertical_bias="0.045" />
-
-    <Button
-        android:id="@+id/owner_viewListing_submitYearMonth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="16dp"
-        android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_selectMonthValue"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectMonth" />
+        app:layout_constraintBottom_toBottomOf="@+id/owner_viewListing_selectYear"
+        app:layout_constraintStart_toEndOf="@+id/owner_viewListing_selectYear"
+        app:layout_constraintTop_toTopOf="@+id/owner_viewListing_selectYear"
+        app:layout_constraintVertical_bias="0.631" />
 
     <Spinner
         android:id="@+id/owner_viewListing_selectMonthValue"
         android:layout_width="184dp"
         android:layout_height="36dp"
-        android:layout_marginTop="52dp"
-        app:layout_constraintEnd_toEndOf="@+id/owner_viewListing_selectYearValue"
-        app:layout_constraintHorizontal_bias="0.595"
-        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectYearValue"
-        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_selectYearValue" />
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/owner_viewListing_selectMonth"
+        app:layout_constraintStart_toEndOf="@+id/owner_viewListing_selectMonth"
+        app:layout_constraintTop_toTopOf="@+id/owner_viewListing_selectMonth"
+        app:layout_constraintVertical_bias="0.466" />
+
+    <TextView
+        android:id="@+id/owner_viewListing_selectMonth"
+        android:layout_width="50dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="24dp"
+        android:text="Month"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_selectYear"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_selectYear" />
+
+    <TextView
+        android:id="@+id/owner_viewListing_selectYear"
+        android:layout_width="50dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="28dp"
+        android:text="Year"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="@+id/owner_viewListing_desc"
+        app:layout_constraintTop_toBottomOf="@+id/owner_viewListing_desc" />
+
+    <Button
+        android:id="@+id/owner_viewListing_submitYearMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="@+id/owner_viewListing_selectMonth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/owner_viewListing_selectYear" />
+
+    <Button
+        android:id="@+id/delete_listing_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

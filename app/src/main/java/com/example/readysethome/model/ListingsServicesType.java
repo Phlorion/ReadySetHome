@@ -1,6 +1,8 @@
 package com.example.readysethome.model;
 
-public enum ListingsServicesType {
+import java.io.Serializable;
+
+public enum ListingsServicesType implements Serializable {
     CLEANING_SERVICE,
     WIFI,
     LINEN_FEES,

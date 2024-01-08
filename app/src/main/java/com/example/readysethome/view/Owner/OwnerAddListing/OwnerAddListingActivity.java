@@ -24,8 +24,10 @@ import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.OwnerDAOMemory;
 import com.example.readysethome.model.ChargingPolicy;
 import com.example.readysethome.model.Listing;
+import com.example.readysethome.model.ListingsServices;
 import com.example.readysethome.model.Owner;
 import com.example.readysethome.view.Owner.OwnerAddListing.AddChargingPolicies.AddChargingPolicyActivity;
+import com.example.readysethome.view.Owner.OwnerAddListing.AddListingServices.AddListingServicesActivity;
 
 import java.util.ArrayList;
 
@@ -50,6 +52,11 @@ public class OwnerAddListingActivity extends AppCompatActivity implements OwnerA
                         presenter.addChargingPolicy((ArrayList<ChargingPolicy>) o.getData().getSerializableExtra("CHARGING_POLICIES"));
                     }
                 }
+                if (o != null && o.getResultCode() == 270) {
+                    if (o.getData() != null) {
+                        presenter.addListingServices((ArrayList<ListingsServices>) o.getData().getSerializableExtra("LISTING_SERVICES"));
+                    }
+                }
             }
         });
 
@@ -70,6 +77,18 @@ public class OwnerAddListingActivity extends AppCompatActivity implements OwnerA
             }
         });
 
+        // add listing service
+        findViewById(R.id.owner_add_listing_service).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OwnerAddListingActivity.this, AddListingServicesActivity.class);
+                // if listing services not null put Extra
+                if (presenter.getListingsServices() != null && presenter.getListingsServices().size() > 0) {
+                    intent.putExtra("EXISTING_LISTING_SERVICES", presenter.getListingsServices());
+                }
+                startForResult.launch(intent);
+            }
+        });
 
         // get add-button and add event listener
         findViewById(R.id.owner_add_listing_addBtn).setOnClickListener(new View.OnClickListener() {

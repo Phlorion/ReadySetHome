@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.readysethome.R;
 import com.example.readysethome.memorydao.ListingDAOMemory;
 import com.example.readysethome.memorydao.TenantDAOMemory;
+import com.example.readysethome.model.Listing;
 
 public class OwnerViewListingActivity extends AppCompatActivity implements OwnerViewListingView {
 
@@ -48,6 +49,19 @@ public class OwnerViewListingActivity extends AppCompatActivity implements Owner
             @Override
             public void onClick(View v) {
                 presenter.submitPressed();
+            }
+        });
+
+        // delete listing
+        findViewById(R.id.delete_listing_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Listing l = presenter.deleteListing();
+                int resultCode = 99;
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("DELETED_LISTING", l.getListing_id());
+                setResult(resultCode, resultIntent);
+                finish();
             }
         });
     }
@@ -85,11 +99,6 @@ public class OwnerViewListingActivity extends AppCompatActivity implements Owner
     @Override
     public void setBookingsPerMonth(String bookings) {
         ((TextView)findViewById(R.id.owner_viewListing_bookingsPerMonthValue)).setText(bookings);
-    }
-
-    @Override
-    public void setRating(String rating) {
-        ((TextView)findViewById(R.id.owner_viewListing_ratingValue)).setText(rating);
     }
 
     @Override

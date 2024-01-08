@@ -141,6 +141,16 @@ public class OwnerAddListingViewStub implements OwnerAddListingView {
         return price;
     }
 
+    @Override
+    public void setListingChargingPoliciesTV(String text) {
+
+    }
+
+    @Override
+    public void setListingServicesTV(String text) {
+
+    }
+
     public String getError_title() {
         return error_title;
     }

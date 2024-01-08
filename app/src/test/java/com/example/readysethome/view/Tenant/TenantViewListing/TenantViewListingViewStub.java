@@ -5,11 +5,13 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Date;
 
 public class TenantViewListingViewStub implements TenantViewListingView, DatePickerDialog.OnDateSetListener {
-    String title, desc, price, location, size, checkIn, checkOut;
+    String title, desc, price, location, size, checkIn, checkOut,owner,bathrooms,bedrooms,kitchens,floor;
+    boolean wifi,balcony;
     String error_msg, successful_msg, onDateSet;
 
     public TenantViewListingViewStub() {
-        title = desc = price = location = size = checkIn = checkOut = error_msg = successful_msg = onDateSet = "";
+        title = desc = price = location = size = checkIn = checkOut = error_msg = successful_msg = onDateSet = owner = bathrooms  = bedrooms = kitchens = floor ="";
+        wifi =balcony=true;
     }
 
     @Override
@@ -36,7 +38,6 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
     public void setListingSize(String size) {
         this.size = size;
     }
-
     @Override
     public String getCheckInTV() {
         return checkIn;
@@ -58,7 +59,7 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
     }
 
     @Override
-    public void submit(Date checkInTime, Date checkOutTime, int listing_id,String tenant_id) {
+    public void submit(Date checkInTime, Date checkOutTime, int listing_id, String tenant_id) {
         successful_msg = "Successful request.";
     }
 
@@ -87,6 +88,10 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
         return size;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
     public String getError_msg() {
         return error_msg;
     }
@@ -98,9 +103,9 @@ public class TenantViewListingViewStub implements TenantViewListingView, DatePic
     public String getOnDateSet() {
         return onDateSet;
     }
-
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
+        }
     }
-}
+
