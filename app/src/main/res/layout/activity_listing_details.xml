@@ -11,8 +11,10 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,7 +25,8 @@
                 android:id="@+id/listingLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="88dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="24dp"
                 android:text="location"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="@+id/listingdesc"
@@ -33,11 +36,11 @@
                 android:id="@+id/listingsize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="12dp"
                 android:text="size"
                 android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="@+id/listingdesc"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/listingLocation" />
 
             <TextView
@@ -128,7 +131,6 @@
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 app:layout_constraintEnd_toEndOf="@+id/checkInBtn"
                 app:layout_constraintStart_toStartOf="@+id/checkInBtn"
                 app:layout_constraintTop_toBottomOf="@+id/checkInBtn" />
@@ -137,10 +139,77 @@
                 android:id="@+id/textView22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 app:layout_constraintEnd_toEndOf="@+id/checkOutBtn"
                 app:layout_constraintStart_toStartOf="@+id/checkOutBtn"
                 app:layout_constraintTop_toBottomOf="@+id/checkOutBtn" />
+
+            <TextView
+                android:id="@+id/listingwifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="wifi"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.102"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.537" />
+
+            <TextView
+                android:id="@+id/listingbalcony"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="404dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/listingwifi" />
+
+            <TextView
+                android:id="@+id/listinglivingroom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                app:layout_constraintStart_toStartOf="@+id/listingbalcony"
+                app:layout_constraintTop_toBottomOf="@+id/listingbalcony" />
+
+            <TextView
+                android:id="@+id/listingbedrooms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="TextView"
+                app:layout_constraintStart_toStartOf="@+id/listingwifi"
+                app:layout_constraintTop_toBottomOf="@+id/listinglivingroom" />
+
+            <TextView
+                android:id="@+id/listingbathrooms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="612dp"
+                android:text="TextView"
+                app:layout_constraintStart_toStartOf="@+id/listingwifi"
+                app:layout_constraintTop_toTopOf="@+id/listingtitle" />
+
+            <TextView
+                android:id="@+id/listingfloor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="TextView"
+                app:layout_constraintStart_toStartOf="@+id/listingwifi"
+                app:layout_constraintTop_toBottomOf="@+id/listingbathrooms" />
+
+            <TextView
+                android:id="@+id/listingkitchens"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                app:layout_constraintStart_toStartOf="@+id/listingwifi"
+                app:layout_constraintTop_toBottomOf="@+id/listingbathrooms" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
