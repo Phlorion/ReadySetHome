@@ -29,6 +29,8 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
 
     TextView floorDisplay;
     TextView WifiDisplay;
+
+    TextView balconyDisplay;
     boolean checkInPressed;
     TenantViewListingPresenter presenter;
 
@@ -114,12 +116,36 @@ public class TenantViewListingActivity extends AppCompatActivity implements Tena
     }
     @Override
     public void setListingFloor(String floor) {
-
+        System.out.println(floor);
         ((TextView)findViewById(R.id.listingfloor)).setText("Floor: "+floor);
     }
+    @Override
+    public void setListingBedrooms(int bedrooms) {
+
+        ((TextView)findViewById(R.id.listingbedrooms)).setText("Bedrooms: "+bedrooms);
+    } @Override
+    public void setListingBathrooms(int bathrooms) {
+
+        ((TextView)findViewById(R.id.listingbathrooms)).setText("Bathrooms: "+bathrooms);
+    } @Override
+    public void setListingKitchens(int kitchens) {
+
+        ((TextView)findViewById(R.id.listingkitchens)).setText("Kitchens: "+kitchens);
+    }
+    @Override
     public void setListingWifi(boolean wifi) {
        String Str_wifi=wifi?"Wifi:yes":"Wifi:no";
         ((TextView)findViewById(R.id.listingwifi)).setText(Str_wifi);
+    }
+    @Override
+    public void setListingBalcony(boolean balcony) {
+       String Str_balcony=balcony?"Balcony:yes":"Balcony:no";
+        ((TextView)findViewById(R.id.listingbalcony)).setText(Str_balcony);
+    }
+    @Override
+    public void setListingLivingRoom(boolean livingroom) {
+       String Str_livingroom=livingroom?"Living room:yes":"Living room:no";
+        ((TextView)findViewById(R.id.listinglivingroom)).setText(Str_livingroom);
     }
     @Override
     public String getCheckInTV() {

@@ -23,4 +23,15 @@ public interface TenantViewListingView {
     void showErrorMessage(String error);
 
     void setListingWifi(boolean wifi);
+
+    void setListingBalcony(boolean balcony);
+
+    void setListingLivingRoom(boolean livingRoom);
+
+    void setListingBathrooms(int size);
+
+    void setListingKitchens(int size);
+
+    void setListingBedrooms(int size);
+
 }

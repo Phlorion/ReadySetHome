@@ -65,7 +65,14 @@ public class TenantViewListingPresenter {
             view.setListingLocation(listing.getApartment().getLocation().toString());
             view.setListingSize(Double.toString(listing.getApartment().getSize()) + " m²");
             view.setListingFloor(Integer.toString(listing.getApartment().getFloor()));
+           // view.setCheckInTV(view.getCheckInTV());
+          //  view.setCheckOutTV(view.getCheckOutTV());
             view.setListingWifi(listing.getApartment().isWifi());
+            view.setListingBalcony(listing.getApartment().isBalcony());
+            view.setListingLivingRoom(listing.getApartment().isLiving_room());
+            view.setListingBathrooms(listing.getApartment().getBathrooms().size());
+            view.setListingKitchens(listing.getApartment().getKitchens().size());
+            view.setListingBedrooms(listing.getApartment().getBedrooms().size());
         }
     }
 
