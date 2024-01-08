@@ -50,13 +50,9 @@ public class BookingRequestPresenter {
      * @return true αν ο ενοικιαστής έχει επαρκή funds, διαφορετικά false
      */
     public boolean tenantHasSufficientFunds() {
-        if (tenant != null) {
             double paymentAmount = calculatePaymentAmount();
             return tenant.hasSufficientFunds(paymentAmount * 0.2);
-        } else {
-            Log.e("BookingRequestPresenter", "Tenant is null");
-            return false; // Handle the case when tenant is null
-        }
+
     }
 
 
